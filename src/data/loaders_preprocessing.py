@@ -44,153 +44,110 @@ class ComtradeLoader:
         self.file_path = Path(file_path)
     
     def load(self) -> pd.DataFrame:
-        """Load and process Comtrade data."""
-        logger.info(f"Loading UN Comtrade data from {self.file_path}")
+        """Load and process Comtrade data - Robust version for multiple formats."""
+        logger.info(f"Loading Trade data from {self.file_path}")
         
-        # Load CSV
-        df = pd.read_csv(
-            self.file_path,
-            encoding='latin1',
-            low_memory=False
-        )
-        
-        logger.info(f"Loaded {len(df):,} raw trade records")
-        logger.info(f"Columns: {list(df.columns)}")
-        
-        # Rename key columns
-        column_mapping = {
-            'reporterDesc': 'reporter_name',
-            'partnerDesc': 'partner_name',
-            'reporterISO': 'reporter_iso3',
-            'partnerISO': 'partner_iso3',
-            'refYear': 'year',
-            'refMonth': 'month',
-            'flowDesc': 'flow',
-            'cmdCode': 'hs_code',
-            'cmdDesc': 'product_description',
-            'primaryValue': 'trade_value_usd',
-            'qty': 'quantity',
-            'qtyUnitAbbr': 'quantity_unit'
-        }
-        
-        df = df.rename(columns=column_mapping)
-        
-        # CRITICAL FIX: Your reporterDesc has codes 'M'/'X', not country names!
-        # The actual country names are likely in reporterISO or need different column
-        logger.info("Checking reporter column format...")
-        
-        # Check if reporterDesc looks like country names or codes
-        sample_reporters = df['reporter_name'].head(100).unique()
-        logger.info(f"Sample reporters: {sample_reporters[:5]}")
-        
-        # If reporterDesc contains only single letters (M, X, etc.), use reporterISO instead
-        if df['reporter_name'].str.len().max() <= 3:
-            logger.warning("reporterDesc contains codes, not names. Using reporterISO instead.")
-            # Map ISO codes in reporterISO to ISO3 (they're already ISO3!)
-            df['source_iso3'] = df['reporter_iso3']  # reporterISO is already ISO3
-            df['target_iso3'] = df['partner_iso3']   # partnerISO is already ISO3
-        else:
-            # Use country name mapping as before
-            logger.info("Mapping country names to ISO3 codes...")
-            df['source_iso3'] = df['reporter_name'].apply(get_iso3)
-            df['target_iso3'] = df['partner_name'].apply(get_iso3)
-        
-        # Filter out unmapped countries
-        initial_len = len(df)
-        df = df.dropna(subset=['source_iso3', 'target_iso3'])
-        logger.info(f"After ISO3 mapping: {len(df):,} records ({len(df)/initial_len*100:.1f}%)")
-        
-        # Filter to Exports only
-        # Handle both flowDesc and flowCode
-        if 'flow' in df.columns:
-            # If flow is already renamed
-            df = df[df['flow'].isin(['Export', 'X', 'Exports'])].copy()
-        elif 'flowDesc' in df.columns and 'flowCode' in df.columns:
-            # Use flowCode (X = Export, M = Import)
-            df = df[df['flowCode'] == 'X'].copy()
-            df['flow'] = 'Export'
-        
-        logger.info(f"After filtering to Exports: {len(df):,} records")
-        
-        # Convert types BEFORE filtering
-        df['year'] = pd.to_numeric(df['year'], errors='coerce').astype('Int64')
-        df['month'] = pd.to_numeric(df['month'], errors='coerce').astype('Int64')
-        df['trade_value_usd'] = pd.to_numeric(df['trade_value_usd'], errors='coerce')
-        df['quantity'] = pd.to_numeric(df['quantity'], errors='coerce')
-        
-        # Filter out invalid values
-        df = df[df['trade_value_usd'] > 0]
-        df = df[df['year'].notna()]
-        
-        logger.info(f"After filtering invalid values: {len(df):,} records")
-        
-        # Convert HS code to string and clean
-        df['hs_code'] = df['hs_code'].astype(str).str.strip().str.lower()
-        
-        # CRITICAL FIX: Your data has TEXT DESCRIPTIONS, not numeric codes!
-        # Determine sector based on TEXT in cmdCode/cmdDesc
-        def determine_sector(hs_code):
-            hs = str(hs_code).strip().lower()
-            
-            # numeric? convert
-            try:
-                hs_num = int(hs[:2])   # first 2 digits (chapter number)
-            except:
-                hs_num = None
+        if not self.file_path.exists():
+            logger.warning(f"File not found: {self.file_path}. Returning empty DataFrame.")
+            return pd.DataFrame()
 
-            # numeric detection
-            if hs_num == 30:
-                return "Pharmaceuticals"
-            if 50 <= hs_num <= 63:
-                return "Textiles"
-
-            # fallback to text description (if present)
-            text = hs
-            if any(k in text for k in pharma_keywords):
-                return "Pharmaceuticals"
-            if any(k in text for k in textile_keywords):
-                return "Textiles"
-
-            return "Other"
-        
-        df['sector'] = df['hs_code'].apply(determine_sector)
-        
-        logger.info(f"Sector distribution: {df['sector'].value_counts().to_dict()}")
-        
-        # Filter to target sectors only
-        df = df[df['sector'].isin(['Pharmaceuticals', 'Textiles'])].copy()
-        logger.info(f"After filtering to Pharma/Textiles: {len(df):,} records")
-        
-        # Select final columns
-        columns = [
-            'source_iso3', 'target_iso3', 'year', 'month', 
-            'hs_code', 'sector', 'product_description',
-            'trade_value_usd', 'quantity', 'quantity_unit', 'flow'
-        ]
-        
-        # Only keep columns that exist
-        existing_cols = [col for col in columns if col in df.columns]
-        df = df[existing_cols].copy()
-        
-        # Handle missing columns
-        if 'month' not in df.columns:
-            df['month'] = 1  # Default to January
-        if 'quantity_unit' not in df.columns:
-            df['quantity_unit'] = None
-        
-        # Reduce memory (but skip problematic columns with NA)
         try:
-            df = reduce_memory_usage(df, verbose=True)
+            # Load CSV
+            df = pd.read_csv(self.file_path, low_memory=False)
+            logger.info(f"Loaded {len(df):,} raw records")
+            
+            # Identify which format we have
+            cols = df.columns
+            
+            # Format 1: User's pre-processed format (with reporterCode, partnerCode, primaryValue, etc.)
+            if 'reporterCode' in cols and 'primaryValue' in cols:
+                logger.info("Detected pre-processed format with numeric codes")
+                column_mapping = {
+                    'reporterCode': 'source_idx',
+                    'partnerCode': 'target_idx',
+                    'refYear': 'year',
+                    'primaryValue': 'trade_value_usd',
+                    'cmdCode': 'hs_code',
+                    'dist': 'distance_km'
+                }
+                df = df.rename(columns=column_mapping)
+                
+                # Convert numeric codes to ISO3 if possible, else use them as is (will handle mapping later)
+                # For now, let's just make sure we have source_iso3/target_iso3
+                # If they are already numbers, we might need a numeric->iso3 mapper
+                # but many scripts expect strings.
+                
+                # If the user's file doesn't have ISO3 strings, we'll try to convert
+                import pycountry
+                def num_to_iso3(val):
+                    try:
+                        code = str(int(float(val))).zfill(3)
+                        country = pycountry.countries.get(numeric=code)
+                        return country.alpha_3 if country else code
+                    except:
+                        return str(val)
+                
+                if 'source_iso3' not in df.columns:
+                    df['source_iso3'] = df['source_idx'].apply(num_to_iso3)
+                if 'target_iso3' not in df.columns:
+                    df['target_iso3'] = df['target_idx'].apply(num_to_iso3)
+                
+                # If sector column is missing, create it
+                if 'sector' not in df.columns:
+                    # Default everything to Textiles or split by hs_code if numeric
+                    def get_sector(hs):
+                        try:
+                            hs_int = int(float(hs))
+                            if hs_int == 30 or hs_int == 0: # 0 as common pharma in some cleaned sets
+                                return "Pharmaceuticals"
+                            return "Textiles"
+                        except:
+                            return "Other"
+                    df['sector'] = df['hs_code'].apply(get_sector)
+                
+            # Format 2: Original UN Comtrade format
+            elif 'reporterDesc' in cols or 'reporterISO' in cols:
+                logger.info("Detected standard UN Comtrade format")
+                column_mapping = {
+                    'reporterDesc': 'reporter_name',
+                    'partnerDesc': 'partner_name',
+                    'reporterISO': 'source_iso3',
+                    'partnerISO': 'target_iso3',
+                    'refYear': 'year',
+                    'refMonth': 'month',
+                    'flowDesc': 'flow',
+                    'cmdCode': 'hs_code',
+                    'primaryValue': 'trade_value_usd'
+                }
+                df = df.rename(columns=column_mapping)
+                
+                # If source_iso3 not already present (rare), map name to it
+                if 'source_iso3' not in df.columns and 'reporter_name' in df.columns:
+                    df['source_iso3'] = df['reporter_name'].apply(get_iso3)
+                    df['target_iso3'] = df['partner_name'].apply(get_iso3)
+            
+            # Clean up
+            if 'year' in df.columns:
+                df['year'] = pd.to_numeric(df['year'], errors='coerce').astype('Int64')
+            
+            if 'month' not in df.columns:
+                df['month'] = 1  # Default to January
+            else:
+                df['month'] = pd.to_numeric(df['month'], errors='coerce').astype('Int64')
+                
+            if 'trade_value_usd' in df.columns:
+                df['trade_value_usd'] = pd.to_numeric(df['trade_value_usd'], errors='coerce')
+            
+            # Basic validation
+            df = df.dropna(subset=['source_iso3', 'target_iso3', 'year'])
+            df = df[df['year'].notna()]
+            
+            logger.info(f"Final processed records: {len(df):,}")
+            return df
+            
         except Exception as e:
-            logger.warning(f"Memory reduction failed: {e}, continuing without it")
-        
-        logger.info(f"Final Comtrade data: {len(df):,} records")
-        
-        if len(df) == 0:
-            logger.error("⚠️  WARNING: No Comtrade data after filtering!")
-            logger.error("Check: 1) HS codes in your data, 2) Flow codes (X vs Export)")
-        
-        return df
+            logger.error(f"Error loading TradeData: {e}")
+            return pd.DataFrame()
 
 
 class WorldBankLoader:
@@ -201,69 +158,44 @@ class WorldBankLoader:
             data_dir = settings.PROJECT_ROOT / settings.RAW_DATA_PATH / "world-bank"
         self.data_dir = Path(data_dir)
     
-    def _load_indicator(self, filename: str, indicator_name: str) -> pd.DataFrame:
-        """Load a single World Bank indicator."""
-        file_path = self.data_dir / filename
-        logger.info(f"Loading World Bank {indicator_name} from {file_path}")
-        
-        # Skip metadata rows (first 4 rows)
-        df = pd.read_csv(file_path, skiprows=4)
-        
-        # Identify year columns (columns that are numeric)
-        year_cols = [col for col in df.columns if col.isdigit()]
-        
-        # Melt to long format
-        id_cols = ['Country Name', 'Country Code']
-        df_long = df.melt(
-            id_vars=id_cols,
-            value_vars=year_cols,
-            var_name='year',
-            value_name=indicator_name
-        )
-        
-        # Convert types
-        df_long['year'] = pd.to_numeric(df_long['year'], errors='coerce').astype('Int64')
-        df_long[indicator_name] = pd.to_numeric(df_long[indicator_name], errors='coerce')
-        
-        # Map to ISO3
-        df_long['iso3'] = df_long['Country Code'].str[:3]  # First 3 chars
-        
-        # Clean up
-        df_long = df_long[['iso3', 'year', indicator_name]].dropna(subset=['iso3', 'year'])
-        
-        logger.info(f"Loaded {len(df_long):,} {indicator_name} records")
-        return df_long
-    
     def load(self) -> pd.DataFrame:
-        """Load all World Bank indicators and merge."""
-        logger.info("Loading World Bank data...")
+        """Load custom world_bank.csv and format it."""
+        file_path = self.data_dir / "world_bank.csv"
+        logger.info(f"Loading World Bank data from {file_path}")
         
-        # Load each indicator
-        gdp = self._load_indicator(
-            'API_NY.GDP.MKTP.CD_DS2_en_csv_v2_75934.csv',
-            'gdp_usd'
-        )
-        
-        population = self._load_indicator(
-            'API_SP.POP.TOTL_DS2_en_csv_v2_76034.csv',
-            'population'
-        )
-        
-        inflation = self._load_indicator(
-            'API_FP.CPI.TOTL.ZG_DS2_en_csv_v2_73483.csv',
-            'inflation_rate'
-        )
-        
-        # Merge all indicators
-        logger.info("Merging World Bank indicators...")
-        wb_data = gdp.merge(population, on=['iso3', 'year'], how='outer')
-        wb_data = wb_data.merge(inflation, on=['iso3', 'year'], how='outer')
-        
-        # Validate ISO3 codes
-        wb_data = validate_iso3_codes(wb_data, ['iso3'])
-        
-        logger.info(f"Final World Bank data: {len(wb_data):,} country-year records")
-        return wb_data
+        try:
+            df = pd.read_csv(file_path)
+            
+            # Map the columns to what the pipeline expects
+            df = df.rename(columns={
+                'country_iso3': 'iso3',
+                'gdp': 'gdp_usd',
+                'pop': 'population'
+            })
+            
+            # Include inflation_rate as 0 since it's not in the custom file
+            if 'inflation_rate' not in df.columns:
+                df['inflation_rate'] = 0.0
+            
+            # Keep only required columns
+            expected_cols = ['iso3', 'year', 'gdp_usd', 'population', 'inflation_rate']
+            df = df[[col for col in expected_cols if col in df.columns]]
+            
+            # Ensure proper typing
+            df['year'] = pd.to_numeric(df['year'], errors='coerce').astype('Int64')
+            
+            # Drop invalid rows
+            df = df.dropna(subset=['iso3', 'year'])
+            
+            # Validate ISO3
+            df = validate_iso3_codes(df, ['iso3'])
+            
+            logger.info(f"Final World Bank data: {len(df):,} country-year records")
+            return df
+            
+        except Exception as e:
+            logger.error(f"Failed to load custom world_bank.csv: {e}")
+            raise
 
 
 class CEPIILoader:
@@ -278,6 +210,10 @@ class CEPIILoader:
         """Load CEPII distance data."""
         logger.info(f"Loading CEPII GeoDist data from {self.file_path}")
         
+        if not self.file_path.exists():
+            logger.warning(f"CEPII file not found at {self.file_path}. Skipping.")
+            return pd.DataFrame(columns=['source_iso3', 'target_iso3', 'distance_km', 'shared_language', 'contiguous'])
+            
         df = pd.read_csv(self.file_path)
         
         logger.info(f"Loaded {len(df):,} country pair distances")
@@ -322,6 +258,10 @@ class RTALoader:
         """Load and parse RTA data into country pairs."""
         logger.info(f"Loading WTO RTA data from {self.file_path}")
         
+        if not self.file_path.exists():
+            logger.warning(f"RTA file not found at {self.file_path}. Skipping.")
+            return pd.DataFrame(columns=['source_iso3', 'target_iso3', 'fta_binary', 'rta_name'])
+            
         df = pd.read_csv(self.file_path)
         
         logger.info(f"Loaded {len(df)} RTAs")
@@ -386,6 +326,10 @@ class GDELTLoader:
         """Load GDELT sentiment aggregates."""
         logger.info(f"Loading GDELT sentiment from {self.file_path}")
         
+        if not self.file_path.exists():
+            logger.warning(f"GDELT sentiment file not found at {self.file_path}. Skipping.")
+            return pd.DataFrame(columns=['year', 'month', 'country_1_iso3', 'country_2_iso3', 'avg_tone'])
+            
         df = pd.read_csv(self.file_path)
         
         logger.info(f"Loaded {len(df):,} sentiment records")

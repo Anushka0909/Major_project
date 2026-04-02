@@ -123,14 +123,9 @@ class DataPreprocessor:
     #     trade['fta_binary'] = trade['fta_binary'].fillna(0).astype(int)
         
     #     # Add GDELT sentiment
-    #     logger.info("Merging GDELT sentiment...")
-    #     gdelt = data['gdelt'].copy()
-        
-    #     if len(gdelt) == 0:
-    #         logger.warning("⚠️  No GDELT data available, setting sentiment to neutral (0)")
-    #         trade['avg_tone'] = 0.0
-    #         trade['sentiment_norm'] = 0.5  # Neutral
-    #     else:
+    #     gdelt = data.get('gdelt')
+    #     if gdelt is not None and not gdelt.empty:
+    #         logger.info("Merging GDELT sentiment...")
     #         # Match sentiment: try both (source->target) and (target->source)
     #         gdelt_1 = gdelt.rename(columns={
     #             'country_1_iso3': 'source_iso3',
@@ -147,9 +142,16 @@ class DataPreprocessor:
     #         else:
     #             logger.warning(f"⚠️  GDELT columns mismatch. Available: {list(gdelt_1.columns)}")
     #             trade['avg_tone'] = 0.0
-            
-    #         # If no sentiment found, default to 0
+    #     else:
+    #          logger.warning("⚠️  No GDELT data available, setting sentiment to neutral (0)")
+    #          trade['avg_tone'] = 0.0
+    #          trade['sentiment_norm'] = 0.5  # Neutral
+    
+    #     # If no sentiment found, default to 0
+    #     if 'avg_tone' in trade.columns:
     #         trade['avg_tone'] = trade['avg_tone'].fillna(0)
+    #     else:
+    #         trade['avg_tone'] = 0.0
         
     #     logger.info(f"After all merges: {len(trade):,} records")
         
@@ -214,23 +216,34 @@ ADD THIS TO src/data/preprocessing.py (replace merge_trade_with_features method)
         logger.info(f"After World Bank merge: {len(trade):,} records")
         
         # Add CEPII distance features
-        logger.info("Merging CEPII distance features...")
-        cepii = data['cepii'].copy()
-        trade = trade.merge(
-            cepii,
-            on=['source_iso3', 'target_iso3'],
-            how='left'
-        )
+        cepii = data.get('cepii')
+        if cepii is not None and not cepii.empty:
+            logger.info("Merging CEPII distance features...")
+            trade = trade.merge(
+                cepii,
+                on=['source_iso3', 'target_iso3'],
+                how='left'
+            )
+        else:
+            logger.warning("⚠️  No CEPII data found. Skipping distance merge.")
+            if 'distance_km' not in trade.columns:
+                trade['distance_km'] = np.nan
         
         # Add RTA (FTA) binary flag
-        logger.info("Merging RTA (FTA) flags...")
-        rtas = data['rtas'].copy()
-        rtas['fta_binary'] = 1
-        trade = trade.merge(
-            rtas[['source_iso3', 'target_iso3', 'fta_binary']],
-            on=['source_iso3', 'target_iso3'],
-            how='left'
-        )
+        rtas = data.get('rtas')
+        if rtas is not None and not rtas.empty:
+            logger.info("Merging RTA (FTA) flags...")
+            rtas['fta_binary'] = 1
+            trade = trade.merge(
+                rtas[['source_iso3', 'target_iso3', 'fta_binary']],
+                on=['source_iso3', 'target_iso3'],
+                how='left'
+            )
+        else:
+            logger.warning("⚠️  No RTA data found. Skipping FTA merge.")
+            
+        if 'fta_binary' not in trade.columns:
+            trade['fta_binary'] = 0
         trade['fta_binary'] = trade['fta_binary'].fillna(0).astype(int)
         
         # ============================================================
@@ -509,7 +522,7 @@ ADD THIS TO src/data/preprocessing.py (replace merge_trade_with_features method)
             'trade_value_log_rolling_mean_3', 'trade_value_log_rolling_mean_6'
         ]
         
-        edges = df[edge_features].copy()
+        edges = df[[col for col in edge_features if col in df.columns]].copy()
         
         # Add source and target node IDs
         edges['source_node_id'] = edges['source_iso3'].map(self.node_mapping)
@@ -521,11 +534,11 @@ ADD THIS TO src/data/preprocessing.py (replace merge_trade_with_features method)
         edges['target_node_id'] = edges['target_node_id'].astype(int)
         
         # Create train/val/test split marker
-        # IMPORTANT: Use time-based split for ALL edges
-        # 2015-2021: train, 2022: val, 2023+: test
+        # Dynamic split based on available years
+        max_year = edges['year'].max()
         edges['split'] = 'train'
-        edges.loc[edges['year'] == 2022, 'split'] = 'val'
-        edges.loc[edges['year'] >= 2023, 'split'] = 'test'
+        edges.loc[edges['year'] == max_year - 1, 'split'] = 'val'
+        edges.loc[edges['year'] == max_year, 'split'] = 'test'
         
         # CRITICAL: Create India-focused mask for EVALUATION/PREDICTION
         # During training: Use ALL edges (learn global patterns)

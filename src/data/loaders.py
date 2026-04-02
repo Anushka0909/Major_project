@@ -760,13 +760,19 @@ class TemporalDataset:
         return self.graphs[idx]
     
     def split(self, train=0.7, val=0.15):
-        """Temporal split"""
+        """Temporal split - Improved for small datasets"""
         n = len(self.graphs)
-        train_size = int(train * n)
-        val_size = int(val * n)
+        if n < 3:
+            # Not enough to split properly, return as is
+            return self.graphs, self.graphs, self.graphs
+            
+        # Ensure at least 1 for val and test if n is large enough
+        val_size = max(1, int(val * n))
+        test_size = max(1, n - int(train * n) - val_size)
+        train_size = n - val_size - test_size
         
         return (
             self.graphs[:train_size],
-            self.graphs[train_size:train_size+val_size],
-            self.graphs[train_size+val_size:]
+            self.graphs[train_size:train_size + val_size],
+            self.graphs[train_size + val_size:]
         )

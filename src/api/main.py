@@ -14,8 +14,8 @@ from datetime import datetime
 import sys
 import os
 
-# Add src to path
-sys.path.append(str(Path(__file__).parent.parent))
+# Add project root to path
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from src.models.gnn import TradeGNN
 from src.data.loaders import GraphDataLoader

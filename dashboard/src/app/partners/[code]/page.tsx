@@ -48,7 +48,7 @@ export default function PartnerDetailsPage() {
             <TradeNetwork
               data={predictions.filter((p) => p.partnerCode === code)}
               selectedPartner={code}
-              onSelectPartner={() => {}}
+              onSelectPartner={() => { }}
             />
           </div>
           <div className="md:col-span-2 rounded-lg border bg-card/80 shadow-sm p-4">
@@ -56,8 +56,8 @@ export default function PartnerDetailsPage() {
             {partnerAlert?.recommendations?.length ? (
               <ul className="text-sm list-disc pl-5 space-y-1">
                 {partnerAlert.recommendations.map((r) => (
-                  <li key={r.partnerCode}>
-                    Consider {r.partner} — confidence {Math.round(r.confidence * 100)}%
+                  <li key={r.country_code}>
+                    Consider {r.country_name} — {r.rationale} (confidence {Math.round(r.confidence * 100)}%)
                   </li>
                 ))}
               </ul>

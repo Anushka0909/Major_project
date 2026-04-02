@@ -55,12 +55,15 @@ function AlertCard({ item }: { item: AlertItem }) {
     return (
       <p className="text-xs mt-1 text-muted-foreground">
         {item.recommendations
-          .filter((r: any) => r && (r.action || r.partner))
+          .filter((r: any) => r && (r.country_name || r.partner || r.action))
           .map((r: any) => {
-            if (r.action) return r.action
-            if (r.partner && r.confidence != null && !isNaN(r.confidence)) {
-              return `${r.partner} (${Math.round(r.confidence * 100)}%)`
+            if (r.country_name) {
+              return `${r.country_name} (${Math.round((r.confidence || 0) * 100)}%)`
             }
+            if (r.partner) {
+              return `${r.partner} (${Math.round((r.confidence || 0) * 100)}%)`
+            }
+            if (r.action) return r.action
             return null
           })
           .filter(Boolean)
