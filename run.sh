@@ -1,60 +1,86 @@
 #!/bin/bash
 
-# GNN Trade Forecasting System - Comprehensive Startup Script
+# GNN Trade Forecasting System - COMPREHENSIVE RUN SCRIPT
+# This script manages Preprocessing, Training, Backend, and Frontend.
 
-# 1. Setup environment
 PROJECT_ROOT=$(pwd)
 VENV_PYTHON="$PROJECT_ROOT/venv/bin/python"
 export PYTHONPATH=$PROJECT_ROOT
 
-echo "🚀 Starting GNN Trade Forecasting Full Project..."
+echo "=========================================================="
+echo "🚀 INITIALIZING GNN TRADE FORECASTING ECOSYSTEM"
+echo "=========================================================="
 
-# 2. Kill existing processes
-echo "🧹 Cleaning up old processes (API on port 8000)..."
+# 1. Environment & Folder Check
+echo "🔍 Checking directories..."
+mkdir -p logs models data/processed
+
+# 2. Python Dependencies Check
+if [ ! -d "venv" ]; then
+    echo "❌ venv not found! Creating virtual environment..."
+    python3 -m venv venv
+    ./venv/bin/pip install -r requirements.txt
+else
+    echo "✅ Python Venv: OK"
+fi
+
+# 3. Kill existing processes on API (8000) and Next.js (3000) ports
+echo "🧹 Cleaning up old processes..."
 lsof -ti:8000 | xargs kill -9 2>/dev/null || true
+lsof -ti:3000 | xargs kill -9 2>/dev/null || true
 
-# 3. Data Pipeline
-echo "\n📊 Step 1/3: Running Data Preprocessing..."
+# 4. Data Preprocessing
+echo -e "\n📊 Step 1/4: Data Preprocessing..."
 $VENV_PYTHON scripts/preprocess_data.py
 if [ $? -ne 0 ]; then
     echo "❌ Preprocessing failed. Check logs/preprocessing.log"
     exit 1
 fi
 
-# Check if model already exists
+# 5. Model Initialization (Standard + Causal)
+echo -e "\n🧠 Step 2/4: Checking GNN Models..."
+
 if [ ! -f "models/gnn_working.pt" ]; then
-    echo "\n🧠 Step 2/3: Training Model (new)..."
+    echo "🏗️  Baseline GNN Model missing. Training now..."
     $VENV_PYTHON scripts/train_model.py
 else
-    echo "\n🧠 Step 2/3: Using existing model (gnn_working.pt)..."
+    echo "✅ Baseline GNN: READY"
 fi
 
-# Ensure the latest model is copied to gnn_working.pt if needed (optional)
-latest_model=$(ls -t models/gnn_*.pt 2>/dev/null | head -1)
-if [ ! -z "$latest_model" ]; then
-    cp "$latest_model" models/gnn_working.pt
-fi
+# Initialize the new Causal CausalEngine logic snapshots
+echo "🧬 Initializing Causal Reasoning Engine snapshots..."
+$VENV_PYTHON scripts/train_causal.py
 
-# 4. Start Services
-echo "\n🌐 Step 3/3: Starting Services (API & Dashboard)..."
-
-# Start FastAPI Backend in background
-echo "📡 Starting FastAPI Backend on http://localhost:8000..."
+# 6. Start FastAPI Backend
+echo -e "\n📡 Step 3/4: Launching AI Backend..."
 nohup $VENV_PYTHON src/api/main.py > logs/api.log 2>&1 &
 API_PID=$!
 
-# Wait for API to start
-echo "⏳ Waiting for API to initialize..."
+echo "⏳ Waiting for AI to initialize (Neural Graph Snapshots)..."
 sleep 5
 
-# Check if API is running
 if ps -p $API_PID > /dev/null; then
-    echo "✅ API is running (PID: $API_PID). Logs at logs/api.log"
+    echo "✅ AI Backend: LIVE (PID: $API_PID)"
 else
-    echo "❌ API failed to start. Check logs/api.log"
+    echo "❌ AI Backend failed. See logs/api.log"
+    tail -n 15 logs/api.log
     exit 1
 fi
 
-# Start Next.js Frontend
-echo "🖥️  Starting Next.js Dashboard..."
-cd dashboard/src && npm run dev
+# 7. Start Next.js Dashboard
+echo -e "\n🖥️  Step 4/4: Launching Dashboard..."
+cd dashboard/src
+
+if [ ! -d "node_modules" ]; then
+    echo "📦 node_modules missing. Installing dashboard dependencies..."
+    npm install
+fi
+
+echo -e "\n✨ ALL SYSTEMS GO! ✨"
+echo "----------------------------------------------------------"
+echo "🌐 DASHBOARD: http://localhost:3000"
+echo "📡 AI BACKEND: http://localhost:8000"
+echo "🧬 ENGINE: Counterfactual Causal Simulation ENABLED"
+echo "----------------------------------------------------------"
+
+npm run dev

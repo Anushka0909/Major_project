@@ -1,7 +1,7 @@
 "use client"
 
 import { create } from "zustand"
-import type { AlertItem, Explainability, NewsArticle, Prediction } from "@/lib/types"
+import type { AlertItem, Explainability, NewsArticle, Prediction, SimulationResult } from "@/lib/types"
 import { mockAlerts, mockExplainability, mockNews, mockPredictions } from "@/lib/mock"
 
 // Backend API base URL
@@ -20,6 +20,7 @@ type State = {
     alerts: boolean
     news: boolean
     explainability: boolean
+    simulation: boolean
   }
   error: {
     predictions?: string
@@ -28,6 +29,7 @@ type State = {
     explainability?: string
   }
   apiConnected: boolean
+  simulationResult?: SimulationResult
 }
 
 type Actions = {
@@ -38,6 +40,7 @@ type Actions = {
   loadAlerts: () => Promise<void>
   loadNews: (partner?: string) => Promise<void>
   loadExplainability: (partner?: string) => Promise<void>
+  runSimulation: (target_country: string, feature: string, change_percent: number) => Promise<void>
 }
 
 export const useDashboardStore = create<State & Actions>((set, get) => ({
@@ -52,9 +55,11 @@ export const useDashboardStore = create<State & Actions>((set, get) => ({
     alerts: false,
     news: false,
     explainability: false,
+    simulation: false
   },
   error: {},
   apiConnected: false,
+  simulationResult: undefined,
 
   setSector: (sector) => set({ sector }),
   setMonth: (month) => set({ month }),
@@ -199,6 +204,49 @@ export const useDashboardStore = create<State & Actions>((set, get) => ({
       set((state) => ({
         explainability,
         loading: { ...state.loading, explainability: false },
+      }))
+    }
+  },
+
+  runSimulation: async (targetCountry: string, feature: string, changePercent: number) => {
+    const { sector, month } = get()
+
+    set((state) => ({
+      loading: { ...state.loading, simulation: true },
+    }))
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/v1/simulate`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          target_country: targetCountry,
+          feature,
+          change_percent: changePercent,
+          sector,
+          month
+        })
+      })
+
+      if (!res.ok) throw new Error("Simulation failed")
+
+      const result = await res.json()
+      set({ simulationResult: result })
+    } catch (error) {
+      console.error("Simulation failed:", error)
+      set({
+        simulationResult: {
+          baseline: 15000000,
+          counterfactual: 12000000,
+          delta: -3000000,
+          pct_impact: changePercent * 0.8,
+          global_impact: changePercent * 0.4,
+          explanation: `Mock Simulation: A ${changePercent}% shift in ${feature} for ${targetCountry} would impact ${sector} trade patterns.`
+        }
+      })
+    } finally {
+      set((state) => ({
+        loading: { ...state.loading, simulation: false },
       }))
     }
   },

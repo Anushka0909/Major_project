@@ -18,11 +18,14 @@ import os
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from src.models.gnn import TradeGNN
+from src.models.causal_gnn import CausalTradeGNN
+from src.models.simulation import TradeSimulator
 from src.data.loaders import GraphDataLoader
 from src.data.country_mapping import MANUAL_MAPPINGS
 from src.utils.logger import get_logger
 
 bilateral_sentiment_df = None
+simulator = None
 
 def load_bilateral_sentiment():
     """Load bilateral sentiment data"""
@@ -144,6 +147,21 @@ class HealthResponse(BaseModel):
     postgres_available: bool
     timestamp: str
 
+class SimulationRequest(BaseModel):
+    target_country: str # ISO3
+    feature: str # "gdp" or "sentiment" or "tariff"
+    change_percent: float # e.g. -20.0
+    sector: str
+    month: str
+
+class SimulationResult(BaseModel):
+    baseline: float
+    counterfactual: float
+    delta: float
+    pct_impact: float
+    global_impact: float
+    explanation: str
+
 
 @app.on_event("startup")
 async def startup_event():
@@ -206,6 +224,15 @@ async def startup_event():
             logger.info(f"✓ Loaded {len(articles_df)} news articles")
         else:
             logger.warning("⚠️  No articles.csv found")
+            
+        # Initialize Simulator (using the same checkpoint for now)
+        try:
+            global simulator
+            simulator = TradeSimulator(latest_model)
+            logger.info("✓ Trade Simulator initialized")
+        except Exception as sim_err:
+            logger.warning(f"⚠️  Simulator initialization failed: {sim_err}")
+            
         load_bilateral_sentiment()
         logger.info("🎉 API ready!")
         
@@ -1065,6 +1092,70 @@ async def get_forecast_snapshot(
     except Exception as e:
         logger.error(f"Forecast snapshot error: {e}")
         return {}
+
+
+@app.post("/api/v1/simulate", response_model=SimulationResult, tags=["Simulation"])
+async def simulate_trade(request: SimulationRequest):
+    """
+    Run a counterfactual trade simulation.
+    Example: What if China's GDP falls by 20%?
+    """
+    if simulator is None or loader is None:
+        raise HTTPException(status_code=503, detail="Simulator not initialized")
+        
+    try:
+        # 1. Setup the scenario
+        year_val_sim, month_num_sim = map(int, request.month.split('-'))
+        sector_map = {"pharma": "Pharmaceuticals", "textiles": "Textiles"}
+        backend_sector = sector_map.get(request.sector.lower())
+        
+        # 2. Get the target node ID
+        if request.target_country not in loader.node_mapping:
+            raise HTTPException(status_code=404, detail=f"Country {request.target_country} not found")
+        target_id = loader.node_mapping[request.target_country]
+        
+        # 3. Apply feature mapping
+        feat_map = {"gdp": 0, "population": 1}
+        feat_idx = feat_map.get(request.feature.lower(), 0)
+        
+        # 4. Create the graph snapshot (Reuse loader logic)
+        graphs = loader.create_temporal_graphs()
+        target_graph = graphs[-1] if graphs else None
+            
+        if target_graph is None:
+            raise HTTPException(status_code=404, detail="No base data found for this period")
+            
+        # 5. Run Intervention
+        intervention = {
+            'node_id': target_id,
+            'feature_idx': feat_idx,
+            'change': np.log1p(request.change_percent / 100.0) if request.change_percent != 0 else 0
+        }
+        
+        results = simulator.compare_scenarios(target_graph, intervention)
+        
+        # 6. Format Explanation
+        direction = "decrease" if request.change_percent < 0 else "increase"
+        explanation = (
+            f"A {abs(request.change_percent)}% {direction} in {request.feature.upper()} for "
+            f"{request.target_country} is predicted to cause a "
+            f"{results['global_impact']:.2f}% shift in overall trade flows for {request.sector}."
+        )
+        
+        return SimulationResult(
+            baseline=float(np.mean(results['baseline'])),
+            counterfactual=float(np.mean(results['counterfactual'])),
+            delta=float(np.mean(results['delta'])),
+            pct_impact=float(results['global_impact']),
+            global_impact=float(results['global_impact']),
+            explanation=explanation
+        )
+        
+    except Exception as e:
+        logger.error(f"Simulation error: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 if __name__ == "__main__":

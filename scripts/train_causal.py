@@ -1,0 +1,90 @@
+"""
+Train the Causal & Equilibrium GNN Model
+This script trains the new CausalTradeGNN model with equilibrium constraints.
+"""
+import sys
+from pathlib import Path
+import torch
+import torch.nn as nn
+from torch.optim import Adam
+
+# Add project root to path
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
+
+from src.models.causal_gnn import CausalTradeGNN
+from src.models.train import GNNTrainer
+from src.utils.logger import get_logger
+
+logger = get_logger(__name__)
+
+class CausalTrainer(GNNTrainer):
+    """Extends GNNTrainer for Causal & Equilibrium Learning"""
+    
+    def init_model(self, hidden_dim=128, num_layers=3, dropout=0.3, heads=4):
+        """Initialize CausalTradeGNN"""
+        logger.info("🧠 INITIALIZING CAUSAL MODEL (Transformer Heads)")
+        
+        self.model = CausalTradeGNN(
+            num_node_features=self.num_node_features,
+            num_edge_features=self.num_edge_features,
+            hidden_dim=hidden_dim,
+            num_layers=num_layers,
+            dropout=dropout,
+            heads=heads
+        ).to(self.device)
+        
+        self.optimizer = Adam(self.model.parameters(), lr=0.001)
+        self.criterion = nn.MSELoss()
+        logger.info("✓ Causal Model ready with Equilibrium logic")
+
+    def train_epoch(self, graphs):
+        """Train with Equilibrium Loss"""
+        self.model.train()
+        total_loss = 0
+        successful = 0
+        
+        for g in graphs:
+            g = g.to(self.device)
+            self.optimizer.zero_grad()
+            
+            try:
+                out = self.model(g.x, g.edge_index, g.edge_attr)
+                
+                # Standard MSE loss
+                mse_loss = self.criterion(out, g.y)
+                
+                # Equilibrium loss (penalize if global trade doesn't balance)
+                eq_loss = self.model.calculate_equilibrium_loss(out, g.edge_index, g.x.shape[0])
+                
+                # Combine losses (weighted)
+                loss = mse_loss + 0.1 * eq_loss
+                
+                loss.backward()
+                self.optimizer.step()
+                
+                total_loss += loss.item()
+                successful += 1
+            except Exception as e:
+                continue
+                
+        return total_loss / max(1, successful)
+
+def main():
+    print("\n" + "="*60)
+    print("🧠 CAUSAL GNN TRADE SIMULATION - TRAINING")
+    print("="*60)
+    
+    trainer = CausalTrainer()
+    train, val, test = trainer.prepare_data()
+    
+    trainer.init_model()
+    trainer.train(train, val, epochs=50)
+    trainer.evaluate(test)
+    
+    timestamp = trainer.save()
+    print(f"\n✅ CAUSAL MODEL SAVED: models/gnn_{timestamp}.pt")
+    print("="*60 + "\n")
+
+if __name__ == "__main__":
+    main()

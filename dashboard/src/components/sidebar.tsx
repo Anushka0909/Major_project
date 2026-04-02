@@ -20,9 +20,8 @@ export function Sidebar() {
             <button
               key={s.id}
               onClick={() => setSector(s.id)}
-              className={`w-full text-left px-3 py-2 rounded-md border transition ${
-                sector === s.id ? "bg-primary text-primary-foreground" : "bg-card hover:bg-accent"
-              }`}
+              className={`w-full text-left px-3 py-2 rounded-md border transition ${sector === s.id ? "bg-primary text-primary-foreground" : "bg-card hover:bg-accent"
+                }`}
               aria-pressed={sector === s.id}
             >
               {s.label}
@@ -34,6 +33,18 @@ export function Sidebar() {
       <section>
         {/* <h2 className="text-sm font-medium text-muted-foreground mb-2">Time</h2> */}
         {/* <MonthYearPicker value={month} onChange={(v) => setMonth(v)} /> */}
+      </section>
+
+      <section>
+        <h2 className="text-sm font-medium text-muted-foreground mb-2">Analysis</h2>
+        <div className="space-y-1">
+          <a href="#overview" className="block text-xs px-3 py-1.5 rounded hover:bg-accent transition-colors">Network Overview</a>
+          <a href="#predictions" className="block text-xs px-3 py-1.5 rounded hover:bg-accent transition-colors">Trade Forecasts</a>
+          <a href="#simulation" className="block text-xs px-3 py-1.5 rounded hover:bg-accent transition-colors flex items-center gap-2">
+            <span className="size-1.5 rounded-full bg-primary" />
+            What-If Simulator
+          </a>
+        </div>
       </section>
 
       <section className="pt-2">

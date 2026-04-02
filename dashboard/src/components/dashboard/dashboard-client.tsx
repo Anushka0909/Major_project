@@ -7,6 +7,7 @@ import { PredictionsTable } from "../predictions-table"
 import { AlertsPanel } from "../panels/alerts-panel"
 import { NewsPanel } from "../panels/news-panel"
 import { ExplainabilityPanel } from "../panels/explainability-panel"
+import { SimulationPanel } from "../panels/simulation-panel"
 
 export default function DashboardClient() {
   const {
@@ -66,12 +67,17 @@ export default function DashboardClient() {
         />
       </section>
 
-      <section id="news" className="grid gap-4 lg:grid-cols-5 scroll-mt-24">
+      <section id="news" className="grid gap-4 lg:grid-cols-6 scroll-mt-24">
         <div className="lg:col-span-3 rounded-xl border bg-card/80 shadow-sm">
           <NewsPanel articles={news} />
         </div>
-        <div className="lg:col-span-2 rounded-xl border bg-card/80 shadow-sm" id="explainability">
-          <ExplainabilityPanel explainability={explainability} />
+        <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+          <div className="rounded-xl border bg-card/80 shadow-sm" id="explainability">
+            <ExplainabilityPanel explainability={explainability} />
+          </div>
+          <div className="rounded-xl border bg-card/80 shadow-sm" id="simulation">
+            <SimulationPanel />
+          </div>
         </div>
       </section>
     </div>
