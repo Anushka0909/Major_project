@@ -21,6 +21,12 @@ export function SimulationPanel() {
         runSimulation(selectedPartner, feature, change)
     }
 
+    const formatTradeValue = (v: number) => {
+        if (Math.abs(v) >= 1000000) return `$${(v / 1000000).toFixed(1)}M`
+        if (Math.abs(v) >= 1000) return `$${(v / 1000).toFixed(1)}K`
+        return `$${v.toFixed(1)}`
+    }
+
     if (!selectedPartner) {
         return (
             <div className="flex flex-col items-center justify-center p-8 text-center h-full text-muted-foreground">
@@ -54,8 +60,8 @@ export function SimulationPanel() {
                     <button
                         onClick={() => setFeature("gdp")}
                         className={`px-3 py-2 rounded-lg border text-sm font-medium transition-all ${feature === "gdp"
-                                ? "bg-primary text-primary-foreground border-primary"
-                                : "bg-background hover:bg-muted"
+                            ? "bg-primary text-primary-foreground border-primary"
+                            : "bg-background hover:bg-muted"
                             }`}
                     >
                         GDP Shift
@@ -63,8 +69,8 @@ export function SimulationPanel() {
                     <button
                         onClick={() => setFeature("sentiment")}
                         className={`px-3 py-2 rounded-lg border text-sm font-medium transition-all ${feature === "sentiment"
-                                ? "bg-primary text-primary-foreground border-primary"
-                                : "bg-background hover:bg-muted"
+                            ? "bg-primary text-primary-foreground border-primary"
+                            : "bg-background hover:bg-muted"
                             }`}
                     >
                         Sentiment Shift
@@ -114,13 +120,13 @@ export function SimulationPanel() {
                         <div className="p-3 rounded-lg bg-muted/30 border">
                             <div className="text-[10px] text-muted-foreground uppercase font-bold mb-1">Baseline</div>
                             <div className="text-lg font-bold">
-                                ${(simulationResult.baseline / 1000000).toFixed(1)}M
+                                {formatTradeValue(simulationResult.baseline)}
                             </div>
                         </div>
                         <div className="p-3 rounded-lg bg-primary/5 border border-primary/20">
                             <div className="text-[10px] text-primary uppercase font-bold mb-1">Simulated</div>
                             <div className="text-lg font-bold text-primary">
-                                ${(simulationResult.counterfactual / 1000000).toFixed(1)}M
+                                {formatTradeValue(simulationResult.counterfactual)}
                             </div>
                         </div>
                     </div>

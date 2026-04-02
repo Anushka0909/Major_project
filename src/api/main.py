@@ -225,11 +225,16 @@ async def startup_event():
         else:
             logger.warning("⚠️  No articles.csv found")
             
-        # Initialize Simulator (using the same checkpoint for now)
+        # Initialize Simulator (Look for Causal Model first, then Baseline)
         try:
             global simulator
-            simulator = TradeSimulator(latest_model)
-            logger.info("✓ Trade Simulator initialized")
+            causal_model = model_dir / "causal_gnn_working.pt"
+            if causal_model.exists():
+                simulator = TradeSimulator(str(causal_model))
+                logger.info("✓ Causal Trade Simulator initialized")
+            else:
+                simulator = TradeSimulator(str(latest_model))
+                logger.info("✓ Baseline Trade Simulator initialized (Causal model not found)")
         except Exception as sim_err:
             logger.warning(f"⚠️  Simulator initialization failed: {sim_err}")
             
@@ -1114,8 +1119,8 @@ async def simulate_trade(request: SimulationRequest):
             raise HTTPException(status_code=404, detail=f"Country {request.target_country} not found")
         target_id = loader.node_mapping[request.target_country]
         
-        # 3. Apply feature mapping
-        feat_map = {"gdp": 0, "population": 1}
+        # 3. Apply feature mapping (0: GDP, 1: Pop, 2: Sentiment, etc.)
+        feat_map = {"gdp": 0, "population": 1, "sentiment": 2}
         feat_idx = feat_map.get(request.feature.lower(), 0)
         
         # 4. Create the graph snapshot (Reuse loader logic)
@@ -1134,19 +1139,33 @@ async def simulate_trade(request: SimulationRequest):
         
         results = simulator.compare_scenarios(target_graph, intervention)
         
-        # 6. Format Explanation
+        # 6. FILTER RESULTS TO TARGET COUNTRY ONLY
+        # We want to show the user the impact on the selected country's total trade
+        row, col = target_graph.edge_index
+        target_mask = (row == target_id) | (col == target_id)
+        
+        baseline_usd = np.expm1(np.array(results['baseline'])[target_mask])
+        counterfactual_usd = np.expm1(np.array(results['counterfactual'])[target_mask])
+        
+        # Calculate totals for the selected country
+        total_baseline = float(np.sum(baseline_usd))
+        total_counterfactual = float(np.sum(counterfactual_usd))
+        total_delta = total_counterfactual - total_baseline
+        local_impact_pct = (total_delta / (total_baseline + 1e-6)) * 100
+        
+        # 7. Format Explanation
         direction = "decrease" if request.change_percent < 0 else "increase"
         explanation = (
             f"A {abs(request.change_percent)}% {direction} in {request.feature.upper()} for "
-            f"{request.target_country} is predicted to cause a "
-            f"{results['global_impact']:.2f}% shift in overall trade flows for {request.sector}."
+            f"{request.target_country} is predicted to result in a "
+            f"{local_impact_pct:.2f}% change in its total {request.sector} trade volume."
         )
         
         return SimulationResult(
-            baseline=float(np.mean(results['baseline'])),
-            counterfactual=float(np.mean(results['counterfactual'])),
-            delta=float(np.mean(results['delta'])),
-            pct_impact=float(results['global_impact']),
+            baseline=total_baseline,
+            counterfactual=total_counterfactual,
+            delta=total_delta,
+            pct_impact=local_impact_pct,
             global_impact=float(results['global_impact']),
             explanation=explanation
         )

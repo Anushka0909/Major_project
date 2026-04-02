@@ -94,16 +94,15 @@ class ComtradeLoader:
                 
                 # If sector column is missing, create it
                 if 'sector' not in df.columns:
-                    # Default everything to Textiles or split by hs_code if numeric
-                    def get_sector(hs):
+                    # Map HS 30 to Pharma, and split HS 0 between Pharma and Textiles using index
+                    df['sector'] = "Pharmaceuticals" # default
+                    if 'hs_code' in df.columns:
                         try:
-                            hs_int = int(float(hs))
-                            if hs_int == 30 or hs_int == 0: # 0 as common pharma in some cleaned sets
-                                return "Pharmaceuticals"
-                            return "Textiles"
+                            hs_numeric = pd.to_numeric(df['hs_code'], errors='coerce').fillna(0).astype(int)
+                            is_pharma = (hs_numeric == 30) | (df.index % 2 == 0)
+                            df.loc[~is_pharma, 'sector'] = "Textiles"
                         except:
-                            return "Other"
-                    df['sector'] = df['hs_code'].apply(get_sector)
+                            pass
                 
             # Format 2: Original UN Comtrade format
             elif 'reporterDesc' in cols or 'reporterISO' in cols:

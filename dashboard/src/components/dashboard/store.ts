@@ -45,7 +45,7 @@ type Actions = {
 
 export const useDashboardStore = create<State & Actions>((set, get) => ({
   sector: "pharma",
-  month: new Date().toISOString().slice(0, 7),
+  month: "2020-01",
   predictions: [],
   alerts: [],
   news: [],

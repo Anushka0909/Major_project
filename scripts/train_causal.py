@@ -36,7 +36,8 @@ class CausalTrainer(GNNTrainer):
         
         self.optimizer = Adam(self.model.parameters(), lr=0.001)
         self.criterion = nn.MSELoss()
-        logger.info("✓ Causal Model ready with Equilibrium logic")
+        self.scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(self.optimizer, mode='min', factor=0.5, patience=10)
+        logger.info("✓ Causal Model ready with Equilibrium logic and Scheduler")
 
     def train_epoch(self, graphs):
         """Train with Equilibrium Loss"""
@@ -82,8 +83,17 @@ def main():
     trainer.train(train, val, epochs=50)
     trainer.evaluate(test)
     
-    timestamp = trainer.save()
-    print(f"\n✅ CAUSAL MODEL SAVED: models/gnn_{timestamp}.pt")
+    # Save with a fixed name for the API to find reliably
+    save_path = "models/causal_gnn_working.pt"
+    torch.save({
+        'model_state': trainer.model.state_dict(),
+        'config': {
+            'num_node_features': trainer.num_node_features,
+            'num_edge_features': trainer.num_edge_features
+        }
+    }, save_path)
+    
+    print(f"\n✅ CAUSAL MODEL SAVED: {save_path}")
     print("="*60 + "\n")
 
 if __name__ == "__main__":
