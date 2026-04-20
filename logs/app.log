@@ -22663,3 +22663,915 @@ FileNotFoundError: [Errno 2] No such file or directory: '/Users/anushkapatil/Doc
 2026-04-20 16:10:12 | [32mINFO[0m | __main__ | main.py:864 | ✅ Injected 4 live articles
 2026-04-20 16:10:12 | [32mINFO[0m | __main__ | main.py:901 | Found 11 historical articles
 2026-04-20 16:10:12 | [32mINFO[0m | __main__ | main.py:942 | Returning 15 articles with calculated sentiment
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:608 | ============================================================
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:609 | STARTING PREPROCESSING PIPELINE
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:610 | ============================================================
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:39 | Step 1: Loading all data sources...
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:418 | ============================================================
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:419 | LOADING ALL DATA SOURCES
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:420 | ============================================================
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:48 | Loading Trade data from /Users/anushkapatil/Documents/anushka/data/raw/comtrade/TradeData.csv
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:57 | Loaded 84,609 raw records
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:64 | Detected pre-processed format with numeric codes
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:144 | Final processed records: 84,609
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:163 | Loading World Bank data from /Users/anushkapatil/Documents/anushka/data/raw/world-bank/world_bank.csv
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:192 | Final World Bank data: 1,827 country-year records
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:210 | Loading CEPII GeoDist data from /Users/anushkapatil/Documents/anushka/data/raw/cepii/dist_cepii.csv
+2026-04-20 16:11:40 | [33mWARNING[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:213 | CEPII file not found at /Users/anushkapatil/Documents/anushka/data/raw/cepii/dist_cepii.csv. Skipping.
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:258 | Loading WTO RTA data from /Users/anushkapatil/Documents/anushka/data/raw/rta/AllRTAs.csv
+2026-04-20 16:11:40 | [33mWARNING[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:261 | RTA file not found at /Users/anushkapatil/Documents/anushka/data/raw/rta/AllRTAs.csv. Skipping.
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:326 | Loading GDELT sentiment from /Users/anushkapatil/Documents/anushka/data/raw/sentiment/sentiment.csv
+2026-04-20 16:11:40 | [33mWARNING[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:329 | GDELT sentiment file not found at /Users/anushkapatil/Documents/anushka/data/raw/sentiment/sentiment.csv. Skipping.
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:454 | ============================================================
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:455 | DATA LOADING SUMMARY
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:456 | ============================================================
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:458 | comtrade       :     84,609 rows
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:458 | world_bank     :      1,827 rows
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:458 | cepii          :          0 rows
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:458 | rtas           :          0 rows
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:458 | gdelt          :          0 rows
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:459 | ============================================================
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:175 | Step 2: Merging trade data with features...
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:183 | Starting with 84,609 trade records
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:186 | Merging source country features...
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:202 | Merging target country features...
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:216 | After World Bank merge: 84,609 records
+2026-04-20 16:11:40 | [33mWARNING[0m | src.data.preprocessing | preprocessing.py:228 | ⚠️  No CEPII data found. Skipping distance merge.
+2026-04-20 16:11:40 | [33mWARNING[0m | src.data.preprocessing | preprocessing.py:243 | ⚠️  No RTA data found. Skipping FTA merge.
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:252 | 🎯 Loading CALCULATED bilateral sentiment...
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:258 | Loaded 10 bilateral sentiment scores
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:305 |   ✓ Sentiment coverage: 0.1%
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:306 |   ✓ Avg sentiment: -0.153
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:307 |   ✓ Avg confidence: 0.546
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:338 | After all merges: 84,609 records
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:352 | Step 3: Engineering features...
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:355 | Applying log transformations...
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:369 | Creating derived features...
+2026-04-20 16:11:40 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:387 | Creating lag features...
+2026-04-20 16:11:41 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:399 | Creating rolling features...
+2026-04-20 16:11:47 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:413 | After feature engineering: 47 columns
+2026-04-20 16:11:47 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:419 | Step 4: Handling missing values...
+2026-04-20 16:11:47 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:429 | Dropped 0 rows with missing critical features
+2026-04-20 16:11:47 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled source_gdp_usd missing values with median: 105843498304.09
+2026-04-20 16:11:47 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled source_population missing values with median: 10865228.00
+2026-04-20 16:11:47 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled source_inflation missing values with median: 0.00
+2026-04-20 16:11:47 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled target_gdp_usd missing values with median: 57003712892.09
+2026-04-20 16:11:47 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled target_population missing values with median: 10093121.00
+2026-04-20 16:11:47 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled target_inflation missing values with median: 0.00
+2026-04-20 16:11:47 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled gdp_log_source missing values with median: 25.39
+2026-04-20 16:11:47 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled gdp_log_target missing values with median: 24.77
+2026-04-20 16:11:47 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled pop_log_source missing values with median: 16.20
+2026-04-20 16:11:47 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled pop_log_target missing values with median: 16.13
+2026-04-20 16:11:47 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled gdp_ratio missing values with median: 1.09
+2026-04-20 16:11:47 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled pop_ratio missing values with median: 0.87
+2026-04-20 16:11:47 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled combined_gdp_log missing values with median: 26.69
+2026-04-20 16:11:47 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:458 | Step 5: Creating node dataframe...
+2026-04-20 16:11:47 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:497 | Created 815 node records for 204 countries
+2026-04-20 16:11:47 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:511 | Step 6: Creating edge dataframe...
+2026-04-20 16:11:47 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:548 | Created 84,609 edges
+2026-04-20 16:11:47 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:549 | Train: 44,288 | Val: 21,216 | Test: 19,105
+2026-04-20 16:11:47 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:552 | Total edges (all countries): 84,609
+2026-04-20 16:11:47 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:553 | India export edges (prediction target): 808 (1.0%)
+2026-04-20 16:11:47 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:560 | Step 7: Saving processed data...
+2026-04-20 16:11:47 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:565 | Saved nodes to /Users/anushkapatil/Documents/anushka/data/processed/nodes.csv
+2026-04-20 16:11:48 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:570 | Saved edges to /Users/anushkapatil/Documents/anushka/data/processed/edges.csv
+2026-04-20 16:11:48 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:579 | Saved node mapping to /Users/anushkapatil/Documents/anushka/data/processed/node_mapping.json
+2026-04-20 16:11:48 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:597 | Saved metadata to /Users/anushkapatil/Documents/anushka/data/processed/metadata.json
+2026-04-20 16:11:48 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:627 | ============================================================
+2026-04-20 16:11:48 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:628 | PREPROCESSING COMPLETE!
+2026-04-20 16:11:48 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:629 | ============================================================
+2026-04-20 16:11:48 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:630 | Nodes: 815 | Edges: 84,609
+2026-04-20 16:11:48 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:631 | Output directory: /Users/anushkapatil/Documents/anushka/data/processed
+2026-04-20 16:11:51 | [32mINFO[0m | src.models.train | train.py:32 | 💻 Using CPU (MPS doesn't support GAT operations)
+2026-04-20 16:11:51 | [32mINFO[0m | src.models.train | train.py:47 | ============================================================
+2026-04-20 16:11:51 | [32mINFO[0m | src.models.train | train.py:48 | 📊 LOADING DATA
+2026-04-20 16:11:51 | [32mINFO[0m | src.models.train | train.py:49 | ============================================================
+2026-04-20 16:11:51 | [32mINFO[0m | src.data.loaders | loaders.py:560 | Loading graph data...
+2026-04-20 16:11:51 | [32mINFO[0m | src.data.loaders | loaders.py:565 | ✓ Loaded 815 node-year combinations
+2026-04-20 16:11:51 | [32mINFO[0m | src.data.loaders | loaders.py:571 | ✓ Using 203 unique countries (year 2020)
+2026-04-20 16:11:51 | [32mINFO[0m | src.data.loaders | loaders.py:576 | ✓ Loaded 84,609 edges
+2026-04-20 16:11:51 | [32mINFO[0m | src.data.loaders | loaders.py:581 | ✓ Using sentiment_norm as sentiment_score
+2026-04-20 16:11:51 | [32mINFO[0m | src.data.loaders | loaders.py:589 | ✓ Created article_count
+2026-04-20 16:11:51 | [32mINFO[0m | src.data.loaders | loaders.py:606 | ✓ Node mapping: 204 countries
+2026-04-20 16:11:51 | [32mINFO[0m | src.data.loaders | loaders.py:615 | Creating temporal graphs...
+2026-04-20 16:11:51 | [32mINFO[0m | src.data.loaders | loaders.py:624 | Found 4 time periods: 2017-01 to 2020-01
+2026-04-20 16:26:54 | [32mINFO[0m | src.data.loaders | loaders.py:644 | ✓ Created 4 graphs (skipped 0)
+2026-04-20 16:26:54 | [32mINFO[0m | src.models.train | train.py:61 | ✓ Train: 2 graphs
+2026-04-20 16:26:54 | [32mINFO[0m | src.models.train | train.py:62 | ✓ Val:   1 graphs
+2026-04-20 16:26:54 | [32mINFO[0m | src.models.train | train.py:63 | ✓ Test:  1 graphs
+2026-04-20 16:26:54 | [32mINFO[0m | src.models.train | train.py:68 | ✓ Node features: 4
+2026-04-20 16:26:54 | [32mINFO[0m | src.models.train | train.py:69 | ✓ Edge features: 10
+2026-04-20 16:26:54 | [32mINFO[0m | src.models.train | train.py:76 | ✓ Label range: 0.00 to 13.08 (log scale)
+2026-04-20 16:26:54 | [32mINFO[0m | src.models.train | train.py:77 | ✓ Label mean: 2.61, std: 2.60
+2026-04-20 16:26:54 | [32mINFO[0m | src.models.train | train.py:79 | ============================================================
+2026-04-20 16:26:54 | [32mINFO[0m | __main__ | train_causal.py:26 | 🧠 INITIALIZING CAUSAL MODEL (Transformer Heads)
+2026-04-20 16:26:54 | [32mINFO[0m | __main__ | train_causal.py:40 | ✓ Causal Model ready with Equilibrium logic and Scheduler
+2026-04-20 16:26:54 | [32mINFO[0m | src.models.train | train.py:227 | ============================================================
+2026-04-20 16:26:54 | [32mINFO[0m | src.models.train | train.py:228 | 🚀 TRAINING
+2026-04-20 16:26:54 | [32mINFO[0m | src.models.train | train.py:229 | ============================================================
+2026-04-20 16:26:54 | [32mINFO[0m | src.models.train | train.py:230 | Epochs: 50
+2026-04-20 16:26:54 | [32mINFO[0m | src.models.train | train.py:231 | Patience: 20
+2026-04-20 16:26:54 | [32mINFO[0m | src.models.train | train.py:232 | Device: cpu
+2026-04-20 16:26:54 | [32mINFO[0m | src.models.train | train.py:233 | ============================================================
+2026-04-20 16:26:54 | [32mINFO[0m | src.models.train | train.py:253 | Epoch   1/50 | Train: 0.0000 | Val: 13.2790 | R²: -0.9457 | MAE: 2.5638
+2026-04-20 16:26:55 | [32mINFO[0m | src.models.train | train.py:253 | Epoch   5/50 | Train: 0.0000 | Val: 13.3155 | R²: -0.9510 | MAE: 2.5688
+2026-04-20 16:26:56 | [32mINFO[0m | src.models.train | train.py:253 | Epoch  10/50 | Train: 0.0000 | Val: 13.2779 | R²: -0.9455 | MAE: 2.5632
+2026-04-20 16:26:57 | [32mINFO[0m | src.models.train | train.py:253 | Epoch  15/50 | Train: 0.0000 | Val: 13.2842 | R²: -0.9464 | MAE: 2.5647
+2026-04-20 16:31:39 | [32mINFO[0m | src.models.train | train.py:253 | Epoch  20/50 | Train: 0.0000 | Val: 13.2947 | R²: -0.9480 | MAE: 2.5665
+2026-04-20 16:31:41 | [32mINFO[0m | src.models.train | train.py:253 | Epoch  25/50 | Train: 0.0000 | Val: 13.3075 | R²: -0.9498 | MAE: 2.5683
+2026-04-20 16:31:42 | [32mINFO[0m | src.models.train | train.py:253 | Epoch  30/50 | Train: 0.0000 | Val: 13.3144 | R²: -0.9508 | MAE: 2.5693
+2026-04-20 16:31:42 | [32mINFO[0m | src.models.train | train.py:270 | ⏹  Early stopping at epoch 31
+2026-04-20 16:31:42 | [32mINFO[0m | src.models.train | train.py:275 | ============================================================
+2026-04-20 16:31:42 | [32mINFO[0m | src.models.train | train.py:276 | ✓ TRAINING COMPLETE
+2026-04-20 16:31:42 | [32mINFO[0m | src.models.train | train.py:277 | Best epoch: 11
+2026-04-20 16:31:42 | [32mINFO[0m | src.models.train | train.py:278 | Best val loss: 13.2758
+2026-04-20 16:31:42 | [32mINFO[0m | src.models.train | train.py:279 | Best R²: -0.9452
+2026-04-20 16:31:42 | [32mINFO[0m | src.models.train | train.py:280 | Best MAE: 2.5631
+2026-04-20 16:31:42 | [32mINFO[0m | src.models.train | train.py:281 | ============================================================
+2026-04-20 16:31:42 | [32mINFO[0m | src.models.train | train.py:288 | ============================================================
+2026-04-20 16:31:42 | [32mINFO[0m | src.models.train | train.py:289 | 📊 TEST EVALUATION
+2026-04-20 16:31:42 | [32mINFO[0m | src.models.train | train.py:290 | ============================================================
+2026-04-20 16:31:42 | [32mINFO[0m | src.models.train | train.py:294 | R² Score:  -1.0138
+2026-04-20 16:31:42 | [32mINFO[0m | src.models.train | train.py:295 | RMSE:      3.6902
+2026-04-20 16:31:42 | [32mINFO[0m | src.models.train | train.py:296 | MAE:       2.6312
+2026-04-20 16:31:42 | [32mINFO[0m | src.models.train | train.py:297 | MAPE:      57.57%
+2026-04-20 16:31:42 | [32mINFO[0m | src.models.train | train.py:298 | ============================================================
+2026-04-20 16:31:45 | [32mINFO[0m | src.api.redis_cache | redis_cache.py:34 | ✓ Redis connected: localhost:6379
+2026-04-20 16:31:45 | [32mINFO[0m | src.api.postgres_db | postgres_db.py:32 | ✓ PostgreSQL connected: PostgreSQL 18.3 (Homebrew) on aarch64-apple-darwin...
+2026-04-20 16:31:45 | [32mINFO[0m | __main__ | main.py:77 | 🚀 Starting Trade Flow Prediction API...
+2026-04-20 16:31:45 | [32mINFO[0m | __main__ | main.py:81 | ✓ Redis cache available
+2026-04-20 16:31:45 | [32mINFO[0m | __main__ | main.py:87 | ✓ PostgreSQL database available
+2026-04-20 16:31:45 | [32mINFO[0m | __main__ | main.py:103 | Loading model: causal_gnn_working.pt
+2026-04-20 16:31:45 | [32mINFO[0m | __main__ | main.py:129 | ✓ CausalTradeGNN loaded successfully
+2026-04-20 16:31:45 | [32mINFO[0m | src.data.loaders | loaders.py:560 | Loading graph data...
+2026-04-20 16:31:45 | [32mINFO[0m | src.data.loaders | loaders.py:565 | ✓ Loaded 815 node-year combinations
+2026-04-20 16:31:45 | [32mINFO[0m | src.data.loaders | loaders.py:571 | ✓ Using 203 unique countries (year 2020)
+2026-04-20 16:31:45 | [32mINFO[0m | src.data.loaders | loaders.py:576 | ✓ Loaded 84,609 edges
+2026-04-20 16:31:45 | [32mINFO[0m | src.data.loaders | loaders.py:581 | ✓ Using sentiment_norm as sentiment_score
+2026-04-20 16:31:45 | [32mINFO[0m | src.data.loaders | loaders.py:589 | ✓ Created article_count
+2026-04-20 16:31:45 | [32mINFO[0m | src.data.loaders | loaders.py:606 | ✓ Node mapping: 204 countries
+2026-04-20 16:31:45 | [32mINFO[0m | __main__ | main.py:134 | ✓ Data loaded: 204 countries
+2026-04-20 16:31:45 | [32mINFO[0m | __main__ | main.py:143 | ✓ Loaded 179 news articles
+2026-04-20 16:31:45 | [32mINFO[0m | src.models.simulation | simulation.py:51 | ✓ GNN Simulator loaded successfully from models/causal_gnn_working.pt
+2026-04-20 16:31:45 | [32mINFO[0m | __main__ | main.py:152 | ✓ Causal Trade Simulator initialized
+2026-04-20 16:31:45 | [32mINFO[0m | __main__ | main.py:41 | ✓ Loaded 10 bilateral sentiment scores
+2026-04-20 16:31:45 | [32mINFO[0m | __main__ | main.py:42 |   Avg sentiment: -0.153
+2026-04-20 16:31:45 | [32mINFO[0m | src.data.loaders | loaders.py:615 | Creating temporal graphs...
+2026-04-20 16:31:45 | [32mINFO[0m | src.data.loaders | loaders.py:624 | Found 4 time periods: 2017-01 to 2020-01
+2026-04-20 16:31:49 | [32mINFO[0m | src.data.loaders | loaders.py:644 | ✓ Created 4 graphs (skipped 0)
+2026-04-20 16:31:49 | [32mINFO[0m | __main__ | main.py:165 | ✓ Pre-cached 4 graph snapshots
+2026-04-20 16:32:30 | [32mINFO[0m | __main__ | main.py:492 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:32:32 | [32mINFO[0m | __main__ | main.py:686 | Returning 0 predictions
+2026-04-20 16:32:32 | [32mINFO[0m | __main__ | main.py:687 | Sentiment data used: True
+2026-04-20 16:32:32 | [32mINFO[0m | __main__ | main.py:492 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:32:35 | [32mINFO[0m | __main__ | main.py:686 | Returning 0 predictions
+2026-04-20 16:32:35 | [32mINFO[0m | __main__ | main.py:687 | Sentiment data used: True
+2026-04-20 16:32:35 | [32mINFO[0m | __main__ | main.py:743 | Generated 0 alerts
+2026-04-20 16:32:35 | [32mINFO[0m | __main__ | main.py:901 | Found 81 historical articles
+2026-04-20 16:32:35 | [32mINFO[0m | __main__ | main.py:942 | Returning 20 articles with calculated sentiment
+2026-04-20 16:33:55 | [32mINFO[0m | __main__ | main.py:492 | Generating predictions for Textiles - 2020-01
+2026-04-20 16:33:58 | [32mINFO[0m | __main__ | main.py:686 | Returning 0 predictions
+2026-04-20 16:33:58 | [32mINFO[0m | __main__ | main.py:687 | Sentiment data used: True
+2026-04-20 16:33:58 | [32mINFO[0m | __main__ | main.py:492 | Generating predictions for Textiles - 2020-01
+2026-04-20 16:34:01 | [32mINFO[0m | __main__ | main.py:686 | Returning 0 predictions
+2026-04-20 16:34:01 | [32mINFO[0m | __main__ | main.py:687 | Sentiment data used: True
+2026-04-20 16:34:01 | [32mINFO[0m | __main__ | main.py:743 | Generated 0 alerts
+2026-04-20 16:34:01 | [32mINFO[0m | __main__ | main.py:901 | Found 81 historical articles
+2026-04-20 16:34:01 | [32mINFO[0m | __main__ | main.py:942 | Returning 20 articles with calculated sentiment
+2026-04-20 16:34:05 | [32mINFO[0m | __main__ | main.py:492 | Generating predictions for Textiles - 2020-01
+2026-04-20 16:34:08 | [32mINFO[0m | __main__ | main.py:686 | Returning 0 predictions
+2026-04-20 16:34:08 | [32mINFO[0m | __main__ | main.py:687 | Sentiment data used: True
+2026-04-20 16:34:08 | [32mINFO[0m | __main__ | main.py:492 | Generating predictions for Textiles - 2020-01
+2026-04-20 16:34:11 | [32mINFO[0m | __main__ | main.py:686 | Returning 0 predictions
+2026-04-20 16:34:11 | [32mINFO[0m | __main__ | main.py:687 | Sentiment data used: True
+2026-04-20 16:34:11 | [32mINFO[0m | __main__ | main.py:743 | Generated 0 alerts
+2026-04-20 16:34:11 | [32mINFO[0m | __main__ | main.py:492 | Generating predictions for Textiles - 2020-01
+2026-04-20 16:34:13 | [32mINFO[0m | __main__ | main.py:686 | Returning 0 predictions
+2026-04-20 16:34:13 | [32mINFO[0m | __main__ | main.py:687 | Sentiment data used: True
+2026-04-20 16:34:13 | [32mINFO[0m | __main__ | main.py:901 | Found 81 historical articles
+2026-04-20 16:34:13 | [32mINFO[0m | __main__ | main.py:942 | Returning 20 articles with calculated sentiment
+2026-04-20 16:34:13 | [32mINFO[0m | __main__ | main.py:492 | Generating predictions for Textiles - 2020-01
+2026-04-20 16:34:16 | [32mINFO[0m | __main__ | main.py:686 | Returning 0 predictions
+2026-04-20 16:34:16 | [32mINFO[0m | __main__ | main.py:687 | Sentiment data used: True
+2026-04-20 16:34:16 | [32mINFO[0m | __main__ | main.py:743 | Generated 0 alerts
+2026-04-20 16:34:16 | [32mINFO[0m | __main__ | main.py:901 | Found 81 historical articles
+2026-04-20 16:34:16 | [32mINFO[0m | __main__ | main.py:942 | Returning 20 articles with calculated sentiment
+2026-04-20 16:34:40 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler | gdelt_article_scheduler.py:95 |   Rate limited, waiting 5s...
+2026-04-20 16:34:42 | [32mINFO[0m | __main__ | main.py:492 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:34:45 | [32mINFO[0m | __main__ | main.py:686 | Returning 0 predictions
+2026-04-20 16:34:45 | [32mINFO[0m | __main__ | main.py:687 | Sentiment data used: True
+2026-04-20 16:34:45 | [32mINFO[0m | __main__ | main.py:492 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:34:47 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler | gdelt_article_scheduler.py:95 |   Rate limited, waiting 10s...
+2026-04-20 16:34:48 | [32mINFO[0m | __main__ | main.py:686 | Returning 0 predictions
+2026-04-20 16:34:48 | [32mINFO[0m | __main__ | main.py:687 | Sentiment data used: True
+2026-04-20 16:34:48 | [32mINFO[0m | __main__ | main.py:743 | Generated 0 alerts
+2026-04-20 16:34:48 | [32mINFO[0m | __main__ | main.py:901 | Found 81 historical articles
+2026-04-20 16:34:48 | [32mINFO[0m | __main__ | main.py:942 | Returning 20 articles with calculated sentiment
+2026-04-20 16:34:48 | [32mINFO[0m | __main__ | main.py:492 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:34:51 | [32mINFO[0m | __main__ | main.py:686 | Returning 0 predictions
+2026-04-20 16:34:51 | [32mINFO[0m | __main__ | main.py:687 | Sentiment data used: True
+2026-04-20 16:34:51 | [32mINFO[0m | __main__ | main.py:492 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:608 | ============================================================
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:609 | STARTING PREPROCESSING PIPELINE
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:610 | ============================================================
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:39 | Step 1: Loading all data sources...
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:418 | ============================================================
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:419 | LOADING ALL DATA SOURCES
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:420 | ============================================================
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:48 | Loading Trade data from /Users/anushkapatil/Documents/anushka/data/raw/comtrade/TradeData.csv
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:57 | Loaded 84,609 raw records
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:64 | Detected pre-processed format with numeric codes
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:144 | Final processed records: 84,609
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:163 | Loading World Bank data from /Users/anushkapatil/Documents/anushka/data/raw/world-bank/world_bank.csv
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:192 | Final World Bank data: 1,827 country-year records
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:210 | Loading CEPII GeoDist data from /Users/anushkapatil/Documents/anushka/data/raw/cepii/dist_cepii.csv
+2026-04-20 16:34:54 | [33mWARNING[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:213 | CEPII file not found at /Users/anushkapatil/Documents/anushka/data/raw/cepii/dist_cepii.csv. Skipping.
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:258 | Loading WTO RTA data from /Users/anushkapatil/Documents/anushka/data/raw/rta/AllRTAs.csv
+2026-04-20 16:34:54 | [33mWARNING[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:261 | RTA file not found at /Users/anushkapatil/Documents/anushka/data/raw/rta/AllRTAs.csv. Skipping.
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:326 | Loading GDELT sentiment from /Users/anushkapatil/Documents/anushka/data/raw/sentiment/sentiment.csv
+2026-04-20 16:34:54 | [33mWARNING[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:329 | GDELT sentiment file not found at /Users/anushkapatil/Documents/anushka/data/raw/sentiment/sentiment.csv. Skipping.
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:454 | ============================================================
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:455 | DATA LOADING SUMMARY
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:456 | ============================================================
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:458 | comtrade       :     84,609 rows
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:458 | world_bank     :      1,827 rows
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:458 | cepii          :          0 rows
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:458 | rtas           :          0 rows
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:458 | gdelt          :          0 rows
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:459 | ============================================================
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:175 | Step 2: Merging trade data with features...
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:183 | Starting with 84,609 trade records
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:186 | Merging source country features...
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:202 | Merging target country features...
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:216 | After World Bank merge: 84,609 records
+2026-04-20 16:34:54 | [33mWARNING[0m | src.data.preprocessing | preprocessing.py:228 | ⚠️  No CEPII data found. Skipping distance merge.
+2026-04-20 16:34:54 | [33mWARNING[0m | src.data.preprocessing | preprocessing.py:243 | ⚠️  No RTA data found. Skipping FTA merge.
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:252 | 🎯 Loading CALCULATED bilateral sentiment...
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:258 | Loaded 10 bilateral sentiment scores
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:305 |   ✓ Sentiment coverage: 0.1%
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:306 |   ✓ Avg sentiment: -0.153
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:307 |   ✓ Avg confidence: 0.546
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:338 | After all merges: 84,609 records
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:352 | Step 3: Engineering features...
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:355 | Applying log transformations...
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:369 | Creating derived features...
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:387 | Creating lag features...
+2026-04-20 16:34:54 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:399 | Creating rolling features...
+2026-04-20 16:34:58 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler | gdelt_article_scheduler.py:99 |   Max retries reached for IND-USA
+2026-04-20 16:35:00 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:413 | After feature engineering: 47 columns
+2026-04-20 16:35:00 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:419 | Step 4: Handling missing values...
+2026-04-20 16:35:00 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:429 | Dropped 0 rows with missing critical features
+2026-04-20 16:35:00 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled source_gdp_usd missing values with median: 105843498304.09
+2026-04-20 16:35:00 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled source_population missing values with median: 10865228.00
+2026-04-20 16:35:00 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled source_inflation missing values with median: 0.00
+2026-04-20 16:35:00 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled target_gdp_usd missing values with median: 57003712892.09
+2026-04-20 16:35:00 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled target_population missing values with median: 10093121.00
+2026-04-20 16:35:00 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled target_inflation missing values with median: 0.00
+2026-04-20 16:35:00 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled gdp_log_source missing values with median: 25.39
+2026-04-20 16:35:00 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled gdp_log_target missing values with median: 24.77
+2026-04-20 16:35:00 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled pop_log_source missing values with median: 16.20
+2026-04-20 16:35:00 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled pop_log_target missing values with median: 16.13
+2026-04-20 16:35:00 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled gdp_ratio missing values with median: 1.09
+2026-04-20 16:35:00 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled pop_ratio missing values with median: 0.87
+2026-04-20 16:35:00 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled combined_gdp_log missing values with median: 26.69
+2026-04-20 16:35:00 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:458 | Step 5: Creating node dataframe...
+2026-04-20 16:35:00 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:497 | Created 815 node records for 204 countries
+2026-04-20 16:35:00 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:511 | Step 6: Creating edge dataframe...
+2026-04-20 16:35:00 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:548 | Created 84,609 edges
+2026-04-20 16:35:00 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:549 | Train: 44,288 | Val: 21,216 | Test: 19,105
+2026-04-20 16:35:00 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:552 | Total edges (all countries): 84,609
+2026-04-20 16:35:00 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:553 | India export edges (prediction target): 808 (1.0%)
+2026-04-20 16:35:00 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:560 | Step 7: Saving processed data...
+2026-04-20 16:35:00 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:565 | Saved nodes to /Users/anushkapatil/Documents/anushka/data/processed/nodes.csv
+2026-04-20 16:35:01 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:570 | Saved edges to /Users/anushkapatil/Documents/anushka/data/processed/edges.csv
+2026-04-20 16:35:01 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:579 | Saved node mapping to /Users/anushkapatil/Documents/anushka/data/processed/node_mapping.json
+2026-04-20 16:35:01 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:597 | Saved metadata to /Users/anushkapatil/Documents/anushka/data/processed/metadata.json
+2026-04-20 16:35:01 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:627 | ============================================================
+2026-04-20 16:35:01 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:628 | PREPROCESSING COMPLETE!
+2026-04-20 16:35:01 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:629 | ============================================================
+2026-04-20 16:35:01 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:630 | Nodes: 815 | Edges: 84,609
+2026-04-20 16:35:01 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:631 | Output directory: /Users/anushkapatil/Documents/anushka/data/processed
+2026-04-20 16:35:03 | [32mINFO[0m | src.models.train | train.py:32 | 💻 Using CPU (MPS doesn't support GAT operations)
+2026-04-20 16:35:03 | [32mINFO[0m | src.models.train | train.py:47 | ============================================================
+2026-04-20 16:35:03 | [32mINFO[0m | src.models.train | train.py:48 | 📊 LOADING DATA
+2026-04-20 16:35:03 | [32mINFO[0m | src.models.train | train.py:49 | ============================================================
+2026-04-20 16:35:03 | [32mINFO[0m | src.data.loaders | loaders.py:560 | Loading graph data...
+2026-04-20 16:35:03 | [32mINFO[0m | src.data.loaders | loaders.py:565 | ✓ Loaded 815 node-year combinations
+2026-04-20 16:35:03 | [32mINFO[0m | src.data.loaders | loaders.py:571 | ✓ Using 203 unique countries (year 2020)
+2026-04-20 16:35:04 | [32mINFO[0m | src.data.loaders | loaders.py:576 | ✓ Loaded 84,609 edges
+2026-04-20 16:35:04 | [32mINFO[0m | src.data.loaders | loaders.py:581 | ✓ Using sentiment_norm as sentiment_score
+2026-04-20 16:35:04 | [32mINFO[0m | src.data.loaders | loaders.py:589 | ✓ Created article_count
+2026-04-20 16:35:04 | [32mINFO[0m | src.data.loaders | loaders.py:606 | ✓ Node mapping: 204 countries
+2026-04-20 16:35:04 | [32mINFO[0m | src.data.loaders | loaders.py:615 | Creating temporal graphs...
+2026-04-20 16:35:04 | [32mINFO[0m | src.data.loaders | loaders.py:624 | Found 4 time periods: 2017-01 to 2020-01
+2026-04-20 16:35:08 | [32mINFO[0m | src.data.loaders | loaders.py:644 | ✓ Created 4 graphs (skipped 0)
+2026-04-20 16:35:08 | [32mINFO[0m | src.models.train | train.py:61 | ✓ Train: 2 graphs
+2026-04-20 16:35:08 | [32mINFO[0m | src.models.train | train.py:62 | ✓ Val:   1 graphs
+2026-04-20 16:35:08 | [32mINFO[0m | src.models.train | train.py:63 | ✓ Test:  1 graphs
+2026-04-20 16:35:08 | [32mINFO[0m | src.models.train | train.py:68 | ✓ Node features: 4
+2026-04-20 16:35:08 | [32mINFO[0m | src.models.train | train.py:69 | ✓ Edge features: 10
+2026-04-20 16:35:08 | [32mINFO[0m | src.models.train | train.py:76 | ✓ Label range: 0.00 to 13.08 (log scale)
+2026-04-20 16:35:08 | [32mINFO[0m | src.models.train | train.py:77 | ✓ Label mean: 2.61, std: 2.60
+2026-04-20 16:35:08 | [32mINFO[0m | src.models.train | train.py:79 | ============================================================
+2026-04-20 16:35:08 | [32mINFO[0m | __main__ | train_causal.py:26 | 🧠 INITIALIZING CAUSAL MODEL (Transformer Heads)
+2026-04-20 16:35:08 | [32mINFO[0m | __main__ | train_causal.py:40 | ✓ Causal Model ready with Equilibrium logic and Scheduler
+2026-04-20 16:35:08 | [32mINFO[0m | src.models.train | train.py:227 | ============================================================
+2026-04-20 16:35:08 | [32mINFO[0m | src.models.train | train.py:228 | 🚀 TRAINING
+2026-04-20 16:35:08 | [32mINFO[0m | src.models.train | train.py:229 | ============================================================
+2026-04-20 16:35:08 | [32mINFO[0m | src.models.train | train.py:230 | Epochs: 50
+2026-04-20 16:35:08 | [32mINFO[0m | src.models.train | train.py:231 | Patience: 20
+2026-04-20 16:35:08 | [32mINFO[0m | src.models.train | train.py:232 | Device: cpu
+2026-04-20 16:35:08 | [32mINFO[0m | src.models.train | train.py:233 | ============================================================
+2026-04-20 16:35:08 | [32mINFO[0m | src.models.train | train.py:253 | Epoch   1/50 | Train: 0.0000 | Val: 13.7245 | R²: -1.0109 | MAE: 2.6333
+2026-04-20 16:35:09 | [32mINFO[0m | src.models.train | train.py:253 | Epoch   5/50 | Train: 0.0000 | Val: 13.7325 | R²: -1.0121 | MAE: 2.6304
+2026-04-20 16:35:10 | [32mINFO[0m | src.models.train | train.py:253 | Epoch  10/50 | Train: 0.0000 | Val: 13.6621 | R²: -1.0018 | MAE: 2.6182
+2026-04-20 16:35:11 | [32mINFO[0m | src.models.train | train.py:253 | Epoch  15/50 | Train: 0.0000 | Val: 13.6108 | R²: -0.9943 | MAE: 2.6081
+2026-04-20 16:35:12 | [32mINFO[0m | src.models.train | train.py:253 | Epoch  20/50 | Train: 0.0000 | Val: 13.6096 | R²: -0.9941 | MAE: 2.6069
+2026-04-20 16:35:13 | [32mINFO[0m | src.models.train | train.py:253 | Epoch  25/50 | Train: 0.0000 | Val: 13.6039 | R²: -0.9933 | MAE: 2.6058
+2026-04-20 16:35:14 | [32mINFO[0m | src.models.train | train.py:253 | Epoch  30/50 | Train: 0.0000 | Val: 13.5987 | R²: -0.9925 | MAE: 2.6050
+2026-04-20 16:35:15 | [32mINFO[0m | src.models.train | train.py:253 | Epoch  35/50 | Train: 0.0000 | Val: 13.5974 | R²: -0.9923 | MAE: 2.6050
+2026-04-20 16:35:16 | [32mINFO[0m | src.models.train | train.py:253 | Epoch  40/50 | Train: 0.0000 | Val: 13.5918 | R²: -0.9915 | MAE: 2.6041
+2026-04-20 16:35:17 | [32mINFO[0m | src.models.train | train.py:253 | Epoch  45/50 | Train: 0.0000 | Val: 13.5978 | R²: -0.9924 | MAE: 2.6048
+2026-04-20 16:35:18 | [32mINFO[0m | src.models.train | train.py:253 | Epoch  50/50 | Train: 0.0000 | Val: 13.5964 | R²: -0.9922 | MAE: 2.6046
+2026-04-20 16:35:18 | [32mINFO[0m | src.models.train | train.py:275 | ============================================================
+2026-04-20 16:35:18 | [32mINFO[0m | src.models.train | train.py:276 | ✓ TRAINING COMPLETE
+2026-04-20 16:35:18 | [32mINFO[0m | src.models.train | train.py:277 | Best epoch: 42
+2026-04-20 16:35:18 | [32mINFO[0m | src.models.train | train.py:278 | Best val loss: 13.5889
+2026-04-20 16:35:18 | [32mINFO[0m | src.models.train | train.py:279 | Best R²: -0.9911
+2026-04-20 16:35:18 | [32mINFO[0m | src.models.train | train.py:280 | Best MAE: 2.6038
+2026-04-20 16:35:18 | [32mINFO[0m | src.models.train | train.py:281 | ============================================================
+2026-04-20 16:35:18 | [32mINFO[0m | src.models.train | train.py:288 | ============================================================
+2026-04-20 16:35:18 | [32mINFO[0m | src.models.train | train.py:289 | 📊 TEST EVALUATION
+2026-04-20 16:35:18 | [32mINFO[0m | src.models.train | train.py:290 | ============================================================
+2026-04-20 16:35:18 | [32mINFO[0m | src.models.train | train.py:294 | R² Score:  -0.9750
+2026-04-20 16:35:18 | [32mINFO[0m | src.models.train | train.py:295 | RMSE:      3.6545
+2026-04-20 16:35:18 | [32mINFO[0m | src.models.train | train.py:296 | MAE:       2.6023
+2026-04-20 16:35:18 | [32mINFO[0m | src.models.train | train.py:297 | MAPE:      57.57%
+2026-04-20 16:35:18 | [32mINFO[0m | src.models.train | train.py:298 | ============================================================
+2026-04-20 16:35:20 | [32mINFO[0m | src.api.redis_cache | redis_cache.py:34 | ✓ Redis connected: localhost:6379
+2026-04-20 16:35:20 | [32mINFO[0m | src.api.postgres_db | postgres_db.py:32 | ✓ PostgreSQL connected: PostgreSQL 18.3 (Homebrew) on aarch64-apple-darwin...
+2026-04-20 16:35:20 | [32mINFO[0m | __main__ | main.py:77 | 🚀 Starting Trade Flow Prediction API...
+2026-04-20 16:35:20 | [32mINFO[0m | __main__ | main.py:81 | ✓ Redis cache available
+2026-04-20 16:35:20 | [32mINFO[0m | __main__ | main.py:87 | ✓ PostgreSQL database available
+2026-04-20 16:35:20 | [32mINFO[0m | __main__ | main.py:103 | Loading model: causal_gnn_working.pt
+2026-04-20 16:35:20 | [32mINFO[0m | __main__ | main.py:129 | ✓ CausalTradeGNN loaded successfully
+2026-04-20 16:35:20 | [32mINFO[0m | src.data.loaders | loaders.py:560 | Loading graph data...
+2026-04-20 16:35:20 | [32mINFO[0m | src.data.loaders | loaders.py:565 | ✓ Loaded 815 node-year combinations
+2026-04-20 16:35:20 | [32mINFO[0m | src.data.loaders | loaders.py:571 | ✓ Using 203 unique countries (year 2020)
+2026-04-20 16:35:20 | [32mINFO[0m | src.data.loaders | loaders.py:576 | ✓ Loaded 84,609 edges
+2026-04-20 16:35:20 | [32mINFO[0m | src.data.loaders | loaders.py:581 | ✓ Using sentiment_norm as sentiment_score
+2026-04-20 16:35:20 | [32mINFO[0m | src.data.loaders | loaders.py:589 | ✓ Created article_count
+2026-04-20 16:35:20 | [32mINFO[0m | src.data.loaders | loaders.py:606 | ✓ Node mapping: 204 countries
+2026-04-20 16:35:20 | [32mINFO[0m | __main__ | main.py:134 | ✓ Data loaded: 204 countries
+2026-04-20 16:35:20 | [32mINFO[0m | __main__ | main.py:143 | ✓ Loaded 179 news articles
+2026-04-20 16:35:20 | [32mINFO[0m | src.models.simulation | simulation.py:51 | ✓ GNN Simulator loaded successfully from models/causal_gnn_working.pt
+2026-04-20 16:35:20 | [32mINFO[0m | __main__ | main.py:152 | ✓ Causal Trade Simulator initialized
+2026-04-20 16:35:20 | [32mINFO[0m | __main__ | main.py:41 | ✓ Loaded 10 bilateral sentiment scores
+2026-04-20 16:35:20 | [32mINFO[0m | __main__ | main.py:42 |   Avg sentiment: -0.153
+2026-04-20 16:35:20 | [32mINFO[0m | src.data.loaders | loaders.py:615 | Creating temporal graphs...
+2026-04-20 16:35:20 | [32mINFO[0m | src.data.loaders | loaders.py:624 | Found 4 time periods: 2017-01 to 2020-01
+2026-04-20 16:35:25 | [32mINFO[0m | src.data.loaders | loaders.py:644 | ✓ Created 4 graphs (skipped 0)
+2026-04-20 16:35:25 | [32mINFO[0m | __main__ | main.py:165 | ✓ Pre-cached 4 graph snapshots
+2026-04-20 16:35:56 | [32mINFO[0m | __main__ | main.py:492 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:35:59 | [32mINFO[0m | __main__ | main.py:686 | Returning 0 predictions
+2026-04-20 16:35:59 | [32mINFO[0m | __main__ | main.py:687 | Sentiment data used: True
+2026-04-20 16:35:59 | [32mINFO[0m | __main__ | main.py:492 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:36:02 | [32mINFO[0m | __main__ | main.py:686 | Returning 0 predictions
+2026-04-20 16:36:02 | [32mINFO[0m | __main__ | main.py:687 | Sentiment data used: True
+2026-04-20 16:36:02 | [32mINFO[0m | __main__ | main.py:743 | Generated 0 alerts
+2026-04-20 16:36:02 | [32mINFO[0m | __main__ | main.py:901 | Found 81 historical articles
+2026-04-20 16:36:02 | [32mINFO[0m | __main__ | main.py:942 | Returning 20 articles with calculated sentiment
+2026-04-20 16:37:57 | [32mINFO[0m | src.api.redis_cache | redis_cache.py:34 | ✓ Redis connected: localhost:6379
+2026-04-20 16:37:57 | [32mINFO[0m | src.api.postgres_db | postgres_db.py:32 | ✓ PostgreSQL connected: PostgreSQL 18.3 (Homebrew) on aarch64-apple-darwin...
+2026-04-20 16:37:57 | [32mINFO[0m | __main__ | main.py:79 | 🚀 Starting Trade Flow Prediction API...
+2026-04-20 16:37:57 | [32mINFO[0m | __main__ | main.py:83 | ✓ Redis cache available
+2026-04-20 16:37:57 | [32mINFO[0m | __main__ | main.py:89 | ✓ PostgreSQL database available
+2026-04-20 16:37:57 | [32mINFO[0m | __main__ | main.py:105 | Loading model: causal_gnn_working.pt
+2026-04-20 16:37:57 | [32mINFO[0m | __main__ | main.py:131 | ✓ CausalTradeGNN loaded successfully
+2026-04-20 16:37:57 | [32mINFO[0m | src.data.loaders | loaders.py:560 | Loading graph data...
+2026-04-20 16:37:57 | [32mINFO[0m | src.data.loaders | loaders.py:565 | ✓ Loaded 815 node-year combinations
+2026-04-20 16:37:57 | [32mINFO[0m | src.data.loaders | loaders.py:571 | ✓ Using 203 unique countries (year 2020)
+2026-04-20 16:37:57 | [32mINFO[0m | src.data.loaders | loaders.py:576 | ✓ Loaded 84,609 edges
+2026-04-20 16:37:57 | [32mINFO[0m | src.data.loaders | loaders.py:581 | ✓ Using sentiment_norm as sentiment_score
+2026-04-20 16:37:57 | [32mINFO[0m | src.data.loaders | loaders.py:589 | ✓ Created article_count
+2026-04-20 16:37:57 | [32mINFO[0m | src.data.loaders | loaders.py:606 | ✓ Node mapping: 204 countries
+2026-04-20 16:37:57 | [32mINFO[0m | __main__ | main.py:136 | ✓ Data loaded: 204 countries
+2026-04-20 16:37:57 | [32mINFO[0m | __main__ | main.py:145 | ✓ Loaded 179 news articles
+2026-04-20 16:37:57 | [32mINFO[0m | src.models.simulation | simulation.py:51 | ✓ GNN Simulator loaded successfully from models/causal_gnn_working.pt
+2026-04-20 16:37:57 | [32mINFO[0m | __main__ | main.py:154 | ✓ Causal Trade Simulator initialized
+2026-04-20 16:37:57 | [32mINFO[0m | __main__ | main.py:41 | ✓ Loaded 10 bilateral sentiment scores
+2026-04-20 16:37:57 | [32mINFO[0m | __main__ | main.py:42 |   Avg sentiment: -0.153
+2026-04-20 16:37:57 | [32mINFO[0m | src.data.loaders | loaders.py:615 | Creating temporal graphs...
+2026-04-20 16:37:57 | [32mINFO[0m | src.data.loaders | loaders.py:624 | Found 4 time periods: 2017-01 to 2020-01
+2026-04-20 16:38:02 | [32mINFO[0m | src.data.loaders | loaders.py:644 | ✓ Created 4 graphs (skipped 0)
+2026-04-20 16:38:02 | [32mINFO[0m | __main__ | main.py:167 | ✓ Pre-cached 4 graph snapshots
+2026-04-20 16:38:02 | [32mINFO[0m | src.pipelines.sentiment_analyzer | sentiment_analyzer.py:208 | Loading sentiment model: ProsusAI/finbert
+2026-04-20 16:38:02 | [32mINFO[0m | src.pipelines.sentiment_analyzer | sentiment_analyzer.py:211 | Using device: cpu
+2026-04-20 16:38:03 | [32mINFO[0m | src.pipelines.sentiment_analyzer | sentiment_analyzer.py:223 | ✓ FinBERT model loaded successfully
+2026-04-20 16:38:03 | [32mINFO[0m | __main__ | main.py:172 | ✓ Global Sentiment Analyzer and News Fetcher ready
+2026-04-20 16:38:30 | [32mINFO[0m | __main__ | main.py:922 | Found 81 historical articles
+2026-04-20 16:38:30 | [32mINFO[0m | __main__ | main.py:963 | Returning 20 articles with calculated sentiment
+2026-04-20 16:38:53 | [32mINFO[0m | src.api.redis_cache | redis_cache.py:34 | ✓ Redis connected: localhost:6379
+2026-04-20 16:38:53 | [32mINFO[0m | src.api.postgres_db | postgres_db.py:32 | ✓ PostgreSQL connected: PostgreSQL 18.3 (Homebrew) on aarch64-apple-darwin...
+2026-04-20 16:38:54 | [32mINFO[0m | __main__ | main.py:79 | 🚀 Starting Trade Flow Prediction API...
+2026-04-20 16:38:54 | [32mINFO[0m | __main__ | main.py:83 | ✓ Redis cache available
+2026-04-20 16:38:54 | [32mINFO[0m | __main__ | main.py:89 | ✓ PostgreSQL database available
+2026-04-20 16:38:54 | [32mINFO[0m | __main__ | main.py:105 | Loading model: causal_gnn_working.pt
+2026-04-20 16:38:54 | [32mINFO[0m | __main__ | main.py:131 | ✓ CausalTradeGNN loaded successfully
+2026-04-20 16:38:54 | [32mINFO[0m | src.data.loaders | loaders.py:560 | Loading graph data...
+2026-04-20 16:38:54 | [32mINFO[0m | src.data.loaders | loaders.py:565 | ✓ Loaded 815 node-year combinations
+2026-04-20 16:38:54 | [32mINFO[0m | src.data.loaders | loaders.py:571 | ✓ Using 203 unique countries (year 2020)
+2026-04-20 16:38:54 | [32mINFO[0m | src.data.loaders | loaders.py:576 | ✓ Loaded 84,609 edges
+2026-04-20 16:38:54 | [32mINFO[0m | src.data.loaders | loaders.py:581 | ✓ Using sentiment_norm as sentiment_score
+2026-04-20 16:38:54 | [32mINFO[0m | src.data.loaders | loaders.py:589 | ✓ Created article_count
+2026-04-20 16:38:54 | [32mINFO[0m | src.data.loaders | loaders.py:606 | ✓ Node mapping: 204 countries
+2026-04-20 16:38:54 | [32mINFO[0m | __main__ | main.py:136 | ✓ Data loaded: 204 countries
+2026-04-20 16:38:54 | [32mINFO[0m | __main__ | main.py:145 | ✓ Loaded 179 news articles
+2026-04-20 16:38:54 | [32mINFO[0m | src.models.simulation | simulation.py:51 | ✓ GNN Simulator loaded successfully from models/causal_gnn_working.pt
+2026-04-20 16:38:54 | [32mINFO[0m | __main__ | main.py:154 | ✓ Causal Trade Simulator initialized
+2026-04-20 16:38:54 | [32mINFO[0m | __main__ | main.py:41 | ✓ Loaded 10 bilateral sentiment scores
+2026-04-20 16:38:54 | [32mINFO[0m | __main__ | main.py:42 |   Avg sentiment: -0.153
+2026-04-20 16:38:54 | [32mINFO[0m | src.data.loaders | loaders.py:615 | Creating temporal graphs...
+2026-04-20 16:38:54 | [32mINFO[0m | src.data.loaders | loaders.py:624 | Found 4 time periods: 2017-01 to 2020-01
+2026-04-20 16:38:58 | [32mINFO[0m | src.data.loaders | loaders.py:644 | ✓ Created 4 graphs (skipped 0)
+2026-04-20 16:38:58 | [32mINFO[0m | __main__ | main.py:167 | ✓ Pre-cached 4 graph snapshots
+2026-04-20 16:38:58 | [32mINFO[0m | src.pipelines.sentiment_analyzer | sentiment_analyzer.py:208 | Loading sentiment model: ProsusAI/finbert
+2026-04-20 16:38:58 | [32mINFO[0m | src.pipelines.sentiment_analyzer | sentiment_analyzer.py:211 | Using device: cpu
+2026-04-20 16:38:59 | [32mINFO[0m | src.pipelines.sentiment_analyzer | sentiment_analyzer.py:223 | ✓ FinBERT model loaded successfully
+2026-04-20 16:38:59 | [32mINFO[0m | __main__ | main.py:172 | ✓ Global Sentiment Analyzer and News Fetcher ready
+2026-04-20 16:39:30 | [32mINFO[0m | __main__ | main.py:856 | 🌐 Triggering general trade news refresh...
+2026-04-20 16:39:38 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler | gdelt_article_scheduler.py:95 |   Rate limited, waiting 5s...
+2026-04-20 16:39:46 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler | gdelt_article_scheduler.py:95 |   Rate limited, waiting 10s...
+2026-04-20 16:39:59 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler | gdelt_article_scheduler.py:99 |   Max retries reached for India-Trade
+2026-04-20 16:39:59 | [32mINFO[0m | __main__ | main.py:922 | Found 81 historical articles
+2026-04-20 16:39:59 | [32mINFO[0m | __main__ | main.py:963 | Returning 20 articles with calculated sentiment
+2026-04-20 16:40:47 | [32mINFO[0m | __main__ | main.py:499 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:40:50 | [32mINFO[0m | __main__ | main.py:693 | Returning 0 predictions
+2026-04-20 16:40:50 | [32mINFO[0m | __main__ | main.py:694 | Sentiment data used: True
+2026-04-20 16:40:50 | [32mINFO[0m | __main__ | main.py:499 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:40:53 | [32mINFO[0m | __main__ | main.py:693 | Returning 0 predictions
+2026-04-20 16:40:53 | [32mINFO[0m | __main__ | main.py:694 | Sentiment data used: True
+2026-04-20 16:40:53 | [32mINFO[0m | __main__ | main.py:750 | Generated 0 alerts
+2026-04-20 16:40:53 | [32mINFO[0m | __main__ | main.py:856 | 🌐 Triggering general trade news refresh...
+2026-04-20 16:40:55 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler | gdelt_article_scheduler.py:95 |   Rate limited, waiting 5s...
+2026-04-20 16:41:04 | [32mINFO[0m | __main__ | main.py:884 | ✅ Injected 4 live articles
+2026-04-20 16:41:04 | [32mINFO[0m | __main__ | main.py:922 | Found 81 historical articles
+2026-04-20 16:41:04 | [32mINFO[0m | __main__ | main.py:963 | Returning 24 articles with calculated sentiment
+2026-04-20 16:42:55 | [32mINFO[0m | __main__ | main.py:499 | Generating predictions for Textiles - 2020-01
+2026-04-20 16:42:57 | [32mINFO[0m | __main__ | main.py:693 | Returning 0 predictions
+2026-04-20 16:42:57 | [32mINFO[0m | __main__ | main.py:694 | Sentiment data used: True
+2026-04-20 16:42:57 | [32mINFO[0m | __main__ | main.py:750 | Generated 0 alerts
+2026-04-20 16:42:57 | [32mINFO[0m | __main__ | main.py:499 | Generating predictions for Textiles - 2020-01
+2026-04-20 16:43:00 | [32mINFO[0m | __main__ | main.py:693 | Returning 0 predictions
+2026-04-20 16:43:00 | [32mINFO[0m | __main__ | main.py:694 | Sentiment data used: True
+2026-04-20 16:43:00 | [32mINFO[0m | __main__ | main.py:856 | 🌐 Triggering general trade news refresh...
+2026-04-20 16:43:01 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler | gdelt_article_scheduler.py:95 |   Rate limited, waiting 5s...
+2026-04-20 16:43:07 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler | gdelt_article_scheduler.py:95 |   Rate limited, waiting 10s...
+2026-04-20 16:43:26 | [32mINFO[0m | __main__ | main.py:884 | ✅ Injected 4 live articles
+2026-04-20 16:43:26 | [32mINFO[0m | __main__ | main.py:922 | Found 81 historical articles
+2026-04-20 16:43:26 | [32mINFO[0m | __main__ | main.py:963 | Returning 24 articles with calculated sentiment
+2026-04-20 16:45:21 | [32mINFO[0m | src.models.train | train.py:32 | 💻 Using CPU (MPS doesn't support GAT operations)
+2026-04-20 16:45:21 | [32mINFO[0m | src.models.train | train.py:47 | ============================================================
+2026-04-20 16:45:21 | [32mINFO[0m | src.models.train | train.py:48 | 📊 LOADING DATA
+2026-04-20 16:45:21 | [32mINFO[0m | src.models.train | train.py:49 | ============================================================
+2026-04-20 16:45:21 | [32mINFO[0m | src.data.loaders | loaders.py:560 | Loading graph data...
+2026-04-20 16:45:21 | [32mINFO[0m | src.data.loaders | loaders.py:565 | ✓ Loaded 815 node-year combinations
+2026-04-20 16:45:21 | [32mINFO[0m | src.data.loaders | loaders.py:571 | ✓ Using 203 unique countries (year 2020)
+2026-04-20 16:45:21 | [32mINFO[0m | src.data.loaders | loaders.py:576 | ✓ Loaded 84,609 edges
+2026-04-20 16:45:21 | [32mINFO[0m | src.data.loaders | loaders.py:581 | ✓ Using sentiment_norm as sentiment_score
+2026-04-20 16:45:21 | [32mINFO[0m | src.data.loaders | loaders.py:589 | ✓ Created article_count
+2026-04-20 16:45:21 | [32mINFO[0m | src.data.loaders | loaders.py:606 | ✓ Node mapping: 204 countries
+2026-04-20 16:45:21 | [32mINFO[0m | src.data.loaders | loaders.py:615 | Creating temporal graphs...
+2026-04-20 16:45:21 | [32mINFO[0m | src.data.loaders | loaders.py:624 | Found 4 time periods: 2017-01 to 2020-01
+2026-04-20 16:45:26 | [32mINFO[0m | src.data.loaders | loaders.py:644 | ✓ Created 4 graphs (skipped 0)
+2026-04-20 16:45:26 | [32mINFO[0m | src.models.train | train.py:61 | ✓ Train: 2 graphs
+2026-04-20 16:45:26 | [32mINFO[0m | src.models.train | train.py:62 | ✓ Val:   1 graphs
+2026-04-20 16:45:26 | [32mINFO[0m | src.models.train | train.py:63 | ✓ Test:  1 graphs
+2026-04-20 16:45:26 | [32mINFO[0m | src.models.train | train.py:68 | ✓ Node features: 4
+2026-04-20 16:45:26 | [32mINFO[0m | src.models.train | train.py:69 | ✓ Edge features: 10
+2026-04-20 16:45:26 | [32mINFO[0m | src.models.train | train.py:76 | ✓ Label range: 0.00 to 13.08 (log scale)
+2026-04-20 16:45:26 | [32mINFO[0m | src.models.train | train.py:77 | ✓ Label mean: 2.61, std: 2.60
+2026-04-20 16:45:26 | [32mINFO[0m | src.models.train | train.py:79 | ============================================================
+2026-04-20 16:45:26 | [32mINFO[0m | __main__ | train_causal.py:26 | 🧠 INITIALIZING CAUSAL MODEL (Transformer Heads)
+2026-04-20 16:45:26 | [32mINFO[0m | __main__ | train_causal.py:40 | ✓ Causal Model ready with Equilibrium logic and Scheduler
+2026-04-20 16:45:26 | [32mINFO[0m | src.models.train | train.py:227 | ============================================================
+2026-04-20 16:45:26 | [32mINFO[0m | src.models.train | train.py:228 | 🚀 TRAINING
+2026-04-20 16:45:26 | [32mINFO[0m | src.models.train | train.py:229 | ============================================================
+2026-04-20 16:45:26 | [32mINFO[0m | src.models.train | train.py:230 | Epochs: 50
+2026-04-20 16:45:26 | [32mINFO[0m | src.models.train | train.py:231 | Patience: 20
+2026-04-20 16:45:26 | [32mINFO[0m | src.models.train | train.py:232 | Device: cpu
+2026-04-20 16:45:26 | [32mINFO[0m | src.models.train | train.py:233 | ============================================================
+2026-04-20 16:45:26 | [32mINFO[0m | src.models.train | train.py:253 | Epoch   1/50 | Train: 0.0000 | Val: 13.5132 | R²: -0.9800 | MAE: 2.5966
+2026-04-20 16:45:27 | [32mINFO[0m | src.models.train | train.py:253 | Epoch   5/50 | Train: 0.0000 | Val: 13.6135 | R²: -0.9947 | MAE: 2.6065
+2026-04-20 16:45:28 | [32mINFO[0m | src.models.train | train.py:253 | Epoch  10/50 | Train: 0.0000 | Val: 13.7115 | R²: -1.0090 | MAE: 2.6196
+2026-04-20 16:45:29 | [32mINFO[0m | src.models.train | train.py:253 | Epoch  15/50 | Train: 0.0000 | Val: 13.7234 | R²: -1.0108 | MAE: 2.6207
+2026-04-20 16:45:30 | [32mINFO[0m | src.models.train | train.py:253 | Epoch  20/50 | Train: 0.0000 | Val: 13.7338 | R²: -1.0123 | MAE: 2.6224
+2026-04-20 16:45:30 | [32mINFO[0m | src.models.train | train.py:270 | ⏹  Early stopping at epoch 21
+2026-04-20 16:45:30 | [32mINFO[0m | src.models.train | train.py:275 | ============================================================
+2026-04-20 16:45:30 | [32mINFO[0m | src.models.train | train.py:276 | ✓ TRAINING COMPLETE
+2026-04-20 16:45:30 | [32mINFO[0m | src.models.train | train.py:277 | Best epoch: 1
+2026-04-20 16:45:30 | [32mINFO[0m | src.models.train | train.py:278 | Best val loss: 13.5132
+2026-04-20 16:45:30 | [32mINFO[0m | src.models.train | train.py:279 | Best R²: -0.9800
+2026-04-20 16:45:30 | [32mINFO[0m | src.models.train | train.py:280 | Best MAE: 2.5966
+2026-04-20 16:45:30 | [32mINFO[0m | src.models.train | train.py:281 | ============================================================
+2026-04-20 16:45:30 | [32mINFO[0m | src.models.train | train.py:288 | ============================================================
+2026-04-20 16:45:30 | [32mINFO[0m | src.models.train | train.py:289 | 📊 TEST EVALUATION
+2026-04-20 16:45:30 | [32mINFO[0m | src.models.train | train.py:290 | ============================================================
+2026-04-20 16:45:30 | [32mINFO[0m | src.models.train | train.py:294 | R² Score:  -1.0396
+2026-04-20 16:45:30 | [32mINFO[0m | src.models.train | train.py:295 | RMSE:      3.7138
+2026-04-20 16:45:30 | [32mINFO[0m | src.models.train | train.py:296 | MAE:       2.6528
+2026-04-20 16:45:30 | [32mINFO[0m | src.models.train | train.py:297 | MAPE:      57.57%
+2026-04-20 16:45:30 | [32mINFO[0m | src.models.train | train.py:298 | ============================================================
+2026-04-20 16:45:38 | [32mINFO[0m | src.api.redis_cache | redis_cache.py:34 | ✓ Redis connected: localhost:6379
+2026-04-20 16:45:38 | [32mINFO[0m | src.api.postgres_db | postgres_db.py:32 | ✓ PostgreSQL connected: PostgreSQL 18.3 (Homebrew) on aarch64-apple-darwin...
+2026-04-20 16:45:39 | [32mINFO[0m | __main__ | main.py:79 | 🚀 Starting Trade Flow Prediction API...
+2026-04-20 16:45:39 | [32mINFO[0m | __main__ | main.py:83 | ✓ Redis cache available
+2026-04-20 16:45:39 | [32mINFO[0m | __main__ | main.py:89 | ✓ PostgreSQL database available
+2026-04-20 16:45:39 | [32mINFO[0m | __main__ | main.py:105 | Loading model: causal_gnn_working.pt
+2026-04-20 16:45:39 | [32mINFO[0m | __main__ | main.py:131 | ✓ CausalTradeGNN loaded successfully
+2026-04-20 16:45:39 | [32mINFO[0m | src.data.loaders | loaders.py:560 | Loading graph data...
+2026-04-20 16:45:39 | [32mINFO[0m | src.data.loaders | loaders.py:565 | ✓ Loaded 815 node-year combinations
+2026-04-20 16:45:39 | [32mINFO[0m | src.data.loaders | loaders.py:571 | ✓ Using 203 unique countries (year 2020)
+2026-04-20 16:45:39 | [32mINFO[0m | src.data.loaders | loaders.py:576 | ✓ Loaded 84,609 edges
+2026-04-20 16:45:39 | [32mINFO[0m | src.data.loaders | loaders.py:581 | ✓ Using sentiment_norm as sentiment_score
+2026-04-20 16:45:39 | [32mINFO[0m | src.data.loaders | loaders.py:589 | ✓ Created article_count
+2026-04-20 16:45:39 | [32mINFO[0m | src.data.loaders | loaders.py:606 | ✓ Node mapping: 204 countries
+2026-04-20 16:45:39 | [32mINFO[0m | __main__ | main.py:136 | ✓ Data loaded: 204 countries
+2026-04-20 16:45:39 | [32mINFO[0m | __main__ | main.py:145 | ✓ Loaded 179 news articles
+2026-04-20 16:45:39 | [32mINFO[0m | src.models.simulation | simulation.py:51 | ✓ GNN Simulator loaded successfully from models/causal_gnn_working.pt
+2026-04-20 16:45:39 | [32mINFO[0m | __main__ | main.py:154 | ✓ Causal Trade Simulator initialized
+2026-04-20 16:45:39 | [32mINFO[0m | __main__ | main.py:41 | ✓ Loaded 10 bilateral sentiment scores
+2026-04-20 16:45:39 | [32mINFO[0m | __main__ | main.py:42 |   Avg sentiment: -0.153
+2026-04-20 16:45:39 | [32mINFO[0m | src.data.loaders | loaders.py:615 | Creating temporal graphs...
+2026-04-20 16:45:39 | [32mINFO[0m | src.data.loaders | loaders.py:624 | Found 4 time periods: 2017-01 to 2020-01
+2026-04-20 16:45:43 | [32mINFO[0m | src.data.loaders | loaders.py:644 | ✓ Created 4 graphs (skipped 0)
+2026-04-20 16:45:43 | [32mINFO[0m | __main__ | main.py:167 | ✓ Pre-cached 4 graph snapshots
+2026-04-20 16:45:43 | [32mINFO[0m | src.pipelines.sentiment_analyzer | sentiment_analyzer.py:208 | Loading sentiment model: ProsusAI/finbert
+2026-04-20 16:45:43 | [32mINFO[0m | src.pipelines.sentiment_analyzer | sentiment_analyzer.py:211 | Using device: cpu
+2026-04-20 16:45:44 | [32mINFO[0m | src.pipelines.sentiment_analyzer | sentiment_analyzer.py:223 | ✓ FinBERT model loaded successfully
+2026-04-20 16:45:44 | [32mINFO[0m | __main__ | main.py:172 | ✓ Global Sentiment Analyzer and News Fetcher ready
+2026-04-20 16:45:59 | [32mINFO[0m | __main__ | main.py:499 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:46:02 | [32mINFO[0m | __main__ | main.py:697 | Successfully generated 50 predictions for dashboard.
+2026-04-20 16:46:16 | [32mINFO[0m | __main__ | main.py:499 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:46:20 | [32mINFO[0m | __main__ | main.py:697 | Successfully generated 50 predictions for dashboard.
+2026-04-20 16:46:20 | [32mINFO[0m | __main__ | main.py:753 | Generated 10 alerts
+2026-04-20 16:46:27 | [32mINFO[0m | __main__ | main.py:499 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:46:31 | [32mINFO[0m | __main__ | main.py:697 | Successfully generated 50 predictions for dashboard.
+2026-04-20 16:46:31 | [32mINFO[0m | __main__ | main.py:753 | Generated 10 alerts
+2026-04-20 16:47:03 | [32mINFO[0m | src.api.redis_cache | redis_cache.py:34 | ✓ Redis connected: localhost:6379
+2026-04-20 16:47:03 | [32mINFO[0m | src.api.postgres_db | postgres_db.py:32 | ✓ PostgreSQL connected: PostgreSQL 18.3 (Homebrew) on aarch64-apple-darwin...
+2026-04-20 16:47:03 | [32mINFO[0m | __main__ | main.py:79 | 🚀 Starting Trade Flow Prediction API...
+2026-04-20 16:47:03 | [32mINFO[0m | __main__ | main.py:83 | ✓ Redis cache available
+2026-04-20 16:47:03 | [32mINFO[0m | __main__ | main.py:89 | ✓ PostgreSQL database available
+2026-04-20 16:47:03 | [32mINFO[0m | __main__ | main.py:105 | Loading model: causal_gnn_working.pt
+2026-04-20 16:47:03 | [32mINFO[0m | __main__ | main.py:131 | ✓ CausalTradeGNN loaded successfully
+2026-04-20 16:47:03 | [32mINFO[0m | src.data.loaders | loaders.py:560 | Loading graph data...
+2026-04-20 16:47:03 | [32mINFO[0m | src.data.loaders | loaders.py:565 | ✓ Loaded 815 node-year combinations
+2026-04-20 16:47:03 | [32mINFO[0m | src.data.loaders | loaders.py:571 | ✓ Using 203 unique countries (year 2020)
+2026-04-20 16:47:03 | [32mINFO[0m | src.data.loaders | loaders.py:576 | ✓ Loaded 84,609 edges
+2026-04-20 16:47:03 | [32mINFO[0m | src.data.loaders | loaders.py:581 | ✓ Using sentiment_norm as sentiment_score
+2026-04-20 16:47:03 | [32mINFO[0m | src.data.loaders | loaders.py:589 | ✓ Created article_count
+2026-04-20 16:47:03 | [32mINFO[0m | src.data.loaders | loaders.py:606 | ✓ Node mapping: 204 countries
+2026-04-20 16:47:03 | [32mINFO[0m | __main__ | main.py:136 | ✓ Data loaded: 204 countries
+2026-04-20 16:47:03 | [32mINFO[0m | __main__ | main.py:145 | ✓ Loaded 179 news articles
+2026-04-20 16:47:03 | [32mINFO[0m | src.models.simulation | simulation.py:51 | ✓ GNN Simulator loaded successfully from models/causal_gnn_working.pt
+2026-04-20 16:47:03 | [32mINFO[0m | __main__ | main.py:154 | ✓ Causal Trade Simulator initialized
+2026-04-20 16:47:03 | [32mINFO[0m | __main__ | main.py:41 | ✓ Loaded 10 bilateral sentiment scores
+2026-04-20 16:47:03 | [32mINFO[0m | __main__ | main.py:42 |   Avg sentiment: -0.153
+2026-04-20 16:47:03 | [32mINFO[0m | src.data.loaders | loaders.py:615 | Creating temporal graphs...
+2026-04-20 16:47:03 | [32mINFO[0m | src.data.loaders | loaders.py:624 | Found 4 time periods: 2017-01 to 2020-01
+2026-04-20 16:47:07 | [32mINFO[0m | src.data.loaders | loaders.py:644 | ✓ Created 4 graphs (skipped 0)
+2026-04-20 16:47:07 | [32mINFO[0m | __main__ | main.py:167 | ✓ Pre-cached 4 graph snapshots
+2026-04-20 16:47:07 | [32mINFO[0m | src.pipelines.sentiment_analyzer | sentiment_analyzer.py:208 | Loading sentiment model: ProsusAI/finbert
+2026-04-20 16:47:07 | [32mINFO[0m | src.pipelines.sentiment_analyzer | sentiment_analyzer.py:211 | Using device: cpu
+2026-04-20 16:47:09 | [32mINFO[0m | src.pipelines.sentiment_analyzer | sentiment_analyzer.py:223 | ✓ FinBERT model loaded successfully
+2026-04-20 16:47:09 | [32mINFO[0m | __main__ | main.py:172 | ✓ Global Sentiment Analyzer and News Fetcher ready
+2026-04-20 16:47:29 | [32mINFO[0m | __main__ | main.py:499 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:47:32 | [32mINFO[0m | __main__ | main.py:697 | Successfully generated 50 predictions for dashboard.
+2026-04-20 16:47:32 | [31mERROR[0m | __main__ | main.py:770 | Alert generation error: 3 validation errors for AlertItem
+recommendations.0
+  Input should be a valid dictionary [type=dict_type, input_value='Optimize supply chain fr...apture 38486.2% growth.', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.9/v/dict_type
+recommendations.1
+  Input should be a valid dictionary [type=dict_type, input_value='Implement strategic expo...d at the pharma sector.', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.9/v/dict_type
+recommendations.2
+  Input should be a valid dictionary [type=dict_type, input_value='Leverage bilateral senti...m for market expansion.', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.9/v/dict_type
+2026-04-20 16:47:40 | [32mINFO[0m | __main__ | main.py:499 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:47:43 | [32mINFO[0m | __main__ | main.py:697 | Successfully generated 50 predictions for dashboard.
+2026-04-20 16:47:51 | [32mINFO[0m | __main__ | main.py:499 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:47:54 | [32mINFO[0m | __main__ | main.py:697 | Successfully generated 50 predictions for dashboard.
+2026-04-20 16:48:47 | [32mINFO[0m | src.api.redis_cache | redis_cache.py:34 | ✓ Redis connected: localhost:6379
+2026-04-20 16:48:47 | [32mINFO[0m | src.api.postgres_db | postgres_db.py:32 | ✓ PostgreSQL connected: PostgreSQL 18.3 (Homebrew) on aarch64-apple-darwin...
+2026-04-20 16:48:47 | [32mINFO[0m | __main__ | main.py:79 | 🚀 Starting Trade Flow Prediction API...
+2026-04-20 16:48:47 | [32mINFO[0m | __main__ | main.py:83 | ✓ Redis cache available
+2026-04-20 16:48:47 | [32mINFO[0m | __main__ | main.py:89 | ✓ PostgreSQL database available
+2026-04-20 16:48:47 | [32mINFO[0m | __main__ | main.py:105 | Loading model: causal_gnn_working.pt
+2026-04-20 16:48:47 | [32mINFO[0m | __main__ | main.py:131 | ✓ CausalTradeGNN loaded successfully
+2026-04-20 16:48:47 | [32mINFO[0m | src.data.loaders | loaders.py:560 | Loading graph data...
+2026-04-20 16:48:47 | [32mINFO[0m | src.data.loaders | loaders.py:565 | ✓ Loaded 815 node-year combinations
+2026-04-20 16:48:47 | [32mINFO[0m | src.data.loaders | loaders.py:571 | ✓ Using 203 unique countries (year 2020)
+2026-04-20 16:48:47 | [32mINFO[0m | src.data.loaders | loaders.py:576 | ✓ Loaded 84,609 edges
+2026-04-20 16:48:47 | [32mINFO[0m | src.data.loaders | loaders.py:581 | ✓ Using sentiment_norm as sentiment_score
+2026-04-20 16:48:47 | [32mINFO[0m | src.data.loaders | loaders.py:589 | ✓ Created article_count
+2026-04-20 16:48:47 | [32mINFO[0m | src.data.loaders | loaders.py:606 | ✓ Node mapping: 204 countries
+2026-04-20 16:48:47 | [32mINFO[0m | __main__ | main.py:136 | ✓ Data loaded: 204 countries
+2026-04-20 16:48:47 | [32mINFO[0m | __main__ | main.py:145 | ✓ Loaded 179 news articles
+2026-04-20 16:48:47 | [32mINFO[0m | src.models.simulation | simulation.py:51 | ✓ GNN Simulator loaded successfully from models/causal_gnn_working.pt
+2026-04-20 16:48:47 | [32mINFO[0m | __main__ | main.py:154 | ✓ Causal Trade Simulator initialized
+2026-04-20 16:48:47 | [32mINFO[0m | __main__ | main.py:41 | ✓ Loaded 10 bilateral sentiment scores
+2026-04-20 16:48:47 | [32mINFO[0m | __main__ | main.py:42 |   Avg sentiment: -0.153
+2026-04-20 16:48:47 | [32mINFO[0m | src.data.loaders | loaders.py:615 | Creating temporal graphs...
+2026-04-20 16:48:47 | [32mINFO[0m | src.data.loaders | loaders.py:624 | Found 4 time periods: 2017-01 to 2020-01
+2026-04-20 16:48:52 | [32mINFO[0m | src.data.loaders | loaders.py:644 | ✓ Created 4 graphs (skipped 0)
+2026-04-20 16:48:52 | [32mINFO[0m | __main__ | main.py:167 | ✓ Pre-cached 4 graph snapshots
+2026-04-20 16:48:52 | [32mINFO[0m | src.pipelines.sentiment_analyzer | sentiment_analyzer.py:208 | Loading sentiment model: ProsusAI/finbert
+2026-04-20 16:48:52 | [32mINFO[0m | src.pipelines.sentiment_analyzer | sentiment_analyzer.py:211 | Using device: cpu
+2026-04-20 16:48:53 | [32mINFO[0m | src.pipelines.sentiment_analyzer | sentiment_analyzer.py:223 | ✓ FinBERT model loaded successfully
+2026-04-20 16:48:53 | [32mINFO[0m | __main__ | main.py:172 | ✓ Global Sentiment Analyzer and News Fetcher ready
+2026-04-20 16:49:21 | [32mINFO[0m | __main__ | main.py:499 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:49:24 | [32mINFO[0m | __main__ | main.py:697 | Successfully generated 50 predictions for dashboard.
+2026-04-20 16:49:24 | [32mINFO[0m | __main__ | main.py:766 | Generated 10 alerts
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:608 | ============================================================
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:609 | STARTING PREPROCESSING PIPELINE
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:610 | ============================================================
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:39 | Step 1: Loading all data sources...
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:418 | ============================================================
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:419 | LOADING ALL DATA SOURCES
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:420 | ============================================================
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:48 | Loading Trade data from /Users/anushkapatil/Documents/anushka/data/raw/comtrade/TradeData.csv
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:57 | Loaded 84,609 raw records
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:64 | Detected pre-processed format with numeric codes
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:144 | Final processed records: 84,609
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:163 | Loading World Bank data from /Users/anushkapatil/Documents/anushka/data/raw/world-bank/world_bank.csv
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:192 | Final World Bank data: 1,827 country-year records
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:210 | Loading CEPII GeoDist data from /Users/anushkapatil/Documents/anushka/data/raw/cepii/dist_cepii.csv
+2026-04-20 16:50:38 | [33mWARNING[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:213 | CEPII file not found at /Users/anushkapatil/Documents/anushka/data/raw/cepii/dist_cepii.csv. Skipping.
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:258 | Loading WTO RTA data from /Users/anushkapatil/Documents/anushka/data/raw/rta/AllRTAs.csv
+2026-04-20 16:50:38 | [33mWARNING[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:261 | RTA file not found at /Users/anushkapatil/Documents/anushka/data/raw/rta/AllRTAs.csv. Skipping.
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:326 | Loading GDELT sentiment from /Users/anushkapatil/Documents/anushka/data/raw/sentiment/sentiment.csv
+2026-04-20 16:50:38 | [33mWARNING[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:329 | GDELT sentiment file not found at /Users/anushkapatil/Documents/anushka/data/raw/sentiment/sentiment.csv. Skipping.
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:454 | ============================================================
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:455 | DATA LOADING SUMMARY
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:456 | ============================================================
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:458 | comtrade       :     84,609 rows
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:458 | world_bank     :      1,827 rows
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:458 | cepii          :          0 rows
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:458 | rtas           :          0 rows
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:458 | gdelt          :          0 rows
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.loaders_preprocessing | loaders_preprocessing.py:459 | ============================================================
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:175 | Step 2: Merging trade data with features...
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:183 | Starting with 84,609 trade records
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:186 | Merging source country features...
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:202 | Merging target country features...
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:216 | After World Bank merge: 84,609 records
+2026-04-20 16:50:38 | [33mWARNING[0m | src.data.preprocessing | preprocessing.py:228 | ⚠️  No CEPII data found. Skipping distance merge.
+2026-04-20 16:50:38 | [33mWARNING[0m | src.data.preprocessing | preprocessing.py:243 | ⚠️  No RTA data found. Skipping FTA merge.
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:252 | 🎯 Loading CALCULATED bilateral sentiment...
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:258 | Loaded 10 bilateral sentiment scores
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:305 |   ✓ Sentiment coverage: 0.1%
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:306 |   ✓ Avg sentiment: -0.153
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:307 |   ✓ Avg confidence: 0.546
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:338 | After all merges: 84,609 records
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:352 | Step 3: Engineering features...
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:355 | Applying log transformations...
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:369 | Creating derived features...
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:387 | Creating lag features...
+2026-04-20 16:50:38 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:399 | Creating rolling features...
+2026-04-20 16:50:45 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:413 | After feature engineering: 47 columns
+2026-04-20 16:50:45 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:419 | Step 4: Handling missing values...
+2026-04-20 16:50:45 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:429 | Dropped 0 rows with missing critical features
+2026-04-20 16:50:45 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled source_gdp_usd missing values with median: 105843498304.09
+2026-04-20 16:50:45 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled source_population missing values with median: 10865228.00
+2026-04-20 16:50:45 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled source_inflation missing values with median: 0.00
+2026-04-20 16:50:45 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled target_gdp_usd missing values with median: 57003712892.09
+2026-04-20 16:50:45 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled target_population missing values with median: 10093121.00
+2026-04-20 16:50:45 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled target_inflation missing values with median: 0.00
+2026-04-20 16:50:45 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled gdp_log_source missing values with median: 25.39
+2026-04-20 16:50:45 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled gdp_log_target missing values with median: 24.77
+2026-04-20 16:50:45 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled pop_log_source missing values with median: 16.20
+2026-04-20 16:50:45 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled pop_log_target missing values with median: 16.13
+2026-04-20 16:50:45 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled gdp_ratio missing values with median: 1.09
+2026-04-20 16:50:45 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled pop_ratio missing values with median: 0.87
+2026-04-20 16:50:45 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:438 | Filled combined_gdp_log missing values with median: 26.69
+2026-04-20 16:50:45 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:458 | Step 5: Creating node dataframe...
+2026-04-20 16:50:45 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:497 | Created 815 node records for 204 countries
+2026-04-20 16:50:45 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:511 | Step 6: Creating edge dataframe...
+2026-04-20 16:50:45 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:548 | Created 84,609 edges
+2026-04-20 16:50:45 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:549 | Train: 44,288 | Val: 21,216 | Test: 19,105
+2026-04-20 16:50:45 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:552 | Total edges (all countries): 84,609
+2026-04-20 16:50:45 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:553 | India export edges (prediction target): 808 (1.0%)
+2026-04-20 16:50:45 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:560 | Step 7: Saving processed data...
+2026-04-20 16:50:45 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:565 | Saved nodes to /Users/anushkapatil/Documents/anushka/data/processed/nodes.csv
+2026-04-20 16:50:46 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:570 | Saved edges to /Users/anushkapatil/Documents/anushka/data/processed/edges.csv
+2026-04-20 16:50:46 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:579 | Saved node mapping to /Users/anushkapatil/Documents/anushka/data/processed/node_mapping.json
+2026-04-20 16:50:46 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:597 | Saved metadata to /Users/anushkapatil/Documents/anushka/data/processed/metadata.json
+2026-04-20 16:50:46 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:627 | ============================================================
+2026-04-20 16:50:46 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:628 | PREPROCESSING COMPLETE!
+2026-04-20 16:50:46 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:629 | ============================================================
+2026-04-20 16:50:46 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:630 | Nodes: 815 | Edges: 84,609
+2026-04-20 16:50:46 | [32mINFO[0m | src.data.preprocessing | preprocessing.py:631 | Output directory: /Users/anushkapatil/Documents/anushka/data/processed
+2026-04-20 16:50:49 | [32mINFO[0m | src.models.train | train.py:32 | 💻 Using CPU (MPS doesn't support GAT operations)
+2026-04-20 16:50:49 | [32mINFO[0m | src.models.train | train.py:47 | ============================================================
+2026-04-20 16:50:49 | [32mINFO[0m | src.models.train | train.py:48 | 📊 LOADING DATA
+2026-04-20 16:50:49 | [32mINFO[0m | src.models.train | train.py:49 | ============================================================
+2026-04-20 16:50:49 | [32mINFO[0m | src.data.loaders | loaders.py:560 | Loading graph data...
+2026-04-20 16:50:49 | [32mINFO[0m | src.data.loaders | loaders.py:565 | ✓ Loaded 815 node-year combinations
+2026-04-20 16:50:49 | [32mINFO[0m | src.data.loaders | loaders.py:571 | ✓ Using 203 unique countries (year 2020)
+2026-04-20 16:50:49 | [32mINFO[0m | src.data.loaders | loaders.py:576 | ✓ Loaded 84,609 edges
+2026-04-20 16:50:49 | [32mINFO[0m | src.data.loaders | loaders.py:581 | ✓ Using sentiment_norm as sentiment_score
+2026-04-20 16:50:49 | [32mINFO[0m | src.data.loaders | loaders.py:589 | ✓ Created article_count
+2026-04-20 16:50:49 | [32mINFO[0m | src.data.loaders | loaders.py:606 | ✓ Node mapping: 204 countries
+2026-04-20 16:50:49 | [32mINFO[0m | src.data.loaders | loaders.py:615 | Creating temporal graphs...
+2026-04-20 16:50:49 | [32mINFO[0m | src.data.loaders | loaders.py:624 | Found 4 time periods: 2017-01 to 2020-01
+2026-04-20 16:50:54 | [32mINFO[0m | src.data.loaders | loaders.py:644 | ✓ Created 4 graphs (skipped 0)
+2026-04-20 16:50:54 | [32mINFO[0m | src.models.train | train.py:61 | ✓ Train: 2 graphs
+2026-04-20 16:50:54 | [32mINFO[0m | src.models.train | train.py:62 | ✓ Val:   1 graphs
+2026-04-20 16:50:54 | [32mINFO[0m | src.models.train | train.py:63 | ✓ Test:  1 graphs
+2026-04-20 16:50:54 | [32mINFO[0m | src.models.train | train.py:68 | ✓ Node features: 4
+2026-04-20 16:50:54 | [32mINFO[0m | src.models.train | train.py:69 | ✓ Edge features: 10
+2026-04-20 16:50:54 | [32mINFO[0m | src.models.train | train.py:76 | ✓ Label range: 0.00 to 13.08 (log scale)
+2026-04-20 16:50:54 | [32mINFO[0m | src.models.train | train.py:77 | ✓ Label mean: 2.61, std: 2.60
+2026-04-20 16:50:54 | [32mINFO[0m | src.models.train | train.py:79 | ============================================================
+2026-04-20 16:50:54 | [32mINFO[0m | __main__ | train_causal.py:26 | 🧠 INITIALIZING CAUSAL MODEL (Transformer Heads)
+2026-04-20 16:50:54 | [32mINFO[0m | __main__ | train_causal.py:40 | ✓ Causal Model ready with Equilibrium logic and Scheduler
+2026-04-20 16:50:54 | [32mINFO[0m | src.models.train | train.py:227 | ============================================================
+2026-04-20 16:50:54 | [32mINFO[0m | src.models.train | train.py:228 | 🚀 TRAINING
+2026-04-20 16:50:54 | [32mINFO[0m | src.models.train | train.py:229 | ============================================================
+2026-04-20 16:50:54 | [32mINFO[0m | src.models.train | train.py:230 | Epochs: 50
+2026-04-20 16:50:54 | [32mINFO[0m | src.models.train | train.py:231 | Patience: 20
+2026-04-20 16:50:54 | [32mINFO[0m | src.models.train | train.py:232 | Device: cpu
+2026-04-20 16:50:54 | [32mINFO[0m | src.models.train | train.py:233 | ============================================================
+2026-04-20 16:50:54 | [32mINFO[0m | src.models.train | train.py:253 | Epoch   1/50 | Train: 0.0000 | Val: 13.6213 | R²: -0.9958 | MAE: 2.6158
+2026-04-20 16:50:55 | [32mINFO[0m | src.models.train | train.py:253 | Epoch   5/50 | Train: 0.0000 | Val: 13.9997 | R²: -1.0513 | MAE: 2.6868
+2026-04-20 16:50:56 | [32mINFO[0m | src.models.train | train.py:253 | Epoch  10/50 | Train: 0.0000 | Val: 13.9459 | R²: -1.0434 | MAE: 2.6906
+2026-04-20 16:50:57 | [32mINFO[0m | src.models.train | train.py:253 | Epoch  15/50 | Train: 0.0000 | Val: 13.8396 | R²: -1.0278 | MAE: 2.6768
+2026-04-20 16:50:58 | [32mINFO[0m | src.models.train | train.py:253 | Epoch  20/50 | Train: 0.0000 | Val: 13.8014 | R²: -1.0222 | MAE: 2.6709
+2026-04-20 16:50:59 | [32mINFO[0m | src.models.train | train.py:270 | ⏹  Early stopping at epoch 21
+2026-04-20 16:50:59 | [32mINFO[0m | src.models.train | train.py:275 | ============================================================
+2026-04-20 16:50:59 | [32mINFO[0m | src.models.train | train.py:276 | ✓ TRAINING COMPLETE
+2026-04-20 16:50:59 | [32mINFO[0m | src.models.train | train.py:277 | Best epoch: 1
+2026-04-20 16:50:59 | [32mINFO[0m | src.models.train | train.py:278 | Best val loss: 13.6213
+2026-04-20 16:50:59 | [32mINFO[0m | src.models.train | train.py:279 | Best R²: -0.9958
+2026-04-20 16:50:59 | [32mINFO[0m | src.models.train | train.py:280 | Best MAE: 2.6158
+2026-04-20 16:50:59 | [32mINFO[0m | src.models.train | train.py:281 | ============================================================
+2026-04-20 16:50:59 | [32mINFO[0m | src.models.train | train.py:288 | ============================================================
+2026-04-20 16:50:59 | [32mINFO[0m | src.models.train | train.py:289 | 📊 TEST EVALUATION
+2026-04-20 16:50:59 | [32mINFO[0m | src.models.train | train.py:290 | ============================================================
+2026-04-20 16:50:59 | [32mINFO[0m | src.models.train | train.py:294 | R² Score:  -1.0417
+2026-04-20 16:50:59 | [32mINFO[0m | src.models.train | train.py:295 | RMSE:      3.7157
+2026-04-20 16:50:59 | [32mINFO[0m | src.models.train | train.py:296 | MAE:       2.6852
+2026-04-20 16:50:59 | [32mINFO[0m | src.models.train | train.py:297 | MAPE:      57.57%
+2026-04-20 16:50:59 | [32mINFO[0m | src.models.train | train.py:298 | ============================================================
+2026-04-20 16:51:02 | [32mINFO[0m | src.api.redis_cache | redis_cache.py:34 | ✓ Redis connected: localhost:6379
+2026-04-20 16:51:02 | [32mINFO[0m | src.api.postgres_db | postgres_db.py:32 | ✓ PostgreSQL connected: PostgreSQL 18.3 (Homebrew) on aarch64-apple-darwin...
+2026-04-20 16:51:02 | [32mINFO[0m | __main__ | main.py:79 | 🚀 Starting Trade Flow Prediction API...
+2026-04-20 16:51:02 | [32mINFO[0m | __main__ | main.py:83 | ✓ Redis cache available
+2026-04-20 16:51:02 | [32mINFO[0m | __main__ | main.py:89 | ✓ PostgreSQL database available
+2026-04-20 16:51:02 | [32mINFO[0m | __main__ | main.py:105 | Loading model: causal_gnn_working.pt
+2026-04-20 16:51:02 | [32mINFO[0m | __main__ | main.py:131 | ✓ CausalTradeGNN loaded successfully
+2026-04-20 16:51:02 | [32mINFO[0m | src.data.loaders | loaders.py:560 | Loading graph data...
+2026-04-20 16:51:02 | [32mINFO[0m | src.data.loaders | loaders.py:565 | ✓ Loaded 815 node-year combinations
+2026-04-20 16:51:02 | [32mINFO[0m | src.data.loaders | loaders.py:571 | ✓ Using 203 unique countries (year 2020)
+2026-04-20 16:51:02 | [32mINFO[0m | src.data.loaders | loaders.py:576 | ✓ Loaded 84,609 edges
+2026-04-20 16:51:02 | [32mINFO[0m | src.data.loaders | loaders.py:581 | ✓ Using sentiment_norm as sentiment_score
+2026-04-20 16:51:02 | [32mINFO[0m | src.data.loaders | loaders.py:589 | ✓ Created article_count
+2026-04-20 16:51:02 | [32mINFO[0m | src.data.loaders | loaders.py:606 | ✓ Node mapping: 204 countries
+2026-04-20 16:51:02 | [32mINFO[0m | __main__ | main.py:136 | ✓ Data loaded: 204 countries
+2026-04-20 16:51:02 | [32mINFO[0m | __main__ | main.py:145 | ✓ Loaded 179 news articles
+2026-04-20 16:51:02 | [32mINFO[0m | src.models.simulation | simulation.py:51 | ✓ GNN Simulator loaded successfully from models/causal_gnn_working.pt
+2026-04-20 16:51:02 | [32mINFO[0m | __main__ | main.py:154 | ✓ Causal Trade Simulator initialized
+2026-04-20 16:51:02 | [32mINFO[0m | __main__ | main.py:41 | ✓ Loaded 10 bilateral sentiment scores
+2026-04-20 16:51:02 | [32mINFO[0m | __main__ | main.py:42 |   Avg sentiment: -0.153
+2026-04-20 16:51:02 | [32mINFO[0m | src.data.loaders | loaders.py:615 | Creating temporal graphs...
+2026-04-20 16:51:02 | [32mINFO[0m | src.data.loaders | loaders.py:624 | Found 4 time periods: 2017-01 to 2020-01
+2026-04-20 16:51:06 | [32mINFO[0m | src.data.loaders | loaders.py:644 | ✓ Created 4 graphs (skipped 0)
+2026-04-20 16:51:06 | [32mINFO[0m | __main__ | main.py:167 | ✓ Pre-cached 4 graph snapshots
+2026-04-20 16:51:06 | [32mINFO[0m | src.pipelines.sentiment_analyzer | sentiment_analyzer.py:208 | Loading sentiment model: ProsusAI/finbert
+2026-04-20 16:51:06 | [32mINFO[0m | src.pipelines.sentiment_analyzer | sentiment_analyzer.py:211 | Using device: cpu
+2026-04-20 16:51:07 | [32mINFO[0m | src.pipelines.sentiment_analyzer | sentiment_analyzer.py:223 | ✓ FinBERT model loaded successfully
+2026-04-20 16:51:07 | [32mINFO[0m | __main__ | main.py:172 | ✓ Global Sentiment Analyzer and News Fetcher ready
+2026-04-20 16:51:11 | [32mINFO[0m | __main__ | main.py:872 | 🌐 Triggering general trade news refresh...
+2026-04-20 16:51:12 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler | gdelt_article_scheduler.py:95 |   Rate limited, waiting 5s...
+2026-04-20 16:51:18 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler | gdelt_article_scheduler.py:95 |   Rate limited, waiting 10s...
+2026-04-20 16:51:33 | [32mINFO[0m | __main__ | main.py:900 | ✅ Injected 4 live articles
+2026-04-20 16:51:33 | [32mINFO[0m | __main__ | main.py:938 | Found 81 historical articles
+2026-04-20 16:51:33 | [32mINFO[0m | __main__ | main.py:979 | Returning 24 articles with calculated sentiment
+2026-04-20 16:51:33 | [32mINFO[0m | __main__ | main.py:499 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:51:37 | [32mINFO[0m | __main__ | main.py:697 | Successfully generated 50 predictions for dashboard.
+2026-04-20 16:51:37 | [32mINFO[0m | __main__ | main.py:499 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:51:42 | [32mINFO[0m | __main__ | main.py:697 | Successfully generated 50 predictions for dashboard.
+2026-04-20 16:51:42 | [32mINFO[0m | __main__ | main.py:766 | Generated 10 alerts
+2026-04-20 16:51:42 | [32mINFO[0m | __main__ | main.py:499 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:51:46 | [32mINFO[0m | __main__ | main.py:697 | Successfully generated 50 predictions for dashboard.
+2026-04-20 16:51:46 | [32mINFO[0m | __main__ | main.py:499 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:51:49 | [32mINFO[0m | __main__ | main.py:697 | Successfully generated 50 predictions for dashboard.
+2026-04-20 16:51:49 | [32mINFO[0m | __main__ | main.py:766 | Generated 10 alerts
+2026-04-20 16:51:49 | [32mINFO[0m | __main__ | main.py:869 | 🌐 Triggering real-time news analysis for USA...
+2026-04-20 16:51:54 | [32mINFO[0m | __main__ | main.py:900 | ✅ Injected 4 live articles
+2026-04-20 16:51:54 | [32mINFO[0m | __main__ | main.py:938 | Found 11 historical articles
+2026-04-20 16:51:54 | [32mINFO[0m | __main__ | main.py:979 | Returning 15 articles with calculated sentiment
+2026-04-20 16:51:54 | [32mINFO[0m | __main__ | main.py:1001 | Explainability for USA
+2026-04-20 16:51:54 | [31mERROR[0m | __main__ | main.py:1101 | Explainability error: 'GraphDataLoader' object has no attribute 'inverse_node_mapping'
+2026-04-20 16:51:58 | [32mINFO[0m | __main__ | main.py:499 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:52:02 | [32mINFO[0m | __main__ | main.py:697 | Successfully generated 50 predictions for dashboard.
+2026-04-20 16:52:02 | [32mINFO[0m | __main__ | main.py:499 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:52:06 | [32mINFO[0m | __main__ | main.py:697 | Successfully generated 50 predictions for dashboard.
+2026-04-20 16:52:06 | [32mINFO[0m | __main__ | main.py:766 | Generated 10 alerts
+2026-04-20 16:52:06 | [32mINFO[0m | __main__ | main.py:869 | 🌐 Triggering real-time news analysis for CHN...
+2026-04-20 16:52:07 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler | gdelt_article_scheduler.py:95 |   Rate limited, waiting 5s...
+2026-04-20 16:52:13 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler | gdelt_article_scheduler.py:95 |   Rate limited, waiting 10s...
+2026-04-20 16:52:24 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler | gdelt_article_scheduler.py:99 |   Max retries reached for IND-CHN
+2026-04-20 16:52:24 | [32mINFO[0m | __main__ | main.py:938 | Found 10 historical articles
+2026-04-20 16:52:24 | [32mINFO[0m | __main__ | main.py:979 | Returning 10 articles with calculated sentiment
+2026-04-20 16:52:24 | [32mINFO[0m | __main__ | main.py:499 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:52:28 | [32mINFO[0m | __main__ | main.py:697 | Successfully generated 50 predictions for dashboard.
+2026-04-20 16:52:28 | [32mINFO[0m | __main__ | main.py:1001 | Explainability for CHN
+2026-04-20 16:52:28 | [31mERROR[0m | __main__ | main.py:1101 | Explainability error: 'GraphDataLoader' object has no attribute 'inverse_node_mapping'
+2026-04-20 16:52:28 | [32mINFO[0m | __main__ | main.py:499 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:52:32 | [32mINFO[0m | __main__ | main.py:697 | Successfully generated 50 predictions for dashboard.
+2026-04-20 16:52:32 | [32mINFO[0m | __main__ | main.py:766 | Generated 10 alerts
+2026-04-20 16:52:32 | [32mINFO[0m | __main__ | main.py:869 | 🌐 Triggering real-time news analysis for CHN...
+2026-04-20 16:52:39 | [32mINFO[0m | __main__ | main.py:900 | ✅ Injected 4 live articles
+2026-04-20 16:52:39 | [32mINFO[0m | __main__ | main.py:938 | Found 10 historical articles
+2026-04-20 16:52:39 | [32mINFO[0m | __main__ | main.py:979 | Returning 14 articles with calculated sentiment
+2026-04-20 16:52:39 | [32mINFO[0m | __main__ | main.py:1001 | Explainability for CHN
+2026-04-20 16:52:39 | [31mERROR[0m | __main__ | main.py:1101 | Explainability error: 'GraphDataLoader' object has no attribute 'inverse_node_mapping'
+2026-04-20 16:52:39 | [32mINFO[0m | __main__ | main.py:499 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:52:43 | [32mINFO[0m | __main__ | main.py:697 | Successfully generated 50 predictions for dashboard.
+2026-04-20 16:52:43 | [32mINFO[0m | __main__ | main.py:869 | 🌐 Triggering real-time news analysis for CHN...
+2026-04-20 16:52:44 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler | gdelt_article_scheduler.py:95 |   Rate limited, waiting 5s...
+2026-04-20 16:52:52 | [32mINFO[0m | __main__ | main.py:900 | ✅ Injected 4 live articles
+2026-04-20 16:52:52 | [32mINFO[0m | __main__ | main.py:938 | Found 10 historical articles
+2026-04-20 16:52:52 | [32mINFO[0m | __main__ | main.py:979 | Returning 14 articles with calculated sentiment
+2026-04-20 16:52:52 | [32mINFO[0m | __main__ | main.py:1001 | Explainability for CHN
+2026-04-20 16:52:52 | [31mERROR[0m | __main__ | main.py:1101 | Explainability error: 'GraphDataLoader' object has no attribute 'inverse_node_mapping'
+2026-04-20 16:52:52 | [32mINFO[0m | __main__ | main.py:499 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:52:57 | [32mINFO[0m | __main__ | main.py:697 | Successfully generated 50 predictions for dashboard.
+2026-04-20 16:52:57 | [32mINFO[0m | __main__ | main.py:499 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:53:01 | [32mINFO[0m | __main__ | main.py:697 | Successfully generated 50 predictions for dashboard.
+2026-04-20 16:53:01 | [32mINFO[0m | __main__ | main.py:766 | Generated 10 alerts
+2026-04-20 16:53:01 | [32mINFO[0m | __main__ | main.py:869 | 🌐 Triggering real-time news analysis for CHN...
+2026-04-20 16:53:05 | [32mINFO[0m | __main__ | main.py:900 | ✅ Injected 4 live articles
+2026-04-20 16:53:05 | [32mINFO[0m | __main__ | main.py:938 | Found 10 historical articles
+2026-04-20 16:53:05 | [32mINFO[0m | __main__ | main.py:979 | Returning 14 articles with calculated sentiment
+2026-04-20 16:53:05 | [32mINFO[0m | __main__ | main.py:1001 | Explainability for CHN
+2026-04-20 16:53:05 | [31mERROR[0m | __main__ | main.py:1101 | Explainability error: 'GraphDataLoader' object has no attribute 'inverse_node_mapping'
+2026-04-20 16:53:05 | [32mINFO[0m | __main__ | main.py:869 | 🌐 Triggering real-time news analysis for CAN...
+2026-04-20 16:53:06 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler | gdelt_article_scheduler.py:123 |   Error, retrying: Expecting value: line 1 column 1 (char 0)
+2026-04-20 16:53:12 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler | gdelt_article_scheduler.py:123 |   Error, retrying: Expecting value: line 1 column 1 (char 0)
+2026-04-20 16:53:18 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler | gdelt_article_scheduler.py:126 |   Failed after 3 attempts: Expecting value: line 1 column 1 (char 0)
+2026-04-20 16:53:18 | [32mINFO[0m | __main__ | main.py:938 | Found 0 historical articles
+2026-04-20 16:53:18 | [32mINFO[0m | __main__ | main.py:979 | Returning 0 articles with calculated sentiment
+2026-04-20 16:53:18 | [32mINFO[0m | __main__ | main.py:1001 | Explainability for CAN
+2026-04-20 16:53:18 | [31mERROR[0m | __main__ | main.py:1101 | Explainability error: 'GraphDataLoader' object has no attribute 'inverse_node_mapping'
+2026-04-20 16:53:18 | [32mINFO[0m | __main__ | main.py:869 | 🌐 Triggering real-time news analysis for JPN...
+2026-04-20 16:53:19 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler | gdelt_article_scheduler.py:95 |   Rate limited, waiting 5s...
+2026-04-20 16:53:25 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler | gdelt_article_scheduler.py:95 |   Rate limited, waiting 10s...
+2026-04-20 16:53:36 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler | gdelt_article_scheduler.py:99 |   Max retries reached for IND-JPN
+2026-04-20 16:53:36 | [32mINFO[0m | __main__ | main.py:938 | Found 11 historical articles
+2026-04-20 16:53:36 | [32mINFO[0m | __main__ | main.py:979 | Returning 11 articles with calculated sentiment
+2026-04-20 16:53:36 | [32mINFO[0m | __main__ | main.py:1001 | Explainability for JPN
+2026-04-20 16:53:36 | [31mERROR[0m | __main__ | main.py:1101 | Explainability error: 'GraphDataLoader' object has no attribute 'inverse_node_mapping'
+2026-04-20 16:53:36 | [32mINFO[0m | __main__ | main.py:499 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:53:40 | [32mINFO[0m | __main__ | main.py:697 | Successfully generated 50 predictions for dashboard.
+2026-04-20 16:53:40 | [32mINFO[0m | __main__ | main.py:499 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:53:43 | [32mINFO[0m | __main__ | main.py:697 | Successfully generated 50 predictions for dashboard.
+2026-04-20 16:53:43 | [32mINFO[0m | __main__ | main.py:766 | Generated 10 alerts
+2026-04-20 16:53:43 | [32mINFO[0m | __main__ | main.py:869 | 🌐 Triggering real-time news analysis for CHN...
+2026-04-20 16:53:44 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler | gdelt_article_scheduler.py:95 |   Rate limited, waiting 5s...
+2026-04-20 16:53:54 | [32mINFO[0m | __main__ | main.py:900 | ✅ Injected 4 live articles
+2026-04-20 16:53:54 | [32mINFO[0m | __main__ | main.py:938 | Found 10 historical articles
+2026-04-20 16:53:54 | [32mINFO[0m | __main__ | main.py:979 | Returning 14 articles with calculated sentiment
+2026-04-20 16:53:55 | [32mINFO[0m | __main__ | main.py:499 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:53:58 | [32mINFO[0m | __main__ | main.py:697 | Successfully generated 50 predictions for dashboard.
+2026-04-20 16:53:58 | [32mINFO[0m | __main__ | main.py:499 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:54:02 | [32mINFO[0m | __main__ | main.py:697 | Successfully generated 50 predictions for dashboard.
+2026-04-20 16:54:02 | [32mINFO[0m | __main__ | main.py:766 | Generated 10 alerts
+2026-04-20 16:54:02 | [32mINFO[0m | __main__ | main.py:869 | 🌐 Triggering real-time news analysis for CHN...
+2026-04-20 16:54:06 | [32mINFO[0m | __main__ | main.py:900 | ✅ Injected 4 live articles
+2026-04-20 16:54:06 | [32mINFO[0m | __main__ | main.py:938 | Found 10 historical articles
+2026-04-20 16:54:06 | [32mINFO[0m | __main__ | main.py:979 | Returning 14 articles with calculated sentiment
+2026-04-20 16:54:06 | [32mINFO[0m | __main__ | main.py:1001 | Explainability for CHN
+2026-04-20 16:54:06 | [31mERROR[0m | __main__ | main.py:1101 | Explainability error: 'GraphDataLoader' object has no attribute 'inverse_node_mapping'
+2026-04-20 16:54:06 | [32mINFO[0m | __main__ | main.py:869 | 🌐 Triggering real-time news analysis for JPN...
+2026-04-20 16:54:07 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler | gdelt_article_scheduler.py:95 |   Rate limited, waiting 5s...
+2026-04-20 16:54:17 | [32mINFO[0m | __main__ | main.py:900 | ✅ Injected 4 live articles
+2026-04-20 16:54:17 | [32mINFO[0m | __main__ | main.py:938 | Found 11 historical articles
+2026-04-20 16:54:17 | [32mINFO[0m | __main__ | main.py:979 | Returning 15 articles with calculated sentiment
+2026-04-20 16:54:17 | [32mINFO[0m | __main__ | main.py:1001 | Explainability for JPN
+2026-04-20 16:54:17 | [31mERROR[0m | __main__ | main.py:1101 | Explainability error: 'GraphDataLoader' object has no attribute 'inverse_node_mapping'
+2026-04-20 16:54:17 | [32mINFO[0m | __main__ | main.py:869 | 🌐 Triggering real-time news analysis for KOR...
+2026-04-20 16:54:18 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler | gdelt_article_scheduler.py:95 |   Rate limited, waiting 5s...
+2026-04-20 16:54:24 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler | gdelt_article_scheduler.py:123 |   Error, retrying: Expecting value: line 1 column 1 (char 0)
+2026-04-20 16:54:30 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler | gdelt_article_scheduler.py:99 |   Max retries reached for IND-KOR
+2026-04-20 16:54:30 | [32mINFO[0m | __main__ | main.py:938 | Found 0 historical articles
+2026-04-20 16:54:30 | [32mINFO[0m | __main__ | main.py:979 | Returning 0 articles with calculated sentiment
+2026-04-20 16:54:30 | [32mINFO[0m | __main__ | main.py:1001 | Explainability for KOR
+2026-04-20 16:54:30 | [31mERROR[0m | __main__ | main.py:1101 | Explainability error: 'GraphDataLoader' object has no attribute 'inverse_node_mapping'
+2026-04-20 16:54:30 | [32mINFO[0m | __main__ | main.py:499 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:54:33 | [32mINFO[0m | __main__ | main.py:697 | Successfully generated 50 predictions for dashboard.
+2026-04-20 16:54:33 | [32mINFO[0m | __main__ | main.py:499 | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 16:54:37 | [32mINFO[0m | __main__ | main.py:697 | Successfully generated 50 predictions for dashboard.
+2026-04-20 16:54:37 | [32mINFO[0m | __main__ | main.py:766 | Generated 10 alerts

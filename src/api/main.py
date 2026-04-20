@@ -67,11 +67,13 @@ model = None
 loader = None
 device = torch.device('cpu')
 articles_df = None
+sentiment_analyzer = None
+fetcher = None
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Load model, data, and articles on startup"""
-    global model, loader, articles_df, simulator
+    global model, loader, articles_df, simulator, sentiment_analyzer, fetcher
     
     try:
         logger.info("🚀 Starting Trade Flow Prediction API...")
@@ -163,6 +165,11 @@ async def lifespan(app: FastAPI):
         if loader and hasattr(loader, "create_temporal_graphs"):
              app.state._cached_graphs = loader.create_temporal_graphs()
              logger.info(f"✓ Pre-cached {len(app.state._cached_graphs)} graph snapshots")
+        
+        # Initialize fetcher and analyzer
+        sentiment_analyzer = FinancialSentimentAnalyzer()
+        fetcher = GDELTArticleFetcher()
+        logger.info("✓ Global Sentiment Analyzer and News Fetcher ready")
         
         yield
     except Exception as e:
@@ -562,7 +569,7 @@ async def get_predictions(
                     edge_data = loader.edges_df[
                         (loader.edges_df['source_iso3'] == source_country) & 
                         (loader.edges_df['target_iso3'] == target_country) &
-                        (loader.edges_df['sector'] == backend_sector)
+                        (loader.edges_df['sector'].str.lower() == backend_sector.lower())
                     ]
                     
                     if not edge_data.empty:
@@ -614,7 +621,8 @@ async def get_predictions(
                     prediction_log = model(node_features, edge_index, edge_attr).item()
                     prediction_usd = float(np.expm1(prediction_log))
                 
-                if prediction_usd < 1000:
+                # Use prediction directly (removed 1000 threshold as it was too aggressive)
+                if prediction_usd <= 0:
                     continue
                 
                 # Feature checks for confidence/risk
@@ -683,9 +691,11 @@ async def get_predictions(
         predictions_list.sort(key=lambda x: x.value, reverse=True)
         result = predictions_list[:50]
         
-        logger.info(f"Returning {len(result)} predictions")
-        logger.info(f"Sentiment data used: {bilateral_sentiment_df is not None}")
-        
+        if not result:
+            logger.warning(f"No predictions generated for {backend_sector} in {month}. Check data coverage.")
+        else:
+            logger.info(f"Successfully generated {len(result)} predictions for dashboard.")
+            
         return result
         
     except ValueError:
@@ -715,29 +725,42 @@ async def get_alerts(
         # OPPORTUNITIES - positive growth
         opportunities = [p for p in predictions if p.change > 0.15]
         for pred in sorted(opportunities, key=lambda x: x.change, reverse=True)[:5]:
+            # Smart Recommendations (Corrected structure for Pydantic/Frontend)
+            recs = [
+                {"text": f"Optimize supply chain friction for {pred.partner} to capture {pred.change*100:.1f}% growth."},
+                {"text": f"Implement strategic export subsidies targeted at the {sector} sector."},
+                {"text": "Leverage bilateral sentiment momentum for market expansion."}
+            ]
+            
             alerts.append(AlertItem(
                 id=f"opp_{month}_{pred.partnerCode}",
-                type="opportunity",  # ✅ "opportunity" not "info"
-                title=f"Growth Opportunity: {pred.partner}",
-                summary=f"Strong growth of {pred.change*100:.1f}%",
+                type="opportunity",
+                title=f"Structural Growth Opportunity: {pred.partner}",
+                summary=f"Strong gravitational pull detected: {pred.change*100:.1f}% predicted expansion.",
                 partner=pred.partner,
                 partnerCode=pred.partnerCode,
                 change=pred.change,
-                recommendations=[]
+                recommendations=recs
             ))
         
         # RISKS - negative growth
         risks = [p for p in predictions if p.change < -0.10]
         for pred in sorted(risks, key=lambda x: x.change)[:5]:
+            recs = [
+                {"text": f"Diversify trade routes to bypass bilateral friction with {pred.partner}."},
+                {"text": "Monitor geopolitical sentiment for further downside risks."},
+                {"text": f"Evaluate tariff sensitivity for {sector} exports."}
+            ]
+            
             alerts.append(AlertItem(
                 id=f"risk_{month}_{pred.partnerCode}",
-                type="risk",  # ✅ "risk" not "warning"
-                title=f"Trade Decline: {pred.partner}",
-                summary=f"Declining by {abs(pred.change)*100:.1f}%",
+                type="risk",
+                title=f"Trade Resistance Alert: {pred.partner}",
+                summary=f"Structural resistance increasing: {abs(pred.change)*100:.1f}% decline forecasted.",
                 partner=pred.partner,
                 partnerCode=pred.partnerCode,
                 change=pred.change,
-                recommendations=[]
+                recommendations=recs
             ))
         
         logger.info(f"Generated {len(alerts)} alerts")
@@ -838,32 +861,46 @@ async def get_news(
     # --- NEW: REAL-TIME FETCHING INJECTION ---
     news_list = []
     
-    if partner and partner not in ["undefined", "null", ""]:
-        try:
-            logger.info(f"🌐 Triggering real-time news analysis for {partner}...")
-            fetcher = GDELTArticleFetcher()
-            # Fetch latest 4 articles (DOC API 2.0)
-            rt_articles = fetcher.fetch_articles_for_country_pair("IND", partner, max_articles=4)
+    # Target partner or general trade news
+    target_partner = partner if partner and partner not in ["undefined", "null", ""] else None
+    
+    try:
+        if target_partner and fetcher:
+            logger.info(f"🌐 Triggering real-time news analysis for {target_partner}...")
+            rt_articles = fetcher.fetch_articles_for_country_pair("IND", target_partner, max_articles=4)
+        elif fetcher:
+            logger.info("🌐 Triggering general trade news refresh...")
+            # General export/trade news for India
+            rt_articles = fetcher.fetch_articles_for_country_pair("India", "Trade", max_articles=4)
+        else:
+            rt_articles = []
             
-            if rt_articles:
-                sentiment_model = FinancialSentimentAnalyzer()
-                for art in rt_articles:
-                    # Analyze sentiment on the fly
-                    analysis = sentiment_model.analyze_text(art['title'])
+        if rt_articles and sentiment_analyzer:
+            for art in rt_articles:
+                try:
+                    # Clean title/snippet
+                    clean_title = art.get('title', '').split(' - ')[0]
+                    
+                    # Real-time sentiment analysis
+                    analysis = sentiment_analyzer.analyze_text(clean_title)
+                    
                     news_list.append(NewsArticle(
-                        id=f"live_{int(time.time())}_{art['url'][-8:]}",
-                        title="[LIVE] " + art['title'],
-                        snippet=art['title'],
-                        source=art['domain'],
-                        url=art['url'],
-                        date=art['date'],
-                        sentiment=analysis['score'],
+                        id=f"rt_{int(time.time())}_{art.get('url', '')[-8:]}",
+                        title=f"[LIVE] {clean_title}",
+                        snippet=f"Latest from {art.get('domain')}: {clean_title}",
+                        source=art.get('domain', 'GDELT Live'),
+                        url=art.get('url', '#'),
+                        date=art.get('date', datetime.now().strftime('%Y-%m-%d')),
+                        sentiment=analysis.get('score', 0.0) if isinstance(analysis, dict) else analysis,
                         relevance_score=0.95,
-                        country_code=partner
+                        country_code=target_partner or "WLD"
                     ))
-                logger.info(f"✅ Injected {len(rt_articles)} live articles")
-        except Exception as e:
-            logger.warning(f"⚠️ Real-time news injection failed: {e}")
+                except Exception as e:
+                    logger.warning(f"Error analyzing live article: {e}")
+            logger.info(f"✅ Injected {len(news_list)} live articles")
+                    
+    except Exception as e:
+        logger.error(f"Live fetch failed: {e}")
 
     # Fallback/Merge with Historical Data
     articles_path_calc = Path("data/raw/sentiment/articles_with_sentiment.csv")

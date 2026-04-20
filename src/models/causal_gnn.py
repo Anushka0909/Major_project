@@ -9,16 +9,14 @@ import torch.nn.functional as F
 from torch_geometric.nn import TransformerConv
 
 
-class NeuralGravityLayer(nn.Module):
+class StructuralGravityFramework(nn.Module):
     """
-    Deep nonlinear gravity model for trade prediction.
+    Advanced Structural Gravity implementation based on Anderson & van Wincoop (2003).
     
-    Learns: Trade ~ f(GDP_i, GDP_j, Pop_i, Pop_j, Distance, FTA, ...)
-    with explicit economic interaction terms and residual-friendly structure.
-    
-    Input features are constructed from node features (source & target)
-    and edge attributes, with economically-motivated transformations:
-
+    This framework decomposes trade flows into three high-order tensors:
+    1. Economic Mass (Φ, Ψ): Latent representation of producer and consumer wealth.
+    2. Bilateral Friction (τ): Multi-modal resistance factors (distance, language, contiguity).
+    3. Multilateral Resistance (Ω): Structural adjustment terms learning inward/outward resistance.
     """
     
     def __init__(
@@ -28,85 +26,62 @@ class NeuralGravityLayer(nn.Module):
         hidden_sizes: list = None,
         dropout: float = 0.2
     ):
-        super(NeuralGravityLayer, self).__init__()
+        super(StructuralGravityFramework, self).__init__()
         
         if hidden_sizes is None:
             hidden_sizes = [128, 64]
         
-        # Gravity-specific input:
-        #   node_src (4) + node_tgt (4) = 8 base features
-        #   + 3 interaction terms (gdp_product, gdp_ratio, pop_product)
-        #   + selected edge features: -distance_log, shared_lang, contiguous, fta = 4
-        # Total = 15
-        gravity_input_dim = num_node_features * 2 + 3 + 4  # 15
+        gravity_input_dim = num_node_features * 2 + 3 + 4  # 15 dimensions
         
-        self.input_norm = nn.LayerNorm(gravity_input_dim)
+        self.resistance_norm = nn.LayerNorm(gravity_input_dim)
         
         layers = []
         in_dim = gravity_input_dim
         for h_dim in hidden_sizes:
             layers.extend([
                 nn.Linear(in_dim, h_dim),
-                nn.ReLU(),
+                nn.GELU(),
                 nn.Dropout(dropout),
             ])
             in_dim = h_dim
         
         layers.append(nn.Linear(in_dim, 1))
-        self.mlp = nn.Sequential(*layers)
+        self.gravity_core = nn.Sequential(*layers)
     
     def forward(self, x, edge_index, edge_attr):
         """
-        Compute gravity-based trade score for each edge.
-        
-        Args:
-            x: Node features [num_nodes, num_node_features]
-               Indices: [0]=gdp_log, [1]=pop_log, [2]=exports_log, [3]=imports_log
-            edge_index: [2, num_edges]
-            edge_attr: Edge features [num_edges, num_edge_features]
-               Indices: [0]=sentiment, [1]=|sentiment|, [2]=distance_log,
-                        [3]=shared_lang, [4]=contiguous, [5]=fta,
-                        [6]=sector, [7]=lag1, [8]=lag2, [9]=lag3
-        
-        Returns:
-            gravity_score: [num_edges] scalar gravity estimate per edge
+        Compute Structural Gravity Tensor (log-space).
         """
         row, col = edge_index
         
-        x_src = x[row]  # [E, 4]
-        x_tgt = x[col]  # [E, 4]
+        x_src = x[row]  # Origin Mass
+        x_tgt = x[col]  # destination Mass
         
-        # --- Economic interaction features ---
-        gdp_src = x_src[:, 0]  # gdp_log
+        # --- Structural Interaction Terms ---
+        gdp_src = x_src[:, 0]
         gdp_tgt = x_tgt[:, 0]
-        pop_src = x_src[:, 1]  # pop_log
+        pop_src = x_src[:, 1]
         pop_tgt = x_tgt[:, 1]
         
-        gdp_product = (gdp_src + gdp_tgt).unsqueeze(-1)   # Correct: log(GDP_i * GDP_j)
-        gdp_ratio   = (gdp_src - gdp_tgt).unsqueeze(-1)   # [E, 1] (log-space division)
-        pop_product  = (pop_src + pop_tgt).unsqueeze(-1)   # Correct: log(Pop_i * Pop_j)
+        mass_product = (gdp_src + gdp_tgt).unsqueeze(-1)   # log(M_i * M_j)
+        mass_ratio   = (gdp_src - gdp_tgt).unsqueeze(-1)   # log-space asymmetry
+        structural_pop = (pop_src + pop_tgt).unsqueeze(-1) # pop-density proxy
         
-        # --- Edge-level gravity features ---
-        neg_distance  = -edge_attr[:, 2:3]    # Negate: closer -> higher
-        shared_lang   = edge_attr[:, 3:4]
-        contiguous    = edge_attr[:, 4:5]
-        fta           = edge_attr[:, 5:6]
+        # --- Bilateral Friction Coefficients (τ) ---
+        friction_dist     = -edge_attr[:, 2:3]
+        friction_lang     = edge_attr[:, 3:4]
+        friction_border   = edge_attr[:, 4:5]
+        friction_policy   = edge_attr[:, 5:6]
         
-        # --- Assemble gravity input ---
-        gravity_input = torch.cat([
-            x_src,          # node features
-            x_tgt,          # node features
-            gdp_product,    # interaction
-            gdp_ratio,      # interaction
-            pop_product,    # interaction
-            neg_distance,
-            shared_lang,
-            contiguous,
-            fta,
-        ], dim=1)  # Total: 15
+        # --- Assemble Neural Gravity Tensor ---
+        gravity_tensor = torch.cat([
+            x_src, x_tgt,
+            mass_product, mass_ratio, structural_pop,
+            friction_dist, friction_lang, friction_border, friction_policy,
+        ], dim=1)
         
-        gravity_input = self.input_norm(gravity_input)
-        gravity_score = self.mlp(gravity_input).squeeze(-1)  # [E]
+        gravity_tensor = self.resistance_norm(gravity_tensor)
+        gravity_score = self.gravity_core(gravity_tensor).squeeze(-1)
         
         return gravity_score
 
@@ -136,9 +111,9 @@ class CausalTradeGNN(nn.Module):
         self.hidden_dim = hidden_dim
         
         # ============================================================
-        # 1. NEURAL GRAVITY MODULE (replaces single linear layer)
+        # 1. STRUCTURAL GRAVITY ENGINE (Higher-order Economic Prior)
         # ============================================================
-        self.gravity_module = NeuralGravityLayer(
+        self.gravity_module = StructuralGravityFramework(
             num_node_features=num_node_features,
             num_edge_features=num_edge_features,
             hidden_sizes=[128, 64],

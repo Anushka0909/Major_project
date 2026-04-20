@@ -1,81 +1,24 @@
-# ============================================================
-# TRADE FLOW PREDICTION PROJECT - .gitignore
-# ============================================================
-
-# Environments
+# IDE and Environment
 .env
+.env.local
+.env.*.local
 .venv/
-env/
 venv/
-node_modules/
+ENV/
+env/
+.vscode/
+.idea/
 
-# Python Byte-compiled / optimized
+# Dependencies
+node_modules/
 __pycache__/
 *.py[cod]
 *$py.class
-*.so
-
-# Distribution / packaging
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# Unit test / coverage
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
 .pytest_cache/
 
-# IDE & Editors
-.vscode/
-.idea/
-*.sublime-project
-*.sublime-workspace
-*.swp
-*.swo
-*~
-
-# OS Files
+# System Files
 .DS_Store
-.AppleDouble
-.LSOverride
-._*
 Thumbs.db
+*.log
 
-# Project Logs (Allowing dir but ignoring log files is common, but user wants everything)
-# logs/*.log
-
-# ALLOW EVERYTHING ELSE (Data, Models, etc. as requested)
-!data/
-!models/
-!logs/
-!src/
-!configs/
-!scripts/
-
-# Except local secrets
-.env.local
-.env.*.local
-secrets/
-credentials/*.key
-credentials/*.pem
+# NOTE: data/ and models/ are explicitly NOT ignored to allow full project portability.
