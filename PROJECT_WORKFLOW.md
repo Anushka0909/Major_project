@@ -7,6 +7,15 @@ This system combines **Graph Neural Networks (GNN)** with **Structural Gravity T
 
 ---
 
+### **Scientific Foundation: Structural Gravity & AW**
+Our engine is built on the **Anderson-Van Wincoop (AW) Framework**, which is the academic "gold standard" for the **Gravity Model of Trade**.
+
+- **Basic Gravity**: Trade ≈ (Mass₁ × Mass₂) / Distance.
+- **The AW Improvement**: Realized that trade depends on **Multilateral Resistance**. It’s not just about how far India is from the USA, but how far India is from *every other market* simultaneously.
+- **In this Project**: The GNN learns these "Resistance Tensors" to predict how global shocks (like a sentiment shift or GDP change) ripple through the entire trade network to reach an equilibrium.
+
+---
+
 ### **1. Data Intelligence (ETL)**
 - **Sources**: UN Comtrade (Trade Flows), World Bank (GDP/Pop), CEPII (Distances).
 - **Process**: Automated cleanup and merging into periodic graph snapshots.
@@ -37,4 +46,29 @@ This system combines **Graph Neural Networks (GNN)** with **Structural Gravity T
 - **Portable**: Models and data are included in the repository for "Clone and Run" access.
 
 ---
+
+## **System Architecture Diagram**
+
+```mermaid
+graph TD
+    subgraph "Data Layer"
+        DS1[UN Comtrade] --> ETL[Python ETL]
+        DS2[World Bank GDP] --> ETL
+        DS3[GDELT Live News] --> SENT[FinBERT Sentiment]
+    end
+
+    subgraph "Logic Layer (Structural Gravity)"
+        ETL --> GNN[Graph Neural Network]
+        SENT --> GNN
+        AW[AW Resistance Framework] -- Theoretically Guides --> GNN
+    end
+
+    subgraph "Application Layer"
+        GNN --> API[FastAPI Backend]
+        API --> DASH[Next.js Dashboard]
+        DASH --> SIM[Causal Simulator]
+        SIM -- What-If Triggers --> API
+    end
+```
+
 **Status**: [LIVE] All systems operational.
