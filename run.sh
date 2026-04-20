@@ -24,10 +24,10 @@ else
     echo "✅ Python Venv: OK"
 fi
 
-# 3. Kill existing processes on API (8000) and Next.js (3000) ports
-echo "🧹 Cleaning up old processes..."
-lsof -ti:8000 | xargs kill -9 2>/dev/null || true
-lsof -ti:3000 | xargs kill -9 2>/dev/null || true
+# 3. Force Cleanup (8000/3000)
+echo "🧹 Force killing existing processes on ports 8000 & 3000..."
+lsof -ti:8000,3000 | xargs kill -9 2>/dev/null || true
+sleep 1
 
 # 4. Data Preprocessing
 echo -e "\n📊 Step 1/4: Data Preprocessing..."
