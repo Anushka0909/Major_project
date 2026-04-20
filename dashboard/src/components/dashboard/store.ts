@@ -147,7 +147,7 @@ export const useDashboardStore = create<State & Actions>((set, get) => ({
       const partnerParam = partner && partner !== "undefined" ? `&partner=${partner}` : ""
       const res = await fetch(
         `${API_BASE_URL}/api/news?sector=${sector}&month=${month}${partnerParam}`,
-        { signal: AbortSignal.timeout(8000) }
+        { signal: AbortSignal.timeout(30000) }
       )
 
       if (!res.ok) throw new Error(`API returned ${res.status}`)

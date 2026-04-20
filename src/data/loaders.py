@@ -605,6 +605,9 @@ class GraphDataLoader:
         
         logger.info(f"✓ Node mapping: {len(self.node_mapping)} countries")
         
+        # Create inverse mapping for explainability/ID lookup
+        self.inverse_node_mapping = {int(v): k for k, v in self.node_mapping.items()}
+        
         return self.nodes_df, self.edges_df, self.node_mapping
     
     def create_temporal_graphs(self) -> List[Data]:

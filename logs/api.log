@@ -1,197 +1,115 @@
-2026-04-20 16:51:02 | [32mINFO[0m | src.api.redis_cache | ✓ Redis connected: localhost:6379
-2026-04-20 16:51:02 | [32mINFO[0m | src.api.postgres_db | ✓ PostgreSQL connected: PostgreSQL 18.3 (Homebrew) on aarch64-apple-darwin...
-INFO:     Started server process [11325]
+2026-04-20 17:53:25 | [32mINFO[0m | src.api.redis_cache | ✓ Redis connected: localhost:6379
+2026-04-20 17:53:25 | [32mINFO[0m | src.api.postgres_db | ✓ PostgreSQL connected: PostgreSQL 18.3 (Homebrew) on aarch64-apple-darwin...
+INFO:     Started server process [53084]
 INFO:     Waiting for application startup.
-2026-04-20 16:51:02 | [32mINFO[0m | __main__ | 🚀 Starting Trade Flow Prediction API...
-2026-04-20 16:51:02 | [32mINFO[0m | __main__ | ✓ Redis cache available
-2026-04-20 16:51:02 | [32mINFO[0m | __main__ | ✓ PostgreSQL database available
-2026-04-20 16:51:02 | [32mINFO[0m | __main__ | Loading model: causal_gnn_working.pt
-2026-04-20 16:51:02 | [32mINFO[0m | __main__ | ✓ CausalTradeGNN loaded successfully
-2026-04-20 16:51:02 | [32mINFO[0m | src.data.loaders | Loading graph data...
-2026-04-20 16:51:02 | [32mINFO[0m | src.data.loaders | ✓ Loaded 815 node-year combinations
-2026-04-20 16:51:02 | [32mINFO[0m | src.data.loaders | ✓ Using 203 unique countries (year 2020)
-2026-04-20 16:51:02 | [32mINFO[0m | src.data.loaders | ✓ Loaded 84,609 edges
-2026-04-20 16:51:02 | [32mINFO[0m | src.data.loaders | ✓ Using sentiment_norm as sentiment_score
-2026-04-20 16:51:02 | [32mINFO[0m | src.data.loaders | ✓ Created article_count
-2026-04-20 16:51:02 | [32mINFO[0m | src.data.loaders | ✓ Node mapping: 204 countries
-2026-04-20 16:51:02 | [32mINFO[0m | __main__ | ✓ Data loaded: 204 countries
-2026-04-20 16:51:02 | [32mINFO[0m | __main__ | ✓ Loaded 179 news articles
-2026-04-20 16:51:02 | [32mINFO[0m | src.models.simulation | ✓ GNN Simulator loaded successfully from models/causal_gnn_working.pt
-2026-04-20 16:51:02 | [32mINFO[0m | __main__ | ✓ Causal Trade Simulator initialized
-2026-04-20 16:51:02 | [32mINFO[0m | __main__ | ✓ Loaded 10 bilateral sentiment scores
-2026-04-20 16:51:02 | [32mINFO[0m | __main__ |   Avg sentiment: -0.153
-2026-04-20 16:51:02 | [32mINFO[0m | src.data.loaders | Creating temporal graphs...
-2026-04-20 16:51:02 | [32mINFO[0m | src.data.loaders | Found 4 time periods: 2017-01 to 2020-01
-2026-04-20 16:51:06 | [32mINFO[0m | src.data.loaders | ✓ Created 4 graphs (skipped 0)
-2026-04-20 16:51:06 | [32mINFO[0m | __main__ | ✓ Pre-cached 4 graph snapshots
-2026-04-20 16:51:06 | [32mINFO[0m | src.pipelines.sentiment_analyzer | Loading sentiment model: ProsusAI/finbert
-2026-04-20 16:51:06 | [32mINFO[0m | src.pipelines.sentiment_analyzer | Using device: cpu
-2026-04-20 16:51:07 | [32mINFO[0m | src.pipelines.sentiment_analyzer | ✓ FinBERT model loaded successfully
-2026-04-20 16:51:07 | [32mINFO[0m | __main__ | ✓ Global Sentiment Analyzer and News Fetcher ready
+2026-04-20 17:53:25 | [32mINFO[0m | __main__ | 🚀 Starting Trade Flow Prediction API...
+2026-04-20 17:53:25 | [32mINFO[0m | __main__ | ✓ Redis cache available
+2026-04-20 17:53:25 | [32mINFO[0m | __main__ | ✓ PostgreSQL database available
+2026-04-20 17:53:25 | [32mINFO[0m | __main__ | Loading model: causal_gnn_working.pt
+2026-04-20 17:53:25 | [32mINFO[0m | __main__ | ✓ CausalTradeGNN loaded successfully
+2026-04-20 17:53:25 | [32mINFO[0m | src.data.loaders | Loading graph data...
+2026-04-20 17:53:25 | [32mINFO[0m | src.data.loaders | ✓ Loaded 815 node-year combinations
+2026-04-20 17:53:25 | [32mINFO[0m | src.data.loaders | ✓ Using 203 unique countries (year 2020)
+2026-04-20 17:53:25 | [32mINFO[0m | src.data.loaders | ✓ Loaded 84,609 edges
+2026-04-20 17:53:25 | [32mINFO[0m | src.data.loaders | ✓ Using sentiment_norm as sentiment_score
+2026-04-20 17:53:25 | [32mINFO[0m | src.data.loaders | ✓ Created article_count
+2026-04-20 17:53:25 | [32mINFO[0m | src.data.loaders | ✓ Node mapping: 204 countries
+2026-04-20 17:53:25 | [32mINFO[0m | __main__ | ✓ Data loaded: 204 countries
+2026-04-20 17:53:25 | [32mINFO[0m | __main__ | ✓ Loaded 179 news articles
+2026-04-20 17:53:25 | [32mINFO[0m | src.models.simulation | ✓ GNN Simulator loaded successfully from models/causal_gnn_working.pt
+2026-04-20 17:53:25 | [32mINFO[0m | __main__ | ✓ Causal Trade Simulator initialized
+2026-04-20 17:53:25 | [32mINFO[0m | __main__ | ✓ Loaded 10 bilateral sentiment scores
+2026-04-20 17:53:25 | [32mINFO[0m | __main__ |   Avg sentiment: -0.153
+2026-04-20 17:53:25 | [32mINFO[0m | src.data.loaders | Creating temporal graphs...
+2026-04-20 17:53:25 | [32mINFO[0m | src.data.loaders | Found 4 time periods: 2017-01 to 2020-01
+2026-04-20 17:53:30 | [32mINFO[0m | src.data.loaders | ✓ Created 4 graphs (skipped 0)
+2026-04-20 17:53:30 | [32mINFO[0m | __main__ | ✓ Pre-cached 4 graph snapshots
+2026-04-20 17:53:30 | [32mINFO[0m | src.pipelines.sentiment_analyzer | Loading sentiment model: ProsusAI/finbert
+2026-04-20 17:53:30 | [32mINFO[0m | src.pipelines.sentiment_analyzer | Using device: cpu
+2026-04-20 17:53:31 | [32mINFO[0m | src.pipelines.sentiment_analyzer | ✓ FinBERT model loaded successfully
+2026-04-20 17:53:31 | [32mINFO[0m | __main__ | ✓ Global Sentiment Analyzer and News Fetcher ready
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-2026-04-20 16:51:11 | [32mINFO[0m | __main__ | 🌐 Triggering general trade news refresh...
-2026-04-20 16:51:12 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 5s...
-2026-04-20 16:51:18 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 10s...
-2026-04-20 16:51:33 | [32mINFO[0m | __main__ | ✅ Injected 4 live articles
-2026-04-20 16:51:33 | [32mINFO[0m | __main__ | Found 81 historical articles
-2026-04-20 16:51:33 | [32mINFO[0m | __main__ | Returning 24 articles with calculated sentiment
-INFO:     127.0.0.1:57681 - "GET /api/news?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
-2026-04-20 16:51:33 | [32mINFO[0m | __main__ | Generating predictions for Pharmaceuticals - 2020-01
-2026-04-20 16:51:37 | [32mINFO[0m | __main__ | Successfully generated 50 predictions for dashboard.
-INFO:     127.0.0.1:57682 - "GET /api/predictions?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
-2026-04-20 16:51:37 | [32mINFO[0m | __main__ | Generating predictions for Pharmaceuticals - 2020-01
-2026-04-20 16:51:42 | [32mINFO[0m | __main__ | Successfully generated 50 predictions for dashboard.
-2026-04-20 16:51:42 | [32mINFO[0m | __main__ | Generated 10 alerts
-INFO:     127.0.0.1:57683 - "GET /api/alerts?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
-2026-04-20 16:51:42 | [32mINFO[0m | __main__ | Generating predictions for Pharmaceuticals - 2020-01
-2026-04-20 16:51:46 | [32mINFO[0m | __main__ | Successfully generated 50 predictions for dashboard.
-INFO:     127.0.0.1:57690 - "GET /api/predictions?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
-2026-04-20 16:51:46 | [32mINFO[0m | __main__ | Generating predictions for Pharmaceuticals - 2020-01
-2026-04-20 16:51:49 | [32mINFO[0m | __main__ | Successfully generated 50 predictions for dashboard.
-2026-04-20 16:51:49 | [32mINFO[0m | __main__ | Generated 10 alerts
-INFO:     127.0.0.1:57692 - "GET /api/alerts?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
-2026-04-20 16:51:49 | [32mINFO[0m | __main__ | 🌐 Triggering real-time news analysis for USA...
-2026-04-20 16:51:54 | [32mINFO[0m | __main__ | ✅ Injected 4 live articles
-2026-04-20 16:51:54 | [32mINFO[0m | __main__ | Found 11 historical articles
-2026-04-20 16:51:54 | [32mINFO[0m | __main__ | Returning 15 articles with calculated sentiment
-INFO:     127.0.0.1:57693 - "GET /api/news?sector=pharma&month=2020-01&partner=USA HTTP/1.1" 200 OK
-2026-04-20 16:51:54 | [32mINFO[0m | __main__ | Explainability for USA
-2026-04-20 16:51:54 | [31mERROR[0m | __main__ | Explainability error: 'GraphDataLoader' object has no attribute 'inverse_node_mapping'
-INFO:     127.0.0.1:57694 - "GET /api/explainability?sector=pharma&month=2020-01&partner=USA HTTP/1.1" 500 Internal Server Error
-INFO:     127.0.0.1:57697 - "OPTIONS /api/v1/simulate HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57697 - "POST /api/v1/simulate HTTP/1.1" 200 OK
-2026-04-20 16:51:58 | [32mINFO[0m | __main__ | Generating predictions for Pharmaceuticals - 2020-01
-2026-04-20 16:52:02 | [32mINFO[0m | __main__ | Successfully generated 50 predictions for dashboard.
-INFO:     127.0.0.1:57697 - "GET /api/predictions?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
-2026-04-20 16:52:02 | [32mINFO[0m | __main__ | Generating predictions for Pharmaceuticals - 2020-01
-2026-04-20 16:52:06 | [32mINFO[0m | __main__ | Successfully generated 50 predictions for dashboard.
-2026-04-20 16:52:06 | [32mINFO[0m | __main__ | Generated 10 alerts
-INFO:     127.0.0.1:57782 - "GET /api/alerts?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
-2026-04-20 16:52:06 | [32mINFO[0m | __main__ | 🌐 Triggering real-time news analysis for CHN...
-2026-04-20 16:52:07 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 5s...
-2026-04-20 16:52:13 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 10s...
-2026-04-20 16:52:24 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Max retries reached for IND-CHN
-2026-04-20 16:52:24 | [32mINFO[0m | __main__ | Found 10 historical articles
-2026-04-20 16:52:24 | [32mINFO[0m | __main__ | Returning 10 articles with calculated sentiment
-INFO:     127.0.0.1:57785 - "GET /api/news?sector=pharma&month=2020-01&partner=CHN HTTP/1.1" 200 OK
-2026-04-20 16:52:24 | [32mINFO[0m | __main__ | Generating predictions for Pharmaceuticals - 2020-01
-2026-04-20 16:52:28 | [32mINFO[0m | __main__ | Successfully generated 50 predictions for dashboard.
-INFO:     127.0.0.1:57697 - "GET /api/predictions?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
-2026-04-20 16:52:28 | [32mINFO[0m | __main__ | Explainability for CHN
-2026-04-20 16:52:28 | [31mERROR[0m | __main__ | Explainability error: 'GraphDataLoader' object has no attribute 'inverse_node_mapping'
-INFO:     127.0.0.1:57786 - "GET /api/explainability?sector=pharma&month=2020-01&partner=CHN HTTP/1.1" 500 Internal Server Error
-2026-04-20 16:52:28 | [32mINFO[0m | __main__ | Generating predictions for Pharmaceuticals - 2020-01
-2026-04-20 16:52:32 | [32mINFO[0m | __main__ | Successfully generated 50 predictions for dashboard.
-2026-04-20 16:52:32 | [32mINFO[0m | __main__ | Generated 10 alerts
-INFO:     127.0.0.1:57793 - "GET /api/alerts?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
-2026-04-20 16:52:32 | [32mINFO[0m | __main__ | 🌐 Triggering real-time news analysis for CHN...
-2026-04-20 16:52:39 | [32mINFO[0m | __main__ | ✅ Injected 4 live articles
-2026-04-20 16:52:39 | [32mINFO[0m | __main__ | Found 10 historical articles
-2026-04-20 16:52:39 | [32mINFO[0m | __main__ | Returning 14 articles with calculated sentiment
-INFO:     127.0.0.1:57795 - "GET /api/news?sector=pharma&month=2020-01&partner=CHN HTTP/1.1" 200 OK
-2026-04-20 16:52:39 | [32mINFO[0m | __main__ | Explainability for CHN
-2026-04-20 16:52:39 | [31mERROR[0m | __main__ | Explainability error: 'GraphDataLoader' object has no attribute 'inverse_node_mapping'
-INFO:     127.0.0.1:57796 - "GET /api/explainability?sector=pharma&month=2020-01&partner=CHN HTTP/1.1" 500 Internal Server Error
-2026-04-20 16:52:39 | [32mINFO[0m | __main__ | Generating predictions for Pharmaceuticals - 2020-01
-2026-04-20 16:52:43 | [32mINFO[0m | __main__ | Successfully generated 50 predictions for dashboard.
-INFO:     127.0.0.1:57851 - "GET /api/predictions?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
-2026-04-20 16:52:43 | [32mINFO[0m | __main__ | 🌐 Triggering real-time news analysis for CHN...
-2026-04-20 16:52:44 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 5s...
-2026-04-20 16:52:52 | [32mINFO[0m | __main__ | ✅ Injected 4 live articles
-2026-04-20 16:52:52 | [32mINFO[0m | __main__ | Found 10 historical articles
-2026-04-20 16:52:52 | [32mINFO[0m | __main__ | Returning 14 articles with calculated sentiment
-INFO:     127.0.0.1:57854 - "GET /api/news?sector=pharma&month=2020-01&partner=CHN HTTP/1.1" 200 OK
-2026-04-20 16:52:52 | [32mINFO[0m | __main__ | Explainability for CHN
-2026-04-20 16:52:52 | [31mERROR[0m | __main__ | Explainability error: 'GraphDataLoader' object has no attribute 'inverse_node_mapping'
-INFO:     127.0.0.1:57856 - "GET /api/explainability?sector=pharma&month=2020-01&partner=CHN HTTP/1.1" 500 Internal Server Error
-2026-04-20 16:52:52 | [32mINFO[0m | __main__ | Generating predictions for Pharmaceuticals - 2020-01
-2026-04-20 16:52:57 | [32mINFO[0m | __main__ | Successfully generated 50 predictions for dashboard.
-INFO:     127.0.0.1:57857 - "GET /api/predictions?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
-2026-04-20 16:52:57 | [32mINFO[0m | __main__ | Generating predictions for Pharmaceuticals - 2020-01
-2026-04-20 16:53:01 | [32mINFO[0m | __main__ | Successfully generated 50 predictions for dashboard.
-2026-04-20 16:53:01 | [32mINFO[0m | __main__ | Generated 10 alerts
-INFO:     127.0.0.1:57939 - "GET /api/alerts?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
-2026-04-20 16:53:01 | [32mINFO[0m | __main__ | 🌐 Triggering real-time news analysis for CHN...
-2026-04-20 16:53:05 | [32mINFO[0m | __main__ | ✅ Injected 4 live articles
-2026-04-20 16:53:05 | [32mINFO[0m | __main__ | Found 10 historical articles
-2026-04-20 16:53:05 | [32mINFO[0m | __main__ | Returning 14 articles with calculated sentiment
-INFO:     127.0.0.1:57941 - "GET /api/news?sector=pharma&month=2020-01&partner=CHN HTTP/1.1" 200 OK
-2026-04-20 16:53:05 | [32mINFO[0m | __main__ | Explainability for CHN
-2026-04-20 16:53:05 | [31mERROR[0m | __main__ | Explainability error: 'GraphDataLoader' object has no attribute 'inverse_node_mapping'
-INFO:     127.0.0.1:57942 - "GET /api/explainability?sector=pharma&month=2020-01&partner=CHN HTTP/1.1" 500 Internal Server Error
-2026-04-20 16:53:05 | [32mINFO[0m | __main__ | 🌐 Triggering real-time news analysis for CAN...
-2026-04-20 16:53:06 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Error, retrying: Expecting value: line 1 column 1 (char 0)
-2026-04-20 16:53:12 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Error, retrying: Expecting value: line 1 column 1 (char 0)
-2026-04-20 16:53:18 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Failed after 3 attempts: Expecting value: line 1 column 1 (char 0)
-2026-04-20 16:53:18 | [32mINFO[0m | __main__ | Found 0 historical articles
-2026-04-20 16:53:18 | [32mINFO[0m | __main__ | Returning 0 articles with calculated sentiment
-INFO:     127.0.0.1:57949 - "GET /api/news?sector=pharma&month=2020-01&partner=CAN HTTP/1.1" 200 OK
-2026-04-20 16:53:18 | [32mINFO[0m | __main__ | Explainability for CAN
-2026-04-20 16:53:18 | [31mERROR[0m | __main__ | Explainability error: 'GraphDataLoader' object has no attribute 'inverse_node_mapping'
-INFO:     127.0.0.1:57950 - "GET /api/explainability?sector=pharma&month=2020-01&partner=CAN HTTP/1.1" 500 Internal Server Error
-2026-04-20 16:53:18 | [32mINFO[0m | __main__ | 🌐 Triggering real-time news analysis for JPN...
-2026-04-20 16:53:19 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 5s...
-2026-04-20 16:53:25 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 10s...
-2026-04-20 16:53:36 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Max retries reached for IND-JPN
-2026-04-20 16:53:36 | [32mINFO[0m | __main__ | Found 11 historical articles
-2026-04-20 16:53:36 | [32mINFO[0m | __main__ | Returning 11 articles with calculated sentiment
-INFO:     127.0.0.1:57952 - "GET /api/news?sector=pharma&month=2020-01&partner=JPN HTTP/1.1" 200 OK
-2026-04-20 16:53:36 | [32mINFO[0m | __main__ | Explainability for JPN
-2026-04-20 16:53:36 | [31mERROR[0m | __main__ | Explainability error: 'GraphDataLoader' object has no attribute 'inverse_node_mapping'
-INFO:     127.0.0.1:57954 - "GET /api/explainability?sector=pharma&month=2020-01&partner=JPN HTTP/1.1" 500 Internal Server Error
-2026-04-20 16:53:36 | [32mINFO[0m | __main__ | Generating predictions for Pharmaceuticals - 2020-01
-2026-04-20 16:53:40 | [32mINFO[0m | __main__ | Successfully generated 50 predictions for dashboard.
-INFO:     127.0.0.1:57956 - "GET /api/predictions?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
-2026-04-20 16:53:40 | [32mINFO[0m | __main__ | Generating predictions for Pharmaceuticals - 2020-01
-2026-04-20 16:53:43 | [32mINFO[0m | __main__ | Successfully generated 50 predictions for dashboard.
-2026-04-20 16:53:43 | [32mINFO[0m | __main__ | Generated 10 alerts
-INFO:     127.0.0.1:57958 - "GET /api/alerts?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
-2026-04-20 16:53:43 | [32mINFO[0m | __main__ | 🌐 Triggering real-time news analysis for CHN...
-2026-04-20 16:53:44 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 5s...
-2026-04-20 16:53:54 | [32mINFO[0m | __main__ | ✅ Injected 4 live articles
-2026-04-20 16:53:54 | [32mINFO[0m | __main__ | Found 10 historical articles
-2026-04-20 16:53:54 | [32mINFO[0m | __main__ | Returning 14 articles with calculated sentiment
-INFO:     127.0.0.1:57960 - "GET /api/news?sector=pharma&month=2020-01&partner=CHN HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58010 - "POST /api/v1/simulate HTTP/1.1" 200 OK
-2026-04-20 16:53:55 | [32mINFO[0m | __main__ | Generating predictions for Pharmaceuticals - 2020-01
-2026-04-20 16:53:58 | [32mINFO[0m | __main__ | Successfully generated 50 predictions for dashboard.
-INFO:     127.0.0.1:58017 - "GET /api/predictions?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
-2026-04-20 16:53:58 | [32mINFO[0m | __main__ | Generating predictions for Pharmaceuticals - 2020-01
-2026-04-20 16:54:02 | [32mINFO[0m | __main__ | Successfully generated 50 predictions for dashboard.
-2026-04-20 16:54:02 | [32mINFO[0m | __main__ | Generated 10 alerts
-INFO:     127.0.0.1:58019 - "GET /api/alerts?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
-2026-04-20 16:54:02 | [32mINFO[0m | __main__ | 🌐 Triggering real-time news analysis for CHN...
-2026-04-20 16:54:06 | [32mINFO[0m | __main__ | ✅ Injected 4 live articles
-2026-04-20 16:54:06 | [32mINFO[0m | __main__ | Found 10 historical articles
-2026-04-20 16:54:06 | [32mINFO[0m | __main__ | Returning 14 articles with calculated sentiment
-INFO:     127.0.0.1:58021 - "GET /api/news?sector=pharma&month=2020-01&partner=CHN HTTP/1.1" 200 OK
-2026-04-20 16:54:06 | [32mINFO[0m | __main__ | Explainability for CHN
-2026-04-20 16:54:06 | [31mERROR[0m | __main__ | Explainability error: 'GraphDataLoader' object has no attribute 'inverse_node_mapping'
-INFO:     127.0.0.1:58022 - "GET /api/explainability?sector=pharma&month=2020-01&partner=CHN HTTP/1.1" 500 Internal Server Error
-2026-04-20 16:54:06 | [32mINFO[0m | __main__ | 🌐 Triggering real-time news analysis for JPN...
-2026-04-20 16:54:07 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 5s...
-2026-04-20 16:54:17 | [32mINFO[0m | __main__ | ✅ Injected 4 live articles
-2026-04-20 16:54:17 | [32mINFO[0m | __main__ | Found 11 historical articles
-2026-04-20 16:54:17 | [32mINFO[0m | __main__ | Returning 15 articles with calculated sentiment
-INFO:     127.0.0.1:58024 - "GET /api/news?sector=pharma&month=2020-01&partner=JPN HTTP/1.1" 200 OK
-2026-04-20 16:54:17 | [32mINFO[0m | __main__ | Explainability for JPN
-2026-04-20 16:54:17 | [31mERROR[0m | __main__ | Explainability error: 'GraphDataLoader' object has no attribute 'inverse_node_mapping'
-INFO:     127.0.0.1:58027 - "GET /api/explainability?sector=pharma&month=2020-01&partner=JPN HTTP/1.1" 500 Internal Server Error
-2026-04-20 16:54:17 | [32mINFO[0m | __main__ | 🌐 Triggering real-time news analysis for KOR...
-2026-04-20 16:54:18 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 5s...
-2026-04-20 16:54:24 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Error, retrying: Expecting value: line 1 column 1 (char 0)
-2026-04-20 16:54:30 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Max retries reached for IND-KOR
-2026-04-20 16:54:30 | [32mINFO[0m | __main__ | Found 0 historical articles
-2026-04-20 16:54:30 | [32mINFO[0m | __main__ | Returning 0 articles with calculated sentiment
-INFO:     127.0.0.1:58030 - "GET /api/news?sector=pharma&month=2020-01&partner=KOR HTTP/1.1" 200 OK
-2026-04-20 16:54:30 | [32mINFO[0m | __main__ | Explainability for KOR
-2026-04-20 16:54:30 | [31mERROR[0m | __main__ | Explainability error: 'GraphDataLoader' object has no attribute 'inverse_node_mapping'
-INFO:     127.0.0.1:58031 - "GET /api/explainability?sector=pharma&month=2020-01&partner=KOR HTTP/1.1" 500 Internal Server Error
-2026-04-20 16:54:30 | [32mINFO[0m | __main__ | Generating predictions for Pharmaceuticals - 2020-01
-2026-04-20 16:54:33 | [32mINFO[0m | __main__ | Successfully generated 50 predictions for dashboard.
-INFO:     127.0.0.1:58055 - "GET /api/predictions?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
-2026-04-20 16:54:33 | [32mINFO[0m | __main__ | Generating predictions for Pharmaceuticals - 2020-01
-2026-04-20 16:54:37 | [32mINFO[0m | __main__ | Successfully generated 50 predictions for dashboard.
-2026-04-20 16:54:37 | [32mINFO[0m | __main__ | Generated 10 alerts
-INFO:     127.0.0.1:58057 - "GET /api/alerts?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
+2026-04-20 17:53:41 | [32mINFO[0m | __main__ | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 17:53:45 | [32mINFO[0m | __main__ | Successfully generated 50 predictions for dashboard.
+INFO:     127.0.0.1:59794 - "GET /api/predictions?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
+2026-04-20 17:53:45 | [32mINFO[0m | __main__ | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 17:53:49 | [32mINFO[0m | __main__ | Successfully generated 50 predictions for dashboard.
+2026-04-20 17:53:49 | [32mINFO[0m | __main__ | Generated 10 alerts
+INFO:     127.0.0.1:59796 - "GET /api/alerts?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
+2026-04-20 17:53:49 | [32mINFO[0m | __main__ | 🌐 Triggering general trade news refresh...
+2026-04-20 17:53:50 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 5s...
+2026-04-20 17:53:56 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 10s...
+2026-04-20 17:54:10 | [32mINFO[0m | __main__ | ✅ Injected 4 live articles
+2026-04-20 17:54:10 | [32mINFO[0m | __main__ | Found 81 historical articles
+2026-04-20 17:54:10 | [32mINFO[0m | __main__ | Returning 24 articles with calculated sentiment
+INFO:     127.0.0.1:59797 - "GET /api/news?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
+2026-04-20 17:54:10 | [32mINFO[0m | __main__ | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 17:54:15 | [32mINFO[0m | __main__ | Successfully generated 50 predictions for dashboard.
+INFO:     127.0.0.1:59796 - "GET /api/predictions?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
+2026-04-20 17:54:15 | [32mINFO[0m | __main__ | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 17:54:19 | [32mINFO[0m | __main__ | Successfully generated 50 predictions for dashboard.
+2026-04-20 17:54:19 | [32mINFO[0m | __main__ | Generated 10 alerts
+INFO:     127.0.0.1:59794 - "GET /api/alerts?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
+2026-04-20 17:54:19 | [32mINFO[0m | __main__ | 🌐 Triggering real-time news analysis for ARE...
+2026-04-20 17:54:20 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 5s...
+2026-04-20 17:54:26 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 10s...
+2026-04-20 17:54:37 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Failed after 3 attempts: Expecting value: line 1 column 1 (char 0)
+2026-04-20 17:54:37 | [32mINFO[0m | __main__ | Found 0 historical articles
+2026-04-20 17:54:37 | [32mINFO[0m | __main__ | Returning 0 articles with calculated sentiment
+INFO:     127.0.0.1:59802 - "GET /api/news?sector=pharma&month=2020-01&partner=ARE HTTP/1.1" 200 OK
+2026-04-20 17:54:37 | [32mINFO[0m | __main__ | Explainability for ARE
+INFO:     127.0.0.1:59803 - "GET /api/explainability?sector=pharma&month=2020-01&partner=ARE HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59805 - "OPTIONS /api/v1/simulate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59805 - "POST /api/v1/simulate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59816 - "POST /api/v1/simulate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59816 - "POST /api/v1/simulate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59816 - "POST /api/v1/simulate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59816 - "POST /api/v1/simulate HTTP/1.1" 200 OK
+2026-04-20 17:55:03 | [32mINFO[0m | __main__ | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 17:55:07 | [32mINFO[0m | __main__ | Successfully generated 50 predictions for dashboard.
+INFO:     127.0.0.1:59823 - "GET /api/predictions?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
+2026-04-20 17:55:07 | [32mINFO[0m | __main__ | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 17:55:11 | [32mINFO[0m | __main__ | Successfully generated 50 predictions for dashboard.
+2026-04-20 17:55:11 | [32mINFO[0m | __main__ | Generated 10 alerts
+INFO:     127.0.0.1:59824 - "GET /api/alerts?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
+2026-04-20 17:55:11 | [32mINFO[0m | __main__ | 🌐 Triggering real-time news analysis for ITA...
+2026-04-20 17:55:12 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Error, retrying: Expecting value: line 1 column 1 (char 0)
+2026-04-20 17:55:18 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 10s...
+2026-04-20 17:55:29 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Max retries reached for IND-ITA
+2026-04-20 17:55:29 | [32mINFO[0m | __main__ | Found 0 historical articles
+2026-04-20 17:55:29 | [32mINFO[0m | __main__ | Returning 0 articles with calculated sentiment
+INFO:     127.0.0.1:59825 - "GET /api/news?sector=pharma&month=2020-01&partner=ITA HTTP/1.1" 200 OK
+2026-04-20 17:55:29 | [32mINFO[0m | __main__ | Explainability for ITA
+INFO:     127.0.0.1:59826 - "GET /api/explainability?sector=pharma&month=2020-01&partner=ITA HTTP/1.1" 200 OK
+2026-04-20 17:55:34 | [32mINFO[0m | __main__ | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 17:55:37 | [32mINFO[0m | __main__ | Successfully generated 50 predictions for dashboard.
+INFO:     127.0.0.1:59844 - "GET /api/predictions?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
+2026-04-20 17:55:37 | [32mINFO[0m | __main__ | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 17:55:42 | [32mINFO[0m | __main__ | Successfully generated 50 predictions for dashboard.
+2026-04-20 17:55:42 | [32mINFO[0m | __main__ | Generated 10 alerts
+INFO:     127.0.0.1:59845 - "GET /api/alerts?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
+2026-04-20 17:55:42 | [32mINFO[0m | __main__ | 🌐 Triggering general trade news refresh...
+2026-04-20 17:55:43 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 5s...
+2026-04-20 17:55:49 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 10s...
+2026-04-20 17:56:06 | [32mINFO[0m | __main__ | ✅ Injected 4 live articles
+2026-04-20 17:56:06 | [32mINFO[0m | __main__ | Found 81 historical articles
+2026-04-20 17:56:06 | [32mINFO[0m | __main__ | Returning 24 articles with calculated sentiment
+INFO:     127.0.0.1:59846 - "GET /api/news?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
+2026-04-20 17:56:14 | [32mINFO[0m | __main__ | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 17:56:18 | [32mINFO[0m | __main__ | Successfully generated 50 predictions for dashboard.
+INFO:     127.0.0.1:59920 - "GET /api/predictions?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
+2026-04-20 17:56:18 | [32mINFO[0m | __main__ | Generating predictions for Pharmaceuticals - 2020-01
+2026-04-20 17:56:22 | [32mINFO[0m | __main__ | Successfully generated 50 predictions for dashboard.
+2026-04-20 17:56:22 | [32mINFO[0m | __main__ | Generated 10 alerts
+INFO:     127.0.0.1:59921 - "GET /api/alerts?sector=pharma&month=2020-01 HTTP/1.1" 200 OK
+2026-04-20 17:56:22 | [32mINFO[0m | __main__ | 🌐 Triggering real-time news analysis for POL...
+2026-04-20 17:56:23 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Error, retrying: Expecting value: line 1 column 1 (char 0)
+2026-04-20 17:56:29 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 10s...
+2026-04-20 17:56:40 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Failed after 3 attempts: Expecting value: line 1 column 1 (char 0)
+2026-04-20 17:56:40 | [32mINFO[0m | __main__ | Found 0 historical articles
+2026-04-20 17:56:40 | [32mINFO[0m | __main__ | Returning 0 articles with calculated sentiment
+INFO:     127.0.0.1:59924 - "GET /api/news?sector=pharma&month=2020-01&partner=POL HTTP/1.1" 200 OK
+2026-04-20 17:56:40 | [32mINFO[0m | __main__ | Explainability for POL
+INFO:     127.0.0.1:59925 - "GET /api/explainability?sector=pharma&month=2020-01&partner=POL HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59927 - "POST /api/v1/simulate HTTP/1.1" 200 OK

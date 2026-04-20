@@ -119,7 +119,7 @@ export function mockNews({ sector, month, partner }: { sector: string; month: st
       title: "China Announces New Pharmaceutical Import Regulations",
       snippet: "New regulatory framework expected to impact foreign pharmaceutical imports...",
       source: "Reuters",
-      url: "https://reuters.com/article/china-pharma-regulations",
+      url: "https://www.reuters.com/business/healthcare-pharmaceuticals/",
       date: "2024-01-15",
       sentiment: -0.3,
       relevance_score: 0.85,
@@ -130,7 +130,7 @@ export function mockNews({ sector, month, partner }: { sector: string; month: st
       title: "Germany's Healthcare Sector Shows Strong Recovery",
       snippet: "German pharmaceutical market demonstrates robust growth in Q4...",
       source: "Bloomberg",
-      url: "https://bloomberg.com/germany-healthcare-recovery",
+      url: "https://www.bloomberg.com/news/articles/2024-01-12/germany-s-healthcare-sector-recovery",
       date: "2024-01-12",
       sentiment: 0.6,
       relevance_score: 0.92,
@@ -141,7 +141,7 @@ export function mockNews({ sector, month, partner }: { sector: string; month: st
       title: "US Textile Industry Faces Supply Chain Challenges",
       snippet: "Ongoing supply chain disruptions affecting textile imports...",
       source: "Wall Street Journal",
-      url: "https://wsj.com/us-textile-supply-chain",
+      url: "https://www.wsj.com/articles/supply-chain-crisis-textile-industry-11634563801",
       date: "2024-01-10",
       sentiment: -0.4,
       relevance_score: 0.78,
@@ -149,7 +149,13 @@ export function mockNews({ sector, month, partner }: { sector: string; month: st
     },
   ]
 
-  return partner ? articles.filter(a => a.country_code === partner) : articles
+  return (partner ? articles.filter(a => a.country_code === partner) : articles).map(art => ({
+    ...art,
+    // ONLY use search fallback if the URL is not a direct reuters/bloomberg/wsj link
+    url: art.url.includes("reuters.com") || art.url.includes("bloomberg.com") || art.url.includes("wsj.com")
+      ? art.url
+      : `https://www.google.com/search?q=${encodeURIComponent(art.title)}&tbm=nws`
+  }))
 }
 
 export function mockExplainability({ sector, month, partner }: { sector: string; month: string; partner?: string }): Explainability {
