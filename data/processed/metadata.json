@@ -1,0 +1,19 @@
+{
+  "num_nodes": 204,
+  "num_edges": 84609,
+  "num_countries": 204,
+  "years": [
+    2017,
+    2018,
+    2019,
+    2020
+  ],
+  "sectors": [
+    "Pharmaceuticals",
+    "Textiles"
+  ],
+  "train_edges": 44288,
+  "val_edges": 21216,
+  "test_edges": 19105,
+  "india_export_edges": 808
+}

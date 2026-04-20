@@ -1,0 +1,27 @@
+
+> my-v0-project@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.5.14
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.1.229:3000
+
+ ✓ Starting...
+ ✓ Ready in 1019ms
+ ○ Compiling / ...
+ ✓ Compiled / in 995ms (2186 modules)
+ GET / 200 in 1264ms
+ ✓ Compiled /alerts in 278ms (2193 modules)
+ GET /alerts 200 in 357ms
+ GET / 200 in 37ms
+ ✓ Compiled /explainability in 322ms (2200 modules)
+ GET /explainability 200 in 361ms
+ GET / 200 in 40ms
+ ✓ Compiled /partners/[code] in 278ms (2197 modules)
+ GET /partners/USA 200 in 668ms
+ GET / 200 in 27ms
+ ✓ Compiled /explainability in 100ms (1174 modules)
+ GET /explainability 200 in 137ms
+ GET / 200 in 29ms
+ GET / 200 in 29ms
+ GET /partners/CHN 200 in 35ms

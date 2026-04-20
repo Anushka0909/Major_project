@@ -1,0 +1,85 @@
+2026-04-01 11:45:50 | [32mINFO[0m | weekly_update | weekly_update.py:184 | 
+============================================================
+2026-04-01 11:45:50 | [32mINFO[0m | weekly_update | weekly_update.py:185 | 🚀 WEEKLY UPDATE PIPELINE
+2026-04-01 11:45:50 | [32mINFO[0m | weekly_update | weekly_update.py:186 | Started: 2026-04-01 11:45:50.514407
+2026-04-01 11:45:50 | [32mINFO[0m | weekly_update | weekly_update.py:187 | ============================================================
+
+2026-04-01 11:45:50 | [32mINFO[0m | weekly_update | weekly_update.py:51 | ============================================================
+2026-04-01 11:45:50 | [32mINFO[0m | weekly_update | weekly_update.py:52 | STEP 1: FETCHING NEWS ARTICLES
+2026-04-01 11:45:50 | [32mINFO[0m | weekly_update | weekly_update.py:53 | ============================================================
+2026-04-01 11:46:32 | [32mINFO[0m | weekly_update | weekly_update.py:184 | 
+============================================================
+2026-04-01 11:46:32 | [32mINFO[0m | weekly_update | weekly_update.py:185 | 🚀 WEEKLY UPDATE PIPELINE
+2026-04-01 11:46:32 | [32mINFO[0m | weekly_update | weekly_update.py:186 | Started: 2026-04-01 11:46:32.570965
+2026-04-01 11:46:32 | [32mINFO[0m | weekly_update | weekly_update.py:187 | ============================================================
+
+2026-04-01 11:46:32 | [32mINFO[0m | weekly_update | weekly_update.py:51 | ============================================================
+2026-04-01 11:46:32 | [32mINFO[0m | weekly_update | weekly_update.py:52 | STEP 1: FETCHING NEWS ARTICLES
+2026-04-01 11:46:32 | [32mINFO[0m | weekly_update | weekly_update.py:53 | ============================================================
+2026-04-01 11:56:31 | [32mINFO[0m | weekly_update | weekly_update.py:184 | 
+============================================================
+2026-04-01 11:56:31 | [32mINFO[0m | weekly_update | weekly_update.py:185 | 🚀 WEEKLY UPDATE PIPELINE
+2026-04-01 11:56:31 | [32mINFO[0m | weekly_update | weekly_update.py:186 | Started: 2026-04-01 11:56:31.296268
+2026-04-01 11:56:31 | [32mINFO[0m | weekly_update | weekly_update.py:187 | ============================================================
+
+2026-04-01 11:56:31 | [32mINFO[0m | weekly_update | weekly_update.py:51 | ============================================================
+2026-04-01 11:56:31 | [32mINFO[0m | weekly_update | weekly_update.py:52 | STEP 1: FETCHING NEWS ARTICLES
+2026-04-01 11:56:31 | [32mINFO[0m | weekly_update | weekly_update.py:53 | ============================================================
+2026-04-01 11:56:38 | [32mINFO[0m | weekly_update | weekly_update.py:61 | ✓ Fetched 120 articles
+2026-04-01 11:56:38 | [32mINFO[0m | weekly_update | weekly_update.py:77 | ============================================================
+2026-04-01 11:56:38 | [32mINFO[0m | weekly_update | weekly_update.py:78 | STEP 2: ANALYZING SENTIMENT
+2026-04-01 11:56:38 | [32mINFO[0m | weekly_update | weekly_update.py:79 | ============================================================
+2026-04-01 11:58:41 | [32mINFO[0m | weekly_update | weekly_update.py:184 | 
+============================================================
+2026-04-01 11:58:41 | [32mINFO[0m | weekly_update | weekly_update.py:185 | 🚀 WEEKLY UPDATE PIPELINE
+2026-04-01 11:58:41 | [32mINFO[0m | weekly_update | weekly_update.py:186 | Started: 2026-04-01 11:58:41.451016
+2026-04-01 11:58:41 | [32mINFO[0m | weekly_update | weekly_update.py:187 | ============================================================
+
+2026-04-01 11:58:41 | [32mINFO[0m | weekly_update | weekly_update.py:51 | ============================================================
+2026-04-01 11:58:41 | [32mINFO[0m | weekly_update | weekly_update.py:52 | STEP 1: FETCHING NEWS ARTICLES
+2026-04-01 11:58:41 | [32mINFO[0m | weekly_update | weekly_update.py:53 | ============================================================
+2026-04-01 11:58:48 | [32mINFO[0m | weekly_update | weekly_update.py:184 | 
+============================================================
+2026-04-01 11:58:48 | [32mINFO[0m | weekly_update | weekly_update.py:185 | 🚀 WEEKLY UPDATE PIPELINE
+2026-04-01 11:58:48 | [32mINFO[0m | weekly_update | weekly_update.py:186 | Started: 2026-04-01 11:58:48.834080
+2026-04-01 11:58:48 | [32mINFO[0m | weekly_update | weekly_update.py:187 | ============================================================
+
+2026-04-01 11:58:48 | [32mINFO[0m | weekly_update | weekly_update.py:51 | ============================================================
+2026-04-01 11:58:48 | [32mINFO[0m | weekly_update | weekly_update.py:52 | STEP 1: FETCHING NEWS ARTICLES
+2026-04-01 11:58:48 | [32mINFO[0m | weekly_update | weekly_update.py:53 | ============================================================
+2026-04-01 12:07:06 | [32mINFO[0m | weekly_update | weekly_update.py:61 | ✓ Fetched 135 articles
+2026-04-01 12:07:06 | [32mINFO[0m | weekly_update | weekly_update.py:77 | ============================================================
+2026-04-01 12:07:06 | [32mINFO[0m | weekly_update | weekly_update.py:78 | STEP 2: ANALYZING SENTIMENT
+2026-04-01 12:07:06 | [32mINFO[0m | weekly_update | weekly_update.py:79 | ============================================================
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update | weekly_update.py:89 | ✓ Analyzed 116 articles
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update | weekly_update.py:90 | ✓ Created 10 bilateral sentiment scores
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update | weekly_update.py:108 | ============================================================
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update | weekly_update.py:109 | STEP 3: PREPROCESSING DATA
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update | weekly_update.py:110 | ============================================================
+2026-04-01 12:16:01 | [31mERROR[0m | weekly_update | weekly_update.py:126 | ❌ Preprocessing failed: Comtrade data is empty after loading. Cannot proceed.
+Traceback (most recent call last):
+  File "/Users/anushkapatil/Documents/anushka/scripts/weekly_update.py", line 114, in step_3_preprocess_data
+    nodes, edges, metadata = preprocessor.run()
+                             ^^^^^^^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/src/data/preprocessing.py", line 603, in run
+    merged = self.merge_trade_with_features(data)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/src/data/preprocessing.py", line 179, in merge_trade_with_features
+    raise ValueError("Comtrade data is empty after loading. Cannot proceed.")
+ValueError: Comtrade data is empty after loading. Cannot proceed.
+2026-04-01 12:16:01 | [31mERROR[0m | weekly_update | weekly_update.py:203 | ❌ Preprocessing failed
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update | weekly_update.py:180 | Results saved: logs/weekly_updates/weekly_update_20260401_115848.json
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update | weekly_update.py:215 | 
+============================================================
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update | weekly_update.py:216 | 📊 PIPELINE SUMMARY
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update | weekly_update.py:217 | ============================================================
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update | weekly_update.py:218 | Steps completed: 2/4
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update | weekly_update.py:220 |   ✓ fetch_articles
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update | weekly_update.py:220 |   ✓ analyze_sentiment
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update | weekly_update.py:223 | 
+Errors encountered: 1
+2026-04-01 12:16:01 | [31mERROR[0m | weekly_update | weekly_update.py:225 |   ✗ preprocess_data: Comtrade data is empty after loading. Cannot proceed.
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update | weekly_update.py:227 | 
+Completed: 2026-04-01 12:16:01.277458
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update | weekly_update.py:228 | ============================================================
+

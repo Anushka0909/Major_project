@@ -1,17 +1,19 @@
-[paste the artifact content here]
 # ============================================================
 # TRADE FLOW PREDICTION PROJECT - .gitignore
 # ============================================================
 
-# ============================================================
-# Python
-# ============================================================
-# Byte-compiled / optimized / DLL files
+# Environments
+.env
+.venv/
+env/
+venv/
+node_modules/
+
+# Python Byte-compiled / optimized
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
-.Python
 
 # Distribution / packaging
 build/
@@ -20,7 +22,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
 lib64/
 parts/
 sdist/
@@ -33,10 +34,6 @@ share/python-wheels/
 *.egg
 MANIFEST
 
-# PyInstaller
-*.manifest
-*.spec
-
 # Unit test / coverage
 htmlcov/
 .tox/
@@ -47,232 +44,38 @@ htmlcov/
 nosetests.xml
 coverage.xml
 *.cover
-*.log
 .pytest_cache/
 
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-.python-version
-
-venv/
-*.pyc
-__pycache__/
-
-# ============================================================
-# Data Files (IMPORTANT!)
-# ============================================================
-# Raw data (too large for git)
-data/raw/**/*.csv
-data/raw/**/*.xlsx
-data/raw/**/*.xls
-data/raw/**/*.parquet
-data/raw/*.csv
-data/raw/*.xlsx
-data/raw/*.xls
-
-# Processed data (also large)
-data/processed/**/*.csv
-data/processed/**/*.parquet
-data/processed/edges.csv
-data/processed/nodes.csv
-
-# GDELT data
-data/live/gdelt_latest/**/*.json
-data/live/gdelt_latest/**/*.csv
-
-# Keep directory structure with .gitkeep files
-!data/raw/.gitkeep
-!data/processed/.gitkeep
-!data/live/.gitkeep
-!data/processed/gdelt_aggregates/.gitkeep
-!data/processed/graph_snapshots/.gitkeep
-
-# Allow metadata and small config files
-!data/processed/metadata.json
-!data/processed/node_mapping.json
-!data/processed/config.json
-
-# ============================================================
-# Models (Large files)
-# ============================================================
-# Model checkpoints
-models/*.pt
-models/*.pth
-models/*.pkl
-models/*.h5
-models/*.ckpt
-
-# Keep one example or best model if small
-# !models/best_model_example.pt
-
-# Allow metadata
-!models/*.json
-!models/.gitkeep
-
-# ============================================================
-# Logs
-# ============================================================
-logs/*.log
-logs/**/*.log
-logs/**/*.txt
-!logs/.gitkeep
-
-# ============================================================
-# Notebooks
-# ============================================================
-# Jupyter Notebook checkpoints
-.ipynb_checkpoints/
-notebooks/.ipynb_checkpoints/
-notebooks/**/.ipynb_checkpoints/
-
-# Jupyter Notebook outputs (optional - uncomment if you want to ignore outputs)
-# notebooks/**/*.ipynb
-
-# ============================================================
-# Docker
-# ============================================================
-docker/data/
-docker/models/
-docker/.env
-
-# ============================================================
 # IDE & Editors
-# ============================================================
-# VSCode
 .vscode/
-*.code-workspace
-
-# PyCharm
 .idea/
-*.iml
-*.iws
-
-# Sublime Text
 *.sublime-project
 *.sublime-workspace
-
-# Vim
 *.swp
 *.swo
 *~
 
-# Emacs
-*~
-\#*\#
-.\#*
-
-# ============================================================
 # OS Files
-# ============================================================
-# macOS
 .DS_Store
 .AppleDouble
 .LSOverride
 ._*
-
-# Windows
 Thumbs.db
-ehthumbs.db
-Desktop.ini
-$RECYCLE.BIN/
 
-# Linux
-*~
+# Project Logs (Allowing dir but ignoring log files is common, but user wants everything)
+# logs/*.log
 
-# ============================================================
-# Project Specific
-# ============================================================
-# Temporary files
-temp/
-tmp/
-*.tmp
-*.temp
+# ALLOW EVERYTHING ELSE (Data, Models, etc. as requested)
+!data/
+!models/
+!logs/
+!src/
+!configs/
+!scripts/
 
-# Database files (if using local SQLite)
-*.db
-*.sqlite
-*.sqlite3
-
-# API keys and secrets
-.env
+# Except local secrets
 .env.local
 .env.*.local
 secrets/
-credentials/
-*.key
-*.pem
-
-# Backup files
-*.bak
-*.backup
-*_backup.*
-
-# Large datasets from external sources
-data/external/comtrade/*.csv
-data/external/worldbank/*.csv
-data/external/imf/*.csv
-
-# Cache directories
-.cache/
-cache/
-__pycache__/
-
-# PyTorch specific
-*.pt.tmp
-*.pth.tar
-
-# Weights & Biases (if using)
-wandb/
-
-# MLflow (if using)
-mlruns/
-
-# ============================================================
-# Documentation builds
-# ============================================================
-docs/_build/
-site/
-
-# ============================================================
-# Testing
-# ============================================================
-.coverage
-.pytest_cache/
-htmlcov/
-
-# ============================================================
-# Frontend (if applicable)
-# ============================================================
-node_modules/
-npm-debug.log
-yarn-error.log
-package-lock.json
-yarn.lock
-
-# ============================================================
-# Misc
-# ============================================================
-*.orig
-*.rej
-.mypy_cache/
-.dmypy.json
-dmypy.json
-.pyre/
-
-
-data/
-logs/
-credentials/
-*.DS_Store
-*.csv
-*.rdb
-__pycache__/
-
-# Re-include source data code
-!src/data/
+credentials/*.key
+credentials/*.pem

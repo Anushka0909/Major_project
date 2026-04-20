@@ -1,0 +1,310 @@
+Loaded config: features
+Loaded config: pipeline_config
+Loaded config: model_config
+2026-04-01 11:58:48 | [32mINFO[0m | weekly_update | 
+============================================================
+2026-04-01 11:58:48 | [32mINFO[0m | weekly_update | 🚀 WEEKLY UPDATE PIPELINE
+2026-04-01 11:58:48 | [32mINFO[0m | weekly_update | Started: 2026-04-01 11:58:48.834080
+2026-04-01 11:58:48 | [32mINFO[0m | weekly_update | ============================================================
+
+2026-04-01 11:58:48 | [32mINFO[0m | weekly_update | ============================================================
+2026-04-01 11:58:48 | [32mINFO[0m | weekly_update | STEP 1: FETCHING NEWS ARTICLES
+2026-04-01 11:58:48 | [32mINFO[0m | weekly_update | ============================================================
+2026-04-01 11:58:48 | [32mINFO[0m | src.pipelines.gdelt_article_scheduler | Fetching articles for priority country pairs...
+2026-04-01 11:58:48 | [32mINFO[0m | src.pipelines.gdelt_article_scheduler |   [1/24] Fetching IND-USA...
+2026-04-01 11:59:16 | [32mINFO[0m | src.pipelines.gdelt_article_scheduler |   [2/24] Fetching IND-CHN...
+2026-04-01 11:59:21 | [32mINFO[0m | src.pipelines.gdelt_article_scheduler |   [3/24] Fetching IND-ARE...
+2026-04-01 11:59:22 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 5s...
+2026-04-01 11:59:28 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 10s...
+2026-04-01 11:59:40 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Failed after 3 attempts: Expecting value: line 1 column 1 (char 0)
+2026-04-01 11:59:42 | [32mINFO[0m | src.pipelines.gdelt_article_scheduler |   [4/24] Fetching IND-HKG...
+2026-04-01 11:59:42 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 5s...
+2026-04-01 11:59:55 | [32mINFO[0m | src.pipelines.gdelt_article_scheduler |   [5/24] Fetching IND-SAU...
+2026-04-01 11:59:56 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 5s...
+2026-04-01 12:00:05 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Error, retrying: Expecting value: line 1 column 1 (char 0)
+2026-04-01 12:00:17 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Max retries reached for IND-SAU
+2026-04-01 12:00:19 | [32mINFO[0m | src.pipelines.gdelt_article_scheduler |   [6/24] Fetching IND-SGP...
+2026-04-01 12:00:31 | [32mINFO[0m | src.pipelines.gdelt_article_scheduler |   [7/24] Fetching IND-DEU...
+2026-04-01 12:00:52 | [32mINFO[0m | src.pipelines.gdelt_article_scheduler |   [8/24] Fetching IND-GBR...
+2026-04-01 12:01:29 | [32mINFO[0m | src.pipelines.gdelt_article_scheduler |   [9/24] Fetching IND-NLD...
+2026-04-01 12:01:36 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 5s...
+2026-04-01 12:01:49 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 10s...
+2026-04-01 12:02:04 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Max retries reached for IND-NLD
+2026-04-01 12:02:06 | [32mINFO[0m | src.pipelines.gdelt_article_scheduler |   [10/24] Fetching IND-BEL...
+2026-04-01 12:02:10 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 5s...
+2026-04-01 12:02:18 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Error, retrying: Expecting value: line 1 column 1 (char 0)
+2026-04-01 12:02:25 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Failed after 3 attempts: Expecting value: line 1 column 1 (char 0)
+2026-04-01 12:02:27 | [32mINFO[0m | src.pipelines.gdelt_article_scheduler |   [11/24] Fetching IND-FRA...
+2026-04-01 12:02:29 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 5s...
+2026-04-01 12:02:36 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 10s...
+2026-04-01 12:02:47 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Max retries reached for IND-FRA
+2026-04-01 12:02:49 | [32mINFO[0m | src.pipelines.gdelt_article_scheduler |   [12/24] Fetching IND-ITA...
+2026-04-01 12:02:51 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Error, retrying: Expecting value: line 1 column 1 (char 0)
+2026-04-01 12:02:58 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 10s...
+2026-04-01 12:03:10 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Max retries reached for IND-ITA
+2026-04-01 12:03:12 | [32mINFO[0m | src.pipelines.gdelt_article_scheduler |   [13/24] Fetching IND-JPN...
+2026-04-01 12:03:13 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 5s...
+2026-04-01 12:03:27 | [32mINFO[0m | src.pipelines.gdelt_article_scheduler |   [14/24] Fetching IND-KOR...
+2026-04-01 12:03:28 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Error, retrying: Expecting value: line 1 column 1 (char 0)
+2026-04-01 12:03:34 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Error, retrying: Expecting value: line 1 column 1 (char 0)
+2026-04-01 12:03:40 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Max retries reached for IND-KOR
+2026-04-01 12:03:42 | [32mINFO[0m | src.pipelines.gdelt_article_scheduler |   [15/24] Fetching IND-MYS...
+2026-04-01 12:03:43 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Error, retrying: Expecting value: line 1 column 1 (char 0)
+2026-04-01 12:03:49 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Error, retrying: Expecting value: line 1 column 1 (char 0)
+2026-04-01 12:03:55 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Failed after 3 attempts: Expecting value: line 1 column 1 (char 0)
+2026-04-01 12:03:57 | [32mINFO[0m | src.pipelines.gdelt_article_scheduler |   [16/24] Fetching IND-IDN...
+2026-04-01 12:03:58 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Error, retrying: Expecting value: line 1 column 1 (char 0)
+2026-04-01 12:04:04 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 10s...
+2026-04-01 12:04:16 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Max retries reached for IND-IDN
+2026-04-01 12:04:18 | [32mINFO[0m | src.pipelines.gdelt_article_scheduler |   [17/24] Fetching IND-THA...
+2026-04-01 12:04:19 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Error, retrying: Expecting value: line 1 column 1 (char 0)
+2026-04-01 12:04:25 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 10s...
+2026-04-01 12:04:37 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Max retries reached for IND-THA
+2026-04-01 12:04:39 | [32mINFO[0m | src.pipelines.gdelt_article_scheduler |   [18/24] Fetching IND-VNM...
+2026-04-01 12:04:40 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 5s...
+2026-04-01 12:04:46 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Error, retrying: Expecting value: line 1 column 1 (char 0)
+2026-04-01 12:04:53 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Max retries reached for IND-VNM
+2026-04-01 12:04:55 | [32mINFO[0m | src.pipelines.gdelt_article_scheduler |   [19/24] Fetching USA-CHN...
+2026-04-01 12:04:57 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 5s...
+2026-04-01 12:05:05 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 10s...
+2026-04-01 12:05:22 | [32mINFO[0m | src.pipelines.gdelt_article_scheduler |   [20/24] Fetching USA-MEX...
+2026-04-01 12:05:23 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 5s...
+2026-04-01 12:05:30 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 10s...
+2026-04-01 12:05:42 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Max retries reached for USA-MEX
+2026-04-01 12:05:44 | [32mINFO[0m | src.pipelines.gdelt_article_scheduler |   [21/24] Fetching DEU-CHN...
+2026-04-01 12:05:45 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 5s...
+2026-04-01 12:05:52 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 10s...
+2026-04-01 12:06:03 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Max retries reached for DEU-CHN
+2026-04-01 12:06:05 | [32mINFO[0m | src.pipelines.gdelt_article_scheduler |   [22/24] Fetching CHN-JPN...
+2026-04-01 12:06:07 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 5s...
+2026-04-01 12:06:25 | [32mINFO[0m | src.pipelines.gdelt_article_scheduler |   [23/24] Fetching USA-CAN...
+2026-04-01 12:06:26 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Error, retrying: Expecting value: line 1 column 1 (char 0)
+2026-04-01 12:06:33 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 10s...
+2026-04-01 12:06:44 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Max retries reached for USA-CAN
+2026-04-01 12:06:46 | [32mINFO[0m | src.pipelines.gdelt_article_scheduler |   [24/24] Fetching DEU-FRA...
+2026-04-01 12:06:47 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 5s...
+2026-04-01 12:06:53 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Rate limited, waiting 10s...
+2026-04-01 12:07:04 | [33mWARNING[0m | src.pipelines.gdelt_article_scheduler |   Max retries reached for DEU-FRA
+2026-04-01 12:07:06 | [32mINFO[0m | src.pipelines.gdelt_article_scheduler | Fetched 135 total articles
+2026-04-01 12:07:06 | [32mINFO[0m | src.pipelines.gdelt_article_scheduler | Updated /Users/anushkapatil/Documents/anushka/data/raw/sentiment/articles.csv (116 total articles)
+2026-04-01 12:07:06 | [32mINFO[0m | weekly_update | ✓ Fetched 135 articles
+2026-04-01 12:07:06 | [32mINFO[0m | weekly_update | ============================================================
+2026-04-01 12:07:06 | [32mINFO[0m | weekly_update | STEP 2: ANALYZING SENTIMENT
+2026-04-01 12:07:06 | [32mINFO[0m | weekly_update | ============================================================
+2026-04-01 12:07:06 | [32mINFO[0m | src.pipelines.sentiment_analyzer | Loading sentiment model: ProsusAI/finbert
+2026-04-01 12:07:06 | [32mINFO[0m | src.pipelines.sentiment_analyzer | Using device: cpu
+2026-04-01 12:07:08 | [32mINFO[0m | src.pipelines.sentiment_analyzer | ✓ FinBERT model loaded successfully
+2026-04-01 12:07:08 | [32mINFO[0m | src.pipelines.sentiment_analyzer | ============================================================
+2026-04-01 12:07:08 | [32mINFO[0m | src.pipelines.sentiment_analyzer | 🎯 RUNNING SENTIMENT ANALYSIS PIPELINE
+2026-04-01 12:07:08 | [32mINFO[0m | src.pipelines.sentiment_analyzer | ============================================================
+2026-04-01 12:07:08 | [32mINFO[0m | src.pipelines.sentiment_analyzer | Loading articles from: /Users/anushkapatil/Documents/anushka/data/raw/sentiment/articles.csv
+2026-04-01 12:07:08 | [32mINFO[0m | src.pipelines.sentiment_analyzer | Loaded 116 articles
+2026-04-01 12:07:08 | [32mINFO[0m | src.pipelines.sentiment_analyzer | Processing 116 articles...
+2026-04-01 12:07:17 | [32mINFO[0m | src.pipelines.sentiment_analyzer |   Processed 10/116 articles
+Building prefix dict from /Users/anushkapatil/Documents/anushka/venv/lib/python3.12/site-packages/jieba/dict.txt ...
+Loading model from cache /var/folders/c1/48x27zts6mn3_b6389rbv4kh0000gn/T/jieba.cache
+Loading model cost 0.3744792938232422 seconds.
+Prefix dict has been built succesfully.
+2026-04-01 12:07:58 | [32mINFO[0m | src.pipelines.sentiment_analyzer |   Processed 20/116 articles
+2026-04-01 12:08:34 | [32mINFO[0m | src.pipelines.sentiment_analyzer |   Processed 30/116 articles
+2026-04-01 12:09:19 | [32mINFO[0m | src.pipelines.sentiment_analyzer |   Processed 40/116 articles
+2026-04-01 12:09:42 | [32mINFO[0m | src.pipelines.sentiment_analyzer |   Processed 50/116 articles
+2026-04-01 12:10:54 | [32mINFO[0m | src.pipelines.sentiment_analyzer |   Processed 60/116 articles
+2026-04-01 12:11:45 | [32mINFO[0m | src.pipelines.sentiment_analyzer |   Processed 70/116 articles
+2026-04-01 12:12:33 | [32mINFO[0m | src.pipelines.sentiment_analyzer |   Processed 80/116 articles
+2026-04-01 12:13:42 | [32mINFO[0m | src.pipelines.sentiment_analyzer |   Processed 90/116 articles
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+2026-04-01 12:14:33 | [32mINFO[0m | src.pipelines.sentiment_analyzer |   Processed 100/116 articles
+Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+2026-04-01 12:15:57 | [32mINFO[0m | src.pipelines.sentiment_analyzer |   Processed 110/116 articles
+2026-04-01 12:16:01 | [32mINFO[0m | src.pipelines.sentiment_analyzer | ✓ Processed 116 articles successfully
+2026-04-01 12:16:01 | [32mINFO[0m | src.pipelines.sentiment_analyzer | Aggregating bilateral sentiment...
+2026-04-01 12:16:01 | [32mINFO[0m | src.pipelines.sentiment_analyzer | Aggregating sentiment for 10 country pairs
+2026-04-01 12:16:01 | [32mINFO[0m | src.pipelines.sentiment_analyzer | ✓ Created 10 bilateral sentiment scores
+2026-04-01 12:16:01 | [32mINFO[0m | src.pipelines.sentiment_analyzer | ✓ Saved: /Users/anushkapatil/Documents/anushka/data/raw/sentiment/articles_with_sentiment.csv
+2026-04-01 12:16:01 | [32mINFO[0m | src.pipelines.sentiment_analyzer | ✓ Saved: /Users/anushkapatil/Documents/anushka/data/raw/sentiment/bilateral_sentiment.csv
+2026-04-01 12:16:01 | [32mINFO[0m | src.pipelines.sentiment_analyzer | ============================================================
+2026-04-01 12:16:01 | [32mINFO[0m | src.pipelines.sentiment_analyzer | ✅ SENTIMENT ANALYSIS COMPLETE
+2026-04-01 12:16:01 | [32mINFO[0m | src.pipelines.sentiment_analyzer | ============================================================
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update | ✓ Analyzed 116 articles
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update | ✓ Created 10 bilateral sentiment scores
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update | ============================================================
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update | STEP 3: PREPROCESSING DATA
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update | ============================================================
+2026-04-01 12:16:01 | [32mINFO[0m | src.data.preprocessing | ============================================================
+2026-04-01 12:16:01 | [32mINFO[0m | src.data.preprocessing | STARTING PREPROCESSING PIPELINE
+2026-04-01 12:16:01 | [32mINFO[0m | src.data.preprocessing | ============================================================
+2026-04-01 12:16:01 | [32mINFO[0m | src.data.preprocessing | Step 1: Loading all data sources...
+2026-04-01 12:16:01 | [32mINFO[0m | src.data.loaders_preprocessing | ============================================================
+2026-04-01 12:16:01 | [32mINFO[0m | src.data.loaders_preprocessing | LOADING ALL DATA SOURCES
+2026-04-01 12:16:01 | [32mINFO[0m | src.data.loaders_preprocessing | ============================================================
+2026-04-01 12:16:01 | [32mINFO[0m | src.data.loaders_preprocessing | Loading UN Comtrade data from /Users/anushkapatil/Documents/anushka/data/raw/comtrade/TradeData.csv
+2026-04-01 12:16:01 | [31mERROR[0m | src.data.loaders_preprocessing | Failed to load Comtrade: [Errno 2] No such file or directory: '/Users/anushkapatil/Documents/anushka/data/raw/comtrade/TradeData.csv'
+Traceback (most recent call last):
+  File "/Users/anushkapatil/Documents/anushka/src/data/loaders_preprocessing.py", line 482, in load_all
+    data['comtrade'] = self.comtrade_loader.load()
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/src/data/loaders_preprocessing.py", line 51, in load
+    df = pd.read_csv(
+         ^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/venv/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/venv/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/venv/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/venv/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1880, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/venv/lib/python3.12/site-packages/pandas/io/common.py", line 873, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/anushkapatil/Documents/anushka/data/raw/comtrade/TradeData.csv'
+2026-04-01 12:16:01 | [32mINFO[0m | src.data.loaders_preprocessing | Loading World Bank data...
+2026-04-01 12:16:01 | [32mINFO[0m | src.data.loaders_preprocessing | Loading World Bank gdp_usd from /Users/anushkapatil/Documents/anushka/data/raw/world-bank/API_NY.GDP.MKTP.CD_DS2_en_csv_v2_75934.csv
+2026-04-01 12:16:01 | [31mERROR[0m | src.data.loaders_preprocessing | Failed to load World Bank: [Errno 2] No such file or directory: '/Users/anushkapatil/Documents/anushka/data/raw/world-bank/API_NY.GDP.MKTP.CD_DS2_en_csv_v2_75934.csv'
+Traceback (most recent call last):
+  File "/Users/anushkapatil/Documents/anushka/src/data/loaders_preprocessing.py", line 488, in load_all
+    data['world_bank'] = self.worldbank_loader.load()
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/src/data/loaders_preprocessing.py", line 242, in load
+    gdp = self._load_indicator(
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/src/data/loaders_preprocessing.py", line 210, in _load_indicator
+    df = pd.read_csv(file_path, skiprows=4)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/venv/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/venv/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/venv/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/venv/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1880, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/venv/lib/python3.12/site-packages/pandas/io/common.py", line 873, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/anushkapatil/Documents/anushka/data/raw/world-bank/API_NY.GDP.MKTP.CD_DS2_en_csv_v2_75934.csv'
+2026-04-01 12:16:01 | [32mINFO[0m | src.data.loaders_preprocessing | Loading CEPII GeoDist data from /Users/anushkapatil/Documents/anushka/data/raw/cepii/dist_cepii.csv
+2026-04-01 12:16:01 | [31mERROR[0m | src.data.loaders_preprocessing | Failed to load CEPII: [Errno 2] No such file or directory: '/Users/anushkapatil/Documents/anushka/data/raw/cepii/dist_cepii.csv'
+Traceback (most recent call last):
+  File "/Users/anushkapatil/Documents/anushka/src/data/loaders_preprocessing.py", line 494, in load_all
+    data['cepii'] = self.cepii_loader.load()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/src/data/loaders_preprocessing.py", line 281, in load
+    df = pd.read_csv(self.file_path)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/venv/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/venv/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/venv/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/venv/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1880, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/venv/lib/python3.12/site-packages/pandas/io/common.py", line 873, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/anushkapatil/Documents/anushka/data/raw/cepii/dist_cepii.csv'
+2026-04-01 12:16:01 | [32mINFO[0m | src.data.loaders_preprocessing | Loading WTO RTA data from /Users/anushkapatil/Documents/anushka/data/raw/rta/AllRTAs.csv
+2026-04-01 12:16:01 | [31mERROR[0m | src.data.loaders_preprocessing | Failed to load RTAs: [Errno 2] No such file or directory: '/Users/anushkapatil/Documents/anushka/data/raw/rta/AllRTAs.csv'
+Traceback (most recent call last):
+  File "/Users/anushkapatil/Documents/anushka/src/data/loaders_preprocessing.py", line 500, in load_all
+    data['rtas'] = self.rta_loader.load()
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/src/data/loaders_preprocessing.py", line 325, in load
+    df = pd.read_csv(self.file_path)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/venv/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/venv/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/venv/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/venv/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1880, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/venv/lib/python3.12/site-packages/pandas/io/common.py", line 873, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/anushkapatil/Documents/anushka/data/raw/rta/AllRTAs.csv'
+2026-04-01 12:16:01 | [32mINFO[0m | src.data.loaders_preprocessing | Loading GDELT sentiment from /Users/anushkapatil/Documents/anushka/data/raw/sentiment/sentiment.csv
+2026-04-01 12:16:01 | [31mERROR[0m | src.data.loaders_preprocessing | Failed to load GDELT: [Errno 2] No such file or directory: '/Users/anushkapatil/Documents/anushka/data/raw/sentiment/sentiment.csv'
+Traceback (most recent call last):
+  File "/Users/anushkapatil/Documents/anushka/src/data/loaders_preprocessing.py", line 506, in load_all
+    data['gdelt'] = self.gdelt_loader.load()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/src/data/loaders_preprocessing.py", line 389, in load
+    df = pd.read_csv(self.file_path)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/venv/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/venv/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/venv/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/venv/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1880, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/venv/lib/python3.12/site-packages/pandas/io/common.py", line 873, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/anushkapatil/Documents/anushka/data/raw/sentiment/sentiment.csv'
+2026-04-01 12:16:01 | [32mINFO[0m | src.data.loaders_preprocessing | ============================================================
+2026-04-01 12:16:01 | [32mINFO[0m | src.data.loaders_preprocessing | DATA LOADING SUMMARY
+2026-04-01 12:16:01 | [32mINFO[0m | src.data.loaders_preprocessing | ============================================================
+2026-04-01 12:16:01 | [32mINFO[0m | src.data.loaders_preprocessing | comtrade       :          0 rows
+2026-04-01 12:16:01 | [32mINFO[0m | src.data.loaders_preprocessing | world_bank     :          0 rows
+2026-04-01 12:16:01 | [32mINFO[0m | src.data.loaders_preprocessing | cepii          :          0 rows
+2026-04-01 12:16:01 | [32mINFO[0m | src.data.loaders_preprocessing | rtas           :          0 rows
+2026-04-01 12:16:01 | [32mINFO[0m | src.data.loaders_preprocessing | gdelt          :          0 rows
+2026-04-01 12:16:01 | [32mINFO[0m | src.data.loaders_preprocessing | ============================================================
+2026-04-01 12:16:01 | [32mINFO[0m | src.data.preprocessing | Step 2: Merging trade data with features...
+2026-04-01 12:16:01 | [31mERROR[0m | src.data.preprocessing | ❌ CRITICAL: Comtrade data is empty!
+2026-04-01 12:16:01 | [31mERROR[0m | weekly_update | ❌ Preprocessing failed: Comtrade data is empty after loading. Cannot proceed.
+Traceback (most recent call last):
+  File "/Users/anushkapatil/Documents/anushka/scripts/weekly_update.py", line 114, in step_3_preprocess_data
+    nodes, edges, metadata = preprocessor.run()
+                             ^^^^^^^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/src/data/preprocessing.py", line 603, in run
+    merged = self.merge_trade_with_features(data)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anushkapatil/Documents/anushka/src/data/preprocessing.py", line 179, in merge_trade_with_features
+    raise ValueError("Comtrade data is empty after loading. Cannot proceed.")
+ValueError: Comtrade data is empty after loading. Cannot proceed.
+2026-04-01 12:16:01 | [31mERROR[0m | weekly_update | ❌ Preprocessing failed
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update | Results saved: logs/weekly_updates/weekly_update_20260401_115848.json
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update | 
+============================================================
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update | 📊 PIPELINE SUMMARY
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update | ============================================================
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update | Steps completed: 2/4
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update |   ✓ fetch_articles
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update |   ✓ analyze_sentiment
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update | 
+Errors encountered: 1
+2026-04-01 12:16:01 | [31mERROR[0m | weekly_update |   ✗ preprocess_data: Comtrade data is empty after loading. Cannot proceed.
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update | 
+Completed: 2026-04-01 12:16:01.277458
+2026-04-01 12:16:01 | [32mINFO[0m | weekly_update | ============================================================
+

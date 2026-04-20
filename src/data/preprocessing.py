@@ -434,7 +434,7 @@ ADD THIS TO src/data/preprocessing.py (replace merge_trade_with_features method)
         for col in numeric_cols:
             if df[col].isna().sum() > 0:
                 median_val = df[col].median()
-                df[col].fillna(median_val, inplace=True)
+                df.loc[:, col] = df[col].fillna(median_val)
                 logger.info(f"Filled {col} missing values with median: {median_val:.2f}")
         
         # Boolean features - fill with False

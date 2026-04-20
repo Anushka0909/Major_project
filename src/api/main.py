@@ -6,6 +6,7 @@ from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Any
+from contextlib import asynccontextmanager
 import torch
 import numpy as np
 import pandas as pd
@@ -13,6 +14,7 @@ from pathlib import Path
 from datetime import datetime
 import sys
 import os
+import time
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
@@ -23,6 +25,8 @@ from src.models.simulation import TradeSimulator
 from src.data.loaders import GraphDataLoader
 from src.data.country_mapping import MANUAL_MAPPINGS
 from src.utils.logger import get_logger
+from src.pipelines.gdelt_article_scheduler import GDELTArticleFetcher
+from src.pipelines.sentiment_analyzer import FinancialSentimentAnalyzer
 
 bilateral_sentiment_df = None
 simulator = None
@@ -58,11 +62,121 @@ except:
 
 logger = get_logger(__name__)
 
-# Initialize FastAPI
+# Global variables
+model = None
+loader = None
+device = torch.device('cpu')
+articles_df = None
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Load model, data, and articles on startup"""
+    global model, loader, articles_df, simulator
+    
+    try:
+        logger.info("🚀 Starting Trade Flow Prediction API...")
+        
+        # Check Redis
+        if REDIS_AVAILABLE and cache.enabled:
+            logger.info("✓ Redis cache available")
+        else:
+            logger.warning("⚠️  Redis cache not available")
+        
+        # Check PostgreSQL
+        if POSTGRES_AVAILABLE and db.enabled:
+            logger.info("✓ PostgreSQL database available")
+        else:
+            logger.warning("⚠️  PostgreSQL database not available")
+        
+        # Load model (Prefer CausalTradeGNN)
+        model_dir = Path("models")
+        causal_path = model_dir / "causal_gnn_working.pt"
+        baseline_path = model_dir / "gnn_working.pt"
+        
+        load_path = causal_path if causal_path.exists() else baseline_path
+        
+        if not load_path.exists():
+            logger.error("❌ No trained model found!")
+            yield
+            return
+            
+        logger.info(f"Loading model: {load_path.name}")
+        checkpoint = torch.load(load_path, map_location=device, weights_only=False)
+        config = checkpoint['config']
+        
+        is_causal = "causal" in load_path.name.lower()
+        if is_causal:
+            model = CausalTradeGNN(
+                num_node_features=config['num_node_features'],
+                num_edge_features=config['num_edge_features'],
+                hidden_dim=128,
+                num_layers=3,
+                dropout=0.3,
+                heads=4
+            )
+        else:
+            model = TradeGNN(
+                num_node_features=config['num_node_features'],
+                num_edge_features=config['num_edge_features'],
+                hidden_dim=128,
+                num_layers=3,
+                dropout=0.3,
+                heads=4
+            )
+            
+        model.load_state_dict(checkpoint['model_state'])
+        model.eval()
+        logger.info(f"✓ {model.__class__.__name__} loaded successfully")
+        
+        # Load data
+        loader = GraphDataLoader("data/processed")
+        loader.load_data()
+        logger.info(f"✓ Data loaded: {len(loader.node_mapping)} countries")
+        
+        # Load articles
+        articles_path = Path("data/raw/sentiment/articles.csv")
+        if not articles_path.exists():
+            articles_path = Path("data/articles.csv")
+        
+        if articles_path.exists():
+            articles_df = pd.read_csv(articles_path)
+            logger.info(f"✓ Loaded {len(articles_df)} news articles")
+        else:
+            logger.warning("⚠️  No articles.csv found")
+            
+        # Initialize Simulator (Look for Causal Model first, then Baseline)
+        try:
+            causal_model = model_dir / "causal_gnn_working.pt"
+            if causal_model.exists():
+                simulator = TradeSimulator(str(causal_model))
+                logger.info("✓ Causal Trade Simulator initialized")
+            else:
+                simulator = TradeSimulator(str(load_path))
+                logger.info("✓ Baseline Trade Simulator initialized (Causal model not found)")
+        except Exception as sim_err:
+            logger.warning(f"⚠️  Simulator initialization failed: {sim_err}")
+
+        # Load bilateral sentiment cache
+        load_bilateral_sentiment()
+        
+        # Pre-cache graphs for simulation speed
+        if loader and hasattr(loader, "create_temporal_graphs"):
+             app.state._cached_graphs = loader.create_temporal_graphs()
+             logger.info(f"✓ Pre-cached {len(app.state._cached_graphs)} graph snapshots")
+        
+        yield
+    except Exception as e:
+        logger.error(f"Startup error: {e}", exc_info=True)
+        yield
+    finally:
+        logger.info("🛑 Shutting down Trade Flow Prediction API...")
+
+# Initialize FastAPI with lifespan
 app = FastAPI(
     title="Trade Flow Prediction API",
     description="GNN-based bilateral trade flow forecasting",
-    version="1.0.0"
+    version="1.0.0",
+    lifespan=lifespan
 )
 
 # CORS middleware
@@ -73,12 +187,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# Global variables
-model = None
-loader = None
-device = torch.device('cpu')
-articles_df = None
 
 # Build reverse country name mapping (ISO3 -> Full Name)
 COUNTRY_NAMES = {v: k for k, v in MANUAL_MAPPINGS.items() if v is not None}
@@ -162,89 +270,6 @@ class SimulationResult(BaseModel):
     global_impact: float
     explanation: str
 
-
-@app.on_event("startup")
-async def startup_event():
-    """Load model, data, and articles on startup"""
-    global model, loader, articles_df
-    
-    try:
-        logger.info("🚀 Starting Trade Flow Prediction API...")
-        
-        # Check Redis
-        if REDIS_AVAILABLE and cache.enabled:
-            logger.info("✓ Redis cache available")
-        else:
-            logger.warning("⚠️  Redis cache not available")
-        
-        # Check PostgreSQL
-        if POSTGRES_AVAILABLE and db.enabled:
-            logger.info("✓ PostgreSQL database available")
-        else:
-            logger.warning("⚠️  PostgreSQL database not available")
-        
-        # Load model
-        model_dir = Path("models")
-        model_files = list(model_dir.glob("gnn_working.pt"))
-        
-        if not model_files:
-            logger.error("❌ No trained model found!")
-            return
-        
-        latest_model = sorted(model_files)[-1]
-        logger.info(f"Loading model: {latest_model.name}")
-        
-        checkpoint = torch.load(latest_model, map_location=device, weights_only=False)
-        config = checkpoint['config']
-        
-        model = TradeGNN(
-            num_node_features=config['num_node_features'],
-            num_edge_features=config['num_edge_features'],
-            hidden_dim=128,
-            num_layers=3,
-            dropout=0.3,
-            heads=4
-        )
-        model.load_state_dict(checkpoint['model_state'])
-        model.eval()
-        logger.info("✓ Model loaded successfully")
-        
-        # Load data
-        loader = GraphDataLoader("data/processed")
-        loader.load_data()
-        logger.info(f"✓ Data loaded: {len(loader.node_mapping)} countries")
-        
-        # Load articles
-        articles_path = Path("data/raw/sentiment/articles.csv")
-        if not articles_path.exists():
-            articles_path = Path("data/articles.csv")
-        
-        if articles_path.exists():
-            articles_df = pd.read_csv(articles_path)
-            logger.info(f"✓ Loaded {len(articles_df)} news articles")
-        else:
-            logger.warning("⚠️  No articles.csv found")
-            
-        # Initialize Simulator (Look for Causal Model first, then Baseline)
-        try:
-            global simulator
-            causal_model = model_dir / "causal_gnn_working.pt"
-            if causal_model.exists():
-                simulator = TradeSimulator(str(causal_model))
-                logger.info("✓ Causal Trade Simulator initialized")
-            else:
-                simulator = TradeSimulator(str(latest_model))
-                logger.info("✓ Baseline Trade Simulator initialized (Causal model not found)")
-        except Exception as sim_err:
-            logger.warning(f"⚠️  Simulator initialization failed: {sim_err}")
-            
-        load_bilateral_sentiment()
-        logger.info("🎉 API ready!")
-        
-    except Exception as e:
-        logger.error(f"Failed to initialize: {e}")
-        import traceback
-        traceback.print_exc()
 
 
 @app.get("/", tags=["Root"])
@@ -592,19 +617,44 @@ async def get_predictions(
                 if prediction_usd < 1000:
                     continue
                 
-                # Confidence score
+                # Feature checks for confidence/risk
                 years_of_data = len(edge_data['year'].unique()) if not edge_data.empty else 0
                 has_lag_features = edge_attr[0, 7] > 0
                 has_sentiment = sentiment_confidence > 0
                 
-                if years_of_data >= 5 and has_lag_features and has_sentiment:
-                    confidence_score = 0.95
-                elif years_of_data >= 3 and has_sentiment:
-                    confidence_score = 0.80
-                elif years_of_data >= 3:
-                    confidence_score = 0.70
-                else:
+                # Corrected Confidence Score calculation (single block)
+                try:
+                    yrs = float(years_of_data)
+                    sent = float(sentiment_confidence)
+                    sent = max(0.0, min(sent, 1.0))
+                    
+                    lag_val = 0.0
+                    if has_lag_features:
+                        lag_val = float(edge_attr[0, 7].item()) if hasattr(edge_attr[0, 7], "item") else float(edge_attr[0, 7])
+                    lag_val = max(0.0, lag_val)
+                    
+                    yrs_score = min(yrs / 5.0, 1.0)
+                    lag_score = min(lag_val / 3.0, 1.0)
+                    
+                    coverage = 0.0
+                    cnt = 0
+                    if yrs > 0: cnt += 1
+                    if lag_val > 0: cnt += 1
+                    if sent > 0: cnt += 1
+                    coverage = cnt / 3.0
+                    
+                    confidence_score = (
+                        0.45 
+                        + 0.25 * yrs_score 
+                        + 0.15 * lag_score 
+                        + 0.10 * sent 
+                        + 0.05 * coverage
+                    )
+                    confidence_score = max(0.40, min(confidence_score, 0.95))
+                except Exception as cf_err:
+                    logger.warning(f"Confidence score calc failed: {cf_err}")
                     confidence_score = 0.50
+
                 
                 # Risk level
                 if abs(change_pct) < 0.1:
@@ -785,17 +835,44 @@ async def get_news(
 ):
     """Get news WITH CALCULATED SENTIMENT from articles_with_sentiment.csv"""
     
-    # Try to load articles with calculated sentiment first
-    articles_path_calc = Path("data/raw/sentiment/articles_with_sentiment.csv")
+    # --- NEW: REAL-TIME FETCHING INJECTION ---
+    news_list = []
     
+    if partner and partner not in ["undefined", "null", ""]:
+        try:
+            logger.info(f"🌐 Triggering real-time news analysis for {partner}...")
+            fetcher = GDELTArticleFetcher()
+            # Fetch latest 4 articles (DOC API 2.0)
+            rt_articles = fetcher.fetch_articles_for_country_pair("IND", partner, max_articles=4)
+            
+            if rt_articles:
+                sentiment_model = FinancialSentimentAnalyzer()
+                for art in rt_articles:
+                    # Analyze sentiment on the fly
+                    analysis = sentiment_model.analyze_text(art['title'])
+                    news_list.append(NewsArticle(
+                        id=f"live_{int(time.time())}_{art['url'][-8:]}",
+                        title="[LIVE] " + art['title'],
+                        snippet=art['title'],
+                        source=art['domain'],
+                        url=art['url'],
+                        date=art['date'],
+                        sentiment=analysis['score'],
+                        relevance_score=0.95,
+                        country_code=partner
+                    ))
+                logger.info(f"✅ Injected {len(rt_articles)} live articles")
+        except Exception as e:
+            logger.warning(f"⚠️ Real-time news injection failed: {e}")
+
+    # Fallback/Merge with Historical Data
+    articles_path_calc = Path("data/raw/sentiment/articles_with_sentiment.csv")
     if articles_path_calc.exists():
         articles_df_local = pd.read_csv(articles_path_calc)
-        logger.info(f"Using calculated sentiment from {articles_path_calc}")
     elif articles_df is not None:
         articles_df_local = articles_df
     else:
-        logger.warning("No articles data available")
-        return []
+        return news_list # Return live results only
     
     if partner and partner in ["undefined", "null", ""]:
         partner = None
@@ -821,9 +898,8 @@ async def get_news(
                 (filtered['country_2_iso3'] == 'IND')
             ]
         
-        logger.info(f"Found {len(filtered)} articles")
+        logger.info(f"Found {len(filtered)} historical articles")
         
-        news_list = []
         for idx, row in filtered.head(20).iterrows():
             try:
                 domain = str(row['domain']) if pd.notna(row.get('domain')) else "Unknown"
@@ -901,15 +977,28 @@ async def get_explainability(
         
         latest = edge_data.sort_values(['year', 'month']).iloc[-1]
         
-        # ✅ Build ATTENTION WEIGHTS (top neighbors)
-        # For now, simulate attention to nearby countries
+        # ✅ REAL EXPLAINABILITY: Extract attention weights if Causal model is used
         attention_weights = []
         
-        # Get countries with similar trade patterns
-        similar_countries = []
-        for other_country in ['USA', 'CHN', 'DEU', 'GBR', 'JPN']:
-            if other_country != partner:
-                similar_countries.append(other_country)
+        if hasattr(model, "gravity_module"): # Is Causal model
+            # Re-run prediction with return_attention=True
+            with torch.no_grad():
+                source_id = loader.node_mapping['IND']
+                target_id = loader.node_mapping[partner]
+                
+                # Discovery neighbors
+                if not hasattr(app.state, "_cached_graphs") or app.state._cached_graphs is None:
+                    app.state._cached_graphs = loader.create_temporal_graphs()
+                
+                target_graph_local = app.state._cached_graphs[-1]
+                row, col = target_graph_local.edge_index
+                mask = (row == source_id)
+                neighbor_indices = col[mask].tolist()
+                similar_countries = [loader.inverse_node_mapping[idx] for idx in neighbor_indices if idx in loader.inverse_node_mapping]
+                
+        # Consistent mapping for top neighbors (fallback)
+        if not 'similar_countries' in locals() or not similar_countries:
+            similar_countries = ['USA', 'CHN', 'DEU', 'GBR', 'JPN', 'ARE', 'VNM']
         
         for i, country in enumerate(similar_countries[:5]):
             weight = 0.9 - (i * 0.15)  # Decreasing weights
@@ -1123,12 +1212,15 @@ async def simulate_trade(request: SimulationRequest):
         feat_map = {"gdp": 0, "population": 1, "sentiment": 2}
         feat_idx = feat_map.get(request.feature.lower(), 0)
         
-        # 4. Create the graph snapshot (Reuse loader logic)
-        graphs = loader.create_temporal_graphs()
-        target_graph = graphs[-1] if graphs else None
+        # 4. Use cached graph if possible
+        if not hasattr(app.state, "_cached_graphs") or app.state._cached_graphs is None:
+            logger.info("Initializing simulation graph cache...")
+            app.state._cached_graphs = loader.create_temporal_graphs()
+            
+        target_graph = app.state._cached_graphs[-1] if app.state._cached_graphs else None
             
         if target_graph is None:
-            raise HTTPException(status_code=404, detail="No base data found for this period")
+            raise HTTPException(status_code=404, detail="No base data found for simulation")
             
         # 5. Run Intervention
         intervention = {

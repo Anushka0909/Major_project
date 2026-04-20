@@ -1,0 +1,310 @@
+==========================================================
+🚀 INITIALIZING GNN TRADE FORECASTING ECOSYSTEM
+==========================================================
+🔍 Checking directories...
+✅ Python Venv: OK
+🧹 Cleaning up old processes...
+
+📊 Step 1/4: Data Preprocessing...
+Loaded config: features
+Loaded config: pipeline_config
+Loaded config: model_config
+2026-04-02 12:13:41 | [32mINFO[0m | preprocessing | 🚀 Starting data preprocessing pipeline...
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.preprocessing | ============================================================
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.preprocessing | STARTING PREPROCESSING PIPELINE
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.preprocessing | ============================================================
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.preprocessing | Step 1: Loading all data sources...
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.loaders_preprocessing | ============================================================
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.loaders_preprocessing | LOADING ALL DATA SOURCES
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.loaders_preprocessing | ============================================================
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.loaders_preprocessing | Loading Trade data from /Users/anushkapatil/Documents/anushka/data/raw/comtrade/TradeData.csv
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.loaders_preprocessing | Loaded 84,609 raw records
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.loaders_preprocessing | Detected pre-processed format with numeric codes
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.loaders_preprocessing | Final processed records: 84,609
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.loaders_preprocessing | Loading World Bank data from /Users/anushkapatil/Documents/anushka/data/raw/world-bank/world_bank.csv
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.loaders_preprocessing | Final World Bank data: 1,827 country-year records
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.loaders_preprocessing | Loading CEPII GeoDist data from /Users/anushkapatil/Documents/anushka/data/raw/cepii/dist_cepii.csv
+2026-04-02 12:13:41 | [33mWARNING[0m | src.data.loaders_preprocessing | CEPII file not found at /Users/anushkapatil/Documents/anushka/data/raw/cepii/dist_cepii.csv. Skipping.
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.loaders_preprocessing | Loading WTO RTA data from /Users/anushkapatil/Documents/anushka/data/raw/rta/AllRTAs.csv
+2026-04-02 12:13:41 | [33mWARNING[0m | src.data.loaders_preprocessing | RTA file not found at /Users/anushkapatil/Documents/anushka/data/raw/rta/AllRTAs.csv. Skipping.
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.loaders_preprocessing | Loading GDELT sentiment from /Users/anushkapatil/Documents/anushka/data/raw/sentiment/sentiment.csv
+2026-04-02 12:13:41 | [33mWARNING[0m | src.data.loaders_preprocessing | GDELT sentiment file not found at /Users/anushkapatil/Documents/anushka/data/raw/sentiment/sentiment.csv. Skipping.
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.loaders_preprocessing | ============================================================
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.loaders_preprocessing | DATA LOADING SUMMARY
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.loaders_preprocessing | ============================================================
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.loaders_preprocessing | comtrade       :     84,609 rows
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.loaders_preprocessing | world_bank     :      1,827 rows
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.loaders_preprocessing | cepii          :          0 rows
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.loaders_preprocessing | rtas           :          0 rows
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.loaders_preprocessing | gdelt          :          0 rows
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.loaders_preprocessing | ============================================================
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.preprocessing | Step 2: Merging trade data with features...
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.preprocessing | Starting with 84,609 trade records
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.preprocessing | Merging source country features...
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.preprocessing | Merging target country features...
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.preprocessing | After World Bank merge: 84,609 records
+2026-04-02 12:13:41 | [33mWARNING[0m | src.data.preprocessing | ⚠️  No CEPII data found. Skipping distance merge.
+2026-04-02 12:13:41 | [33mWARNING[0m | src.data.preprocessing | ⚠️  No RTA data found. Skipping FTA merge.
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.preprocessing | 🎯 Loading CALCULATED bilateral sentiment...
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.preprocessing | Loaded 10 bilateral sentiment scores
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.preprocessing |   ✓ Sentiment coverage: 0.1%
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.preprocessing |   ✓ Avg sentiment: -0.153
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.preprocessing |   ✓ Avg confidence: 0.546
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.preprocessing | After all merges: 84,609 records
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.preprocessing | Step 3: Engineering features...
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.preprocessing | Applying log transformations...
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.preprocessing | Creating derived features...
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.preprocessing | Creating lag features...
+2026-04-02 12:13:41 | [32mINFO[0m | src.data.preprocessing | Creating rolling features...
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | After feature engineering: 47 columns
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | Step 4: Handling missing values...
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | Dropped 0 rows with missing critical features
+/Users/anushkapatil/Documents/anushka/src/data/preprocessing.py:437: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+  df[col].fillna(median_val, inplace=True)
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | Filled source_gdp_usd missing values with median: 105843498304.09
+/Users/anushkapatil/Documents/anushka/src/data/preprocessing.py:437: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+  df[col].fillna(median_val, inplace=True)
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | Filled source_population missing values with median: 10865228.00
+/Users/anushkapatil/Documents/anushka/src/data/preprocessing.py:437: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+  df[col].fillna(median_val, inplace=True)
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | Filled source_inflation missing values with median: 0.00
+/Users/anushkapatil/Documents/anushka/src/data/preprocessing.py:437: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+  df[col].fillna(median_val, inplace=True)
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | Filled target_gdp_usd missing values with median: 57003712892.09
+/Users/anushkapatil/Documents/anushka/src/data/preprocessing.py:437: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+  df[col].fillna(median_val, inplace=True)
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | Filled target_population missing values with median: 10093121.00
+/Users/anushkapatil/Documents/anushka/src/data/preprocessing.py:437: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+  df[col].fillna(median_val, inplace=True)
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | Filled target_inflation missing values with median: 0.00
+/Users/anushkapatil/Documents/anushka/src/data/preprocessing.py:437: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+  df[col].fillna(median_val, inplace=True)
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | Filled gdp_log_source missing values with median: 25.39
+/Users/anushkapatil/Documents/anushka/src/data/preprocessing.py:437: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+  df[col].fillna(median_val, inplace=True)
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | Filled gdp_log_target missing values with median: 24.77
+/Users/anushkapatil/Documents/anushka/src/data/preprocessing.py:437: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+  df[col].fillna(median_val, inplace=True)
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | Filled pop_log_source missing values with median: 16.20
+/Users/anushkapatil/Documents/anushka/src/data/preprocessing.py:437: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+  df[col].fillna(median_val, inplace=True)
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | Filled pop_log_target missing values with median: 16.13
+/Users/anushkapatil/Documents/anushka/src/data/preprocessing.py:437: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+  df[col].fillna(median_val, inplace=True)
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | Filled gdp_ratio missing values with median: 1.09
+/Users/anushkapatil/Documents/anushka/src/data/preprocessing.py:437: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+  df[col].fillna(median_val, inplace=True)
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | Filled pop_ratio missing values with median: 0.87
+/Users/anushkapatil/Documents/anushka/src/data/preprocessing.py:437: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+  df[col].fillna(median_val, inplace=True)
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | Filled combined_gdp_log missing values with median: 26.69
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | Step 5: Creating node dataframe...
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | Created 815 node records for 204 countries
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | Step 6: Creating edge dataframe...
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | Created 84,609 edges
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | Train: 44,288 | Val: 21,216 | Test: 19,105
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | Total edges (all countries): 84,609
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | India export edges (prediction target): 808 (1.0%)
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | Step 7: Saving processed data...
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | Saved nodes to /Users/anushkapatil/Documents/anushka/data/processed/nodes.csv
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | Saved edges to /Users/anushkapatil/Documents/anushka/data/processed/edges.csv
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | Saved node mapping to /Users/anushkapatil/Documents/anushka/data/processed/node_mapping.json
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | Saved metadata to /Users/anushkapatil/Documents/anushka/data/processed/metadata.json
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | ============================================================
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | PREPROCESSING COMPLETE!
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | ============================================================
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | Nodes: 815 | Edges: 84,609
+2026-04-02 12:13:46 | [32mINFO[0m | src.data.preprocessing | Output directory: /Users/anushkapatil/Documents/anushka/data/processed
+
+============================================================
+✅ PREPROCESSING COMPLETED SUCCESSFULLY!
+============================================================
+Duration: 5.55 seconds (0.09 minutes)
+
+Processed Data Summary:
+  • Countries: 204
+  • Node records: 204
+  • Edge records: 84609
+  • Years: 2017 - 2020
+  • Sectors: Pharmaceuticals, Textiles
+
+Data Split:
+  • Train: 44,288 edges
+  • Validation: 21,216 edges
+  • Test: 19,105 edges
+
+India Exports: 808 edges
+
+============================================================
+
+📁 Output files:
+  • data/processed/nodes.csv
+  • data/processed/edges.csv
+  • data/processed/node_mapping.json
+  • data/processed/metadata.json
+
+🎯 Next step: Run model training
+  python src/models/train.py
+============================================================
+
+
+🧠 Step 2/4: Checking GNN Models...
+✅ Baseline GNN: READY
+🧬 Initializing Causal Reasoning Engine snapshots...
+
+============================================================
+🧠 CAUSAL GNN TRADE SIMULATION - TRAINING
+============================================================
+2026-04-02 12:13:48 | [32mINFO[0m | src.models.train | 💻 Using CPU (MPS doesn't support GAT operations)
+2026-04-02 12:13:48 | [32mINFO[0m | src.models.train | ============================================================
+2026-04-02 12:13:48 | [32mINFO[0m | src.models.train | 📊 LOADING DATA
+2026-04-02 12:13:48 | [32mINFO[0m | src.models.train | ============================================================
+2026-04-02 12:13:48 | [32mINFO[0m | src.data.loaders | Loading graph data...
+2026-04-02 12:13:48 | [32mINFO[0m | src.data.loaders | ✓ Loaded 815 node-year combinations
+2026-04-02 12:13:48 | [32mINFO[0m | src.data.loaders | ✓ Using 203 unique countries (year 2020)
+2026-04-02 12:13:48 | [32mINFO[0m | src.data.loaders | ✓ Loaded 84,609 edges
+2026-04-02 12:13:48 | [32mINFO[0m | src.data.loaders | ✓ Using sentiment_norm as sentiment_score
+2026-04-02 12:13:48 | [32mINFO[0m | src.data.loaders | ✓ Created article_count
+2026-04-02 12:13:48 | [32mINFO[0m | src.data.loaders | ✓ Node mapping: 204 countries
+2026-04-02 12:13:48 | [32mINFO[0m | src.data.loaders | Creating temporal graphs...
+2026-04-02 12:13:48 | [32mINFO[0m | src.data.loaders | Found 4 time periods: 2017-01 to 2020-01
+2026-04-02 12:13:52 | [32mINFO[0m | src.data.loaders | ✓ Created 4 graphs (skipped 0)
+2026-04-02 12:13:52 | [32mINFO[0m | src.models.train | ✓ Train: 2 graphs
+2026-04-02 12:13:52 | [32mINFO[0m | src.models.train | ✓ Val:   1 graphs
+2026-04-02 12:13:52 | [32mINFO[0m | src.models.train | ✓ Test:  1 graphs
+2026-04-02 12:13:52 | [32mINFO[0m | src.models.train | ✓ Node features: 4
+2026-04-02 12:13:52 | [32mINFO[0m | src.models.train | ✓ Edge features: 10
+2026-04-02 12:13:52 | [32mINFO[0m | src.models.train | ✓ Label range: 0.00 to 13.08 (log scale)
+2026-04-02 12:13:52 | [32mINFO[0m | src.models.train | ✓ Label mean: 2.61, std: 2.60
+2026-04-02 12:13:52 | [32mINFO[0m | src.models.train | ============================================================
+2026-04-02 12:13:52 | [32mINFO[0m | __main__ | 🧠 INITIALIZING CAUSAL MODEL (Transformer Heads)
+2026-04-02 12:13:52 | [32mINFO[0m | __main__ | ✓ Causal Model ready with Equilibrium logic and Scheduler
+2026-04-02 12:13:52 | [32mINFO[0m | src.models.train | ============================================================
+2026-04-02 12:13:52 | [32mINFO[0m | src.models.train | 🚀 TRAINING
+2026-04-02 12:13:52 | [32mINFO[0m | src.models.train | ============================================================
+2026-04-02 12:13:52 | [32mINFO[0m | src.models.train | Epochs: 50
+2026-04-02 12:13:52 | [32mINFO[0m | src.models.train | Patience: 20
+2026-04-02 12:13:52 | [32mINFO[0m | src.models.train | Device: cpu
+2026-04-02 12:13:52 | [32mINFO[0m | src.models.train | ============================================================
+2026-04-02 12:13:52 | [32mINFO[0m | src.models.train | Epoch   1/50 | Train: 11.8088 | Val: 8.0815 | R²: -0.1841 | MAE: 2.0834
+2026-04-02 12:13:53 | [32mINFO[0m | src.models.train | Epoch   5/50 | Train: 3.8551 | Val: 3.5052 | R²: 0.4864 | MAE: 1.5508
+2026-04-02 12:13:54 | [32mINFO[0m | src.models.train | Epoch  10/50 | Train: 2.4702 | Val: 4.9105 | R²: 0.2805 | MAE: 1.8232
+2026-04-02 12:13:56 | [32mINFO[0m | src.models.train | Epoch  15/50 | Train: 2.1467 | Val: 3.3239 | R²: 0.5130 | MAE: 1.4354
+2026-04-02 12:13:57 | [32mINFO[0m | src.models.train | Epoch  20/50 | Train: 2.0050 | Val: 2.5679 | R²: 0.6238 | MAE: 1.2633
+2026-04-02 12:13:58 | [32mINFO[0m | src.models.train | Epoch  25/50 | Train: 1.9843 | Val: 2.7162 | R²: 0.6020 | MAE: 1.3121
+2026-04-02 12:14:00 | [32mINFO[0m | src.models.train | Epoch  30/50 | Train: 1.8873 | Val: 2.5058 | R²: 0.6328 | MAE: 1.2582
+2026-04-02 12:14:01 | [32mINFO[0m | src.models.train | Epoch  35/50 | Train: 1.7557 | Val: 1.8688 | R²: 0.7262 | MAE: 1.0879
+2026-04-02 12:14:02 | [32mINFO[0m | src.models.train | Epoch  40/50 | Train: 1.6044 | Val: 1.6610 | R²: 0.7566 | MAE: 1.0268
+2026-04-02 12:14:03 | [32mINFO[0m | src.models.train | Epoch  45/50 | Train: 1.4465 | Val: 0.9743 | R²: 0.8572 | MAE: 0.7762
+2026-04-02 12:14:05 | [32mINFO[0m | src.models.train | Epoch  50/50 | Train: 1.3646 | Val: 0.6600 | R²: 0.9033 | MAE: 0.6443
+2026-04-02 12:14:05 | [32mINFO[0m | src.models.train | ============================================================
+2026-04-02 12:14:05 | [32mINFO[0m | src.models.train | ✓ TRAINING COMPLETE
+2026-04-02 12:14:05 | [32mINFO[0m | src.models.train | Best epoch: 50
+2026-04-02 12:14:05 | [32mINFO[0m | src.models.train | Best val loss: 0.6600
+2026-04-02 12:14:05 | [32mINFO[0m | src.models.train | Best R²: 0.9033
+2026-04-02 12:14:05 | [32mINFO[0m | src.models.train | Best MAE: 0.6443
+2026-04-02 12:14:05 | [32mINFO[0m | src.models.train | ============================================================
+2026-04-02 12:14:05 | [32mINFO[0m | src.models.train | ============================================================
+2026-04-02 12:14:05 | [32mINFO[0m | src.models.train | 📊 TEST EVALUATION
+2026-04-02 12:14:05 | [32mINFO[0m | src.models.train | ============================================================
+2026-04-02 12:14:05 | [32mINFO[0m | src.models.train | R² Score:  0.8970
+2026-04-02 12:14:05 | [32mINFO[0m | src.models.train | RMSE:      0.8347
+2026-04-02 12:14:05 | [32mINFO[0m | src.models.train | MAE:       0.6549
+2026-04-02 12:14:05 | [32mINFO[0m | src.models.train | MAPE:      86.17%
+2026-04-02 12:14:05 | [32mINFO[0m | src.models.train | ============================================================
+
+✅ CAUSAL MODEL SAVED: models/causal_gnn_working.pt
+============================================================
+
+
+📡 Step 3/4: Launching AI Backend...
+⏳ Waiting for AI to initialize (Neural Graph Snapshots)...
+✅ AI Backend: LIVE (PID: 49658)
+
+🖥️  Step 4/4: Launching Dashboard...
+
+✨ ALL SYSTEMS GO! ✨
+----------------------------------------------------------
+🌐 DASHBOARD: http://localhost:3000
+📡 AI BACKEND: http://localhost:8000
+🧬 ENGINE: Counterfactual Causal Simulation ENABLED
+----------------------------------------------------------
+
+> my-v0-project@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.5.14
+   - Local:        http://localhost:3000
+   - Network:      http://9.123.9.126:3000
+
+ ✓ Starting...
+ ✓ Ready in 1167ms
+ ○ Compiling / ...
+ ✓ Compiled / in 1200ms (2222 modules)
+ GET / 200 in 1509ms
+./run.sh: line 86: 49658 Killed: 9               nohup $VENV_PYTHON src/api/main.py > logs/api.log 2>&1  (wd: ~/Documents/anushka)
